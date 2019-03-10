@@ -63,6 +63,7 @@ type Job<T extends JobType = JobType> = {
     company: string;
     function: LangString;
     description: Markdown;
+    tags: LangString[];
     logo: string;
     medias: Media[];
     startDate: Date;
@@ -91,10 +92,11 @@ type ProjectStateStandby = {
 
 type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
-type Project<T extends ProjectType = ProjectType> = {
+type ProjectOne<T extends ProjectType = ProjectType> = {
     name: string;
     description: Markdown;
     logo?: string;
+    tags: LangString[];
     medias: Media[];
     startDate: Date;
     state: ProjectState;
@@ -103,6 +105,22 @@ type Project<T extends ProjectType = ProjectType> = {
     links: Links<'website' | 'github' | 'npm'>;
     jobs?: Job['id'];   //even personal, a project can be used in job
 };
+
+type ProjectGroup<T extends ProjectType = ProjectType> = {
+    name: string;
+    description: Markdown;
+    logo?: string;
+    tags: LangString[];
+    medias: Media[];
+    startDate: Date;
+    state: ProjectState;
+    type: T;
+    group: ProjectOne[];
+    links: Links<'website' | 'github' | 'npm'>;
+    jobs?: Job['id'];
+}
+
+type Project<T extends ProjectType = ProjectType> = ProjectOne<T> | ProjectGroup<T>;
 
 type School = {
     name: string;
@@ -122,7 +140,7 @@ type Other = {
     portfolioLinks: Links<'github'>;
 };
 
-type Category = 'welcome' | 'skills' | 'jobs' | 'projects' | 'schools' | 'contact';
+type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
 
 export type Sample = {
 
