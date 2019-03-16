@@ -1,0 +1,52 @@
+@import "src/variables";
+
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
+
+.code_root {
+  font-family: $CODE-ROOT-FONT_FAMILY;
+  font-size: $CODE-ROOT-FONT_SIZE;
+  font-variant-ligatures: $CODE-ROOT-FONT_LIGATURES;
+
+  &,
+  * {
+    display: inline;
+  }
+
+  .code_tag_container {
+    .code_tag_limit {
+      color: $CODE-TAG_LIMIT-COLOR;
+    }
+
+    .code_tagName {
+      color: $CODE-TAG_NAME-COLOR;
+    }
+
+    .code_attribute {
+      .code_attribute_key {
+        color: $CODE-ATTRIBUTE_KEY-COLOR;
+      }
+
+      .code_attribute_equal {
+        color: $CODE-ATTRIBUTE_EQUAL-COLOR;
+      }
+
+      .code_attribute_brace {
+        color: $CODE-ATTRIBUTE_BRACE-COLOR;
+      }
+
+      .code_attribute_value {
+        &.code_type_string {
+          color: $CODE-ATTRIBUTE_VALUE_STRING-COLOR;
+        }
+
+        &.code_type_number {
+          color: $CODE-ATTRIBUTE_VALUE_NUMBER-COLOR;
+        }
+
+        &.code_type_boolean {
+          color: $CODE-ATTRIBUTE_VALUE_BOOLEAN-COLOR;
+        }
+      }
+    }
+  }
+}

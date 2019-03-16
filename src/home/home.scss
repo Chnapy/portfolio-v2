@@ -1,0 +1,28 @@
+@import "../variables";
+
+#page-home {
+  background: #454545;
+}
+
+.front-card-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+
+  .front-card {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba($white, .1);
+    border-color: rgba($white, .1);
+
+    .avatar {
+      filter: drop-shadow(0px 0px 0px rgba(#000, 0.5));
+    }
+  }
+}
