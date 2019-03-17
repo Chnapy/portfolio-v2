@@ -37,7 +37,7 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
     ));
 
     return (
-        <div key={key} className={classNames(styles.code_tag_container)}>
+        <div className={classNames(styles.code_tag_container)}>
             {spaces()}
             <div className={'code-tag'}>
 

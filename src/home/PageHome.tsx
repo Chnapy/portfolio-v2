@@ -1,10 +1,11 @@
 import React from "react";
 import './home.scss';
-import CodeTyping from "./CodeTyping";
+import CodeTyping from "./code/CodeTyping";
+import Tiled from './tiled/Tiled';
 
 export interface PageHomeProps {
 
-}
+} 
 
 export interface PageHomeState {
 
@@ -31,6 +32,8 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
                 </div>
 
                 <div className={"layer-1"}>
+
+                    <Tiled  />
 
                 </div>
 

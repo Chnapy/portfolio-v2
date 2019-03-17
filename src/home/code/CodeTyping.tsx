@@ -1,6 +1,6 @@
 import React from "react";
 import Typist from 'react-typist';
-import CodeRoot from "./code/Tag";
+import CodeRoot from "./Tag";
 
 export interface CodeTypingProps {
 
