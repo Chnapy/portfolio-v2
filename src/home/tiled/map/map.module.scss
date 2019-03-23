@@ -1,0 +1,19 @@
+
+.tiled_root {
+    position: relative;
+    width: 100%;
+}
+
+.tiled_map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 0;
+
+    &.tiled_map_orthogonal {
+
+    }
+
+}
