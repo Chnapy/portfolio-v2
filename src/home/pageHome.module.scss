@@ -1,0 +1,17 @@
+@import "../variables";
+
+@import "../page.module.scss";
+
+#page_home {
+}
+
+.code_wrapper {
+  display: inline-block;
+
+  padding: 30px;
+  border-bottom-right-radius: 10px;
+
+  background: #454545;
+
+  filter: drop-shadow(0px 0px 0.25rem #454545);
+}

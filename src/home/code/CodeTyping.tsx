@@ -1,6 +1,7 @@
 import React from "react";
 import Typist from 'react-typist';
 import CodeRoot from "./Tag";
+import styles from './tag.module.scss';
 
 export interface CodeTypingProps {
 
@@ -54,7 +55,7 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
                     ]
                 }
             ], (nodes) => (
-                <Typist>
+                <Typist className={styles.typist}>
                     {nodes}
                 </Typist>
             ))}

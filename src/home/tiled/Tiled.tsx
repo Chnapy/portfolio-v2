@@ -1,9 +1,8 @@
 import React from 'react';
-import { MapProvider, Map } from "react-tiled";
 import { TiledMap } from '../../types/tiled/map';
-
-import _testMap from '../../_assets/test_tiled.json';
 import TiledMapWrap from './map/TiledMapWrap';
+import style from './tiled.module.scss';
+import _testMap from '../../_assets/test_tiled.json';
 
 const testMap: TiledMap = _testMap as TiledMap;
 
@@ -41,8 +40,12 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
     }
 
     render() {
-        
-        return <TiledMapWrap map={testMap} />;
+
+        return (
+            <div className={style.tiled_container}>
+                <TiledMapWrap map={testMap} />
+            </div>
+        );
     }
 
     // private getScale(map: TiledMap): { x: number; y: number; width: number; height: number; } {

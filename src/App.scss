@@ -2,6 +2,10 @@
 
 @import "~bulmaswatch/lumen/bulmaswatch";
 
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+@import url("https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css");
+
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
@@ -9,30 +13,22 @@ body {
   color: #222;
 }
 
-.page {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
+.field.field-center {
+  justify-content: space-evenly;
 }
 
-.layer-0,
-.layer-1,
-.layer-2 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+@keyframes cursorBlinking {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
-.layer-0 {
-  z-index: 0;
-}
-
-.layer-1 {
-  z-index: 100;
-}
-
-.layer-2 {
-  z-index: 200;
+.Cursor {
+  color: #F0F0F0;
+  animation-name: cursorBlinking;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
 }

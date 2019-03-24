@@ -6,8 +6,8 @@ export default function CodeRoot(tags: Omit<TagProps, 'level'>[], render: (nodes
 
     return (
         <div className={styles.code_root}>
-            {render(tags.map(p => Tag({
-                key: p.key,
+            {render(tags.map((p, i) => Tag({
+                key: i,
                 tagName: p.tagName,
                 attributes: p.attributes,
                 level: 0,
@@ -37,16 +37,16 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
     ));
 
     return (
-        <div className={classNames(styles.code_tag_container)}>
+        <div key={key} className={classNames(styles.code_tag_container)}>
             {spaces()}
-            <div className={'code-tag'}>
+            <div className={styles.code_tag}>
 
                 <span className={styles.code_tag_limit}>{'<'}</span>
 
                 <span className={styles.code_tagName}>{tagName}</span>
 
                 {(hasAttributes && (
-                    <span className={'code-attribute-list'}>
+                    <span>
                         {TagAttributes({ attributes })}
                     </span>
                 )) || ''}
@@ -69,12 +69,12 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
                     ...c,
                     level: (level || 0) + 1
                 }),
-                <br />
+                <br key={i + 'br'} />
             ])) || ''}
 
             {(!orphelin && (
 
-                <div className={'code-tag'}>
+                <div className={styles.code_tag}>
 
                     {spaces()}
 

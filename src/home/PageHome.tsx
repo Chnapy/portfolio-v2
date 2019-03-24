@@ -1,11 +1,13 @@
 import React from "react";
-import './home.scss';
+import style from './pageHome.module.scss';
 import CodeTyping from "./code/CodeTyping";
 import Tiled from './tiled/Tiled';
+import classNames from 'classnames';
+import FrontCard from './frontCard/FrontCard';
 
 export interface PageHomeProps {
 
-} 
+}
 
 export interface PageHomeState {
 
@@ -21,35 +23,27 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
 
         return (
-            <div className={'page'} id={'page-home'}>
+            <div className={style.page} id={style.page_home}>
 
-                <div className={'layer-0'}>
+                <div className={style.layer_0}>
 
-                    {/* <VaraWrapper {...varaProps} /> */}
+                    <div className={style.code_wrapper}>
 
-                    <CodeTyping />
-
-                </div>
-
-                <div className={"layer-1"}>
-
-                    <Tiled  />
-
-                </div>
-
-                <div className={"layer-2"}>
-
-                    <div className="front-card-wrapper">
-
-                        <div className="front-card box">
-
-                            <figure className="avatar image is-128x128">
-                                <img className="is-rounded" src="https://avatars0.githubusercontent.com/u/7474483?s=460&v=4" />
-                            </figure>
-
-                        </div>
+                        <CodeTyping />
 
                     </div>
+
+                </div>
+
+                <div className={style.layer_1}>
+
+                    <Tiled />
+
+                </div>
+
+                <div className={style.layer_2}>
+
+                    <FrontCard  />
 
                 </div>
 

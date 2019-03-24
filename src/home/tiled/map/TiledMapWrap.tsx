@@ -18,9 +18,11 @@ export default class TiledMapWrap extends React.Component<TiledMapWrapProps, Til
 
         const { width, height, tilewidth, tileheight } = map;
 
-        const paddingTopRatio = height * tileheight / (width * tilewidth) * 100;
+        const maxWidthPx = width * tilewidth;
+        const paddingTopRatio = height * tileheight / maxWidthPx * 100;
 
         const style: CSSProperties = {
+            maxWidth: maxWidthPx,
             paddingTop: `${paddingTopRatio}%`
         };
 

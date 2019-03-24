@@ -2,17 +2,23 @@
 
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
 
+.typist,
 .code_root {
   font-family: $CODE-ROOT-FONT_FAMILY;
   font-size: $CODE-ROOT-FONT_SIZE;
   font-variant-ligatures: $CODE-ROOT-FONT_LIGATURES;
+}
 
+.code_root {
   &,
   * {
     display: inline;
   }
 
   .code_tag_container {
+    .code_tag {
+    }
+
     .code_tag_limit {
       color: $CODE-TAG_LIMIT-COLOR;
     }
