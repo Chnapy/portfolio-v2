@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
 import PageHome from './home/PageHome';
+import MenuLeft from './menuLeft/MenuLeft';
+import WhoIAm from './whoiam/WhoIAm';
 
 export default class App extends Component<any, {}> {
 
@@ -14,7 +16,11 @@ export default class App extends Component<any, {}> {
     return (
       <main>
 
+        <MenuLeft  />
+
         <PageHome  />
+
+        <WhoIAm  />
 
       </main>
     );

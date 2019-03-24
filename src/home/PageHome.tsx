@@ -25,7 +25,7 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
         return (
             <div className={style.page} id={style.page_home}>
 
-                <div className={style.layer_0}>
+                <div className={classNames(style.layer_0)}>
 
                     <div className={style.code_wrapper}>
 
@@ -35,13 +35,13 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
                 </div>
 
-                <div className={style.layer_1}>
+                <div className={classNames(style.layer_1, style.frame)}>
 
                     <Tiled />
 
                 </div>
 
-                <div className={style.layer_2}>
+                <div className={classNames(style.layer_2, style.content)}>
 
                     <FrontCard  />
 
