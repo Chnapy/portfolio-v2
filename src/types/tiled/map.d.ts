@@ -1,6 +1,6 @@
 import { TiledTileset } from "./tileset";
 import { TiledLayer } from "./layer";
-import { TiledProperties } from ".";
+import { TiledProperty } from ".";
 
 
 type TiledMapType = 'orthogonal' | 'isometric' | 'staggered' | 'hexagonal';
@@ -18,8 +18,8 @@ export interface TiledMapAbstract<O extends TiledMapType> {
     backgroundcolor?: string;
     nextlayerid: number;
     nextobjectid: number;
-    properties?: TiledProperties[];
-    layers: TiledLayer<O>[];
+    properties?: TiledProperty[];
+    layers: TiledLayer<O | any>[];
     tilesets: TiledTileset[];
 }
 

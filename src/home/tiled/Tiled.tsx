@@ -2,9 +2,6 @@ import React from 'react';
 import { TiledMap } from '../../types/tiled/map';
 import TiledMapWrap from './map/TiledMapWrap';
 import style from './tiled.module.scss';
-import _testMap from '../../_assets/test_tiled.json';
-
-const testMap: TiledMap = _testMap as TiledMap;
 
 export interface TiledProps {
 
@@ -19,15 +16,37 @@ export interface TiledState {
     };
 }
 
-console.log('map', testMap);
-
-testMap.tilesets.forEach(tileset => tileset.tiles.forEach(tile => {
-    if (tile.image) {
-        tile.image = require('../../_assets/' + tile.image);
-    }
-}));
-
 export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
+
+    private static async parsingTiledMap(map: TiledMap): Promise<any[]> {
+
+        const dataSetArray: number[] = [];
+
+        map.layers.forEach(layer => {
+            if (layer.type === 'tilelayer' && layer.data) {
+                dataSetArray.push(...layer.data);
+            }
+        });
+
+        const dataSet: Set<number> = new Set(dataSetArray);
+
+        const promises: Promise<any>[] = [];
+
+        map.tilesets.forEach(tileset => {
+            tileset.tiles = tileset.tiles.filter(tile => {
+                if (tile.image && dataSet.has(tileset.firstgid + tile.id)) {
+                    const promise = import('../../_assets/' + tile.image)
+                        .then(mod => tile.image = mod.default)
+                        .catch(err => console.error(err));
+                    promises.push(promise);
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        return Promise.all(promises);
+    }
 
     constructor(props: TiledProps) {
         super(props);
@@ -37,101 +56,40 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
                 type: 'loading'
             }
         };
+
+        import('../../_assets/test_tiled.json')
+            .then(mod => {
+                const map: TiledMap = mod.default as TiledMap;
+                Tiled.parsingTiledMap(map)
+                    .then(() => {
+                        console.log('map', map)
+                        this.setState({
+                            step: {
+                                type: "mapLoaded",
+                                map: map as TiledMap
+                            }
+                        });
+                    });
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
     render() {
+        const { step } = this.state;
 
-        return (
-            <div className={style.tiled_container}>
-                <TiledMapWrap map={testMap} />
-            </div>
-        );
+        switch (step.type) {
+            case "loading":
+                return null;
+            case "mapLoaded":
+                const { map } = step;
+                return (
+                    <div className={style.tiled_container}>
+                        <TiledMapWrap map={map} />
+                    </div>
+                );
+        }
+
     }
-
-    // private getScale(map: TiledMap): { x: number; y: number; width: number; height: number; } {
-
-    //     const { innerWidth, innerHeight, devicePixelRatio } = window;
-
-    //     const windowSize = {
-    //         width: innerWidth * devicePixelRatio,
-    //         height: innerHeight * devicePixelRatio
-    //     };
-
-    //     const mapSize = {
-    //         width: map.tilewidth * map.width,
-    //         height: map.tileheight * map.height
-    //     };
-
-    //     const scaleX = windowSize.width / mapSize.width;
-    //     const scaleY = windowSize.height / mapSize.height;
-
-    //     console.log('mapSize', mapSize, 'windowSize', windowSize, 'realScales', scaleX, scaleY);
-
-    //     if (Math.min(scaleX, scaleY) >= 1) {
-    //         return {
-    //             x: 1,
-    //             y: 1,
-    //             ...mapSize
-    //         };
-    //     }
-
-    //     if (scaleX < scaleY) {
-    //         return {
-    //             x: scaleX,
-    //             y: scaleX,
-    //             ...mapSize
-    //         };
-    //     }
-
-    //     return {
-    //         x: scaleY,
-    //         y: scaleY,
-    //         ...mapSize
-    //     };
-    // }
-
-    // private onMapLoaded = (map: TiledMap): void => {
-
-    //     console.log('map', map);
-
-    //     this.setState({
-    //         step: {
-    //             type: "mapLoaded",
-    //             map
-    //         }
-    //     });
-    // };
-
-    // render() {
-
-    //     const { step } = this.state;
-
-    //     const mapScale = step.type === "loading"
-    //         ? { x: 1, y: 1, width: 0, height: 0 }
-    //         : this.getScale(step.map);
-
-    //     return (
-    //         <MapProvider mapUrl={process.env.PUBLIC_URL + "/tiled/home_map.json"} onMapLoaded={this.onMapLoaded}>
-
-    //             <div style={{
-    //                 position: 'absolute',
-    //                 bottom: 0,
-    //                 left: 0,
-    //                 width: mapScale.width * mapScale.x,
-    //                 height: mapScale.height * mapScale.y,
-    //                 maxHeight: '100%',
-    //                 maxWidth: '100%',
-    //                 overflow: 'hidden'
-    //             }}>
-
-    //                 <Map style={{
-    //                     transform: `scale(${mapScale.x},${mapScale.y})`,
-    //                     transformOrigin: '0 0'
-    //                 }} />
-
-    //             </div>
-
-    //         </MapProvider>
-    //     );
-    // }
 }

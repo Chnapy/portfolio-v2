@@ -1,4 +1,5 @@
 import { TiledMapType } from "./map";
+import { TiledProperty } from ".";
 
 
 interface TiledChunk {
@@ -18,7 +19,7 @@ interface TiledObject<T extends TiledMapType> {
     point?: boolean;
     polygon?: { x: number; y: number; }[];
     polyline?: { x: number; y: number; }[];
-    properties: TiledProperties[];
+    properties: TiledProperty[];
     rotation: number;
     template?: string;
     text?: { text: string; wrap: boolean; };
@@ -29,7 +30,9 @@ interface TiledObject<T extends TiledMapType> {
     y: number;
 }
 
-interface TiledLayerAbstract<T extends 'tilelayer' | 'objectgroup' | 'imagelayer' | 'group'> {
+export type TiledLayerType = 'tilelayer' | 'objectgroup' | 'imagelayer' | 'group';
+
+export interface TiledLayerAbstract<T extends TiledLayerType> {
     id: number;
     name: string;
     type: T;
@@ -40,11 +43,11 @@ interface TiledLayerAbstract<T extends 'tilelayer' | 'objectgroup' | 'imagelayer
     offsetx: number;
     offsety: number;
     opacity: number;
-    properties: TiledProperties[];
+    properties: TiledProperty[];
     visible: boolean;
 }
 
-interface TiledLayerTilelayer extends TiledLayerAbstract<'tilelayer'> {
+export interface TiledLayerTilelayer extends TiledLayerAbstract<'tilelayer'> {
     type: 'tilelayer';
     chunks?: TiledChunk[];
     compression: 'zlib' | 'gzip' | '';
@@ -53,13 +56,13 @@ interface TiledLayerTilelayer extends TiledLayerAbstract<'tilelayer'> {
     transparentcolor?: string;
 }
 
-interface TiledLayerObjectgroup<O extends TiledMapType> extends TiledLayerAbstract<'objectgroup'> {
+export interface TiledLayerObjectgroup<O extends TiledMapType> extends TiledLayerAbstract<'objectgroup'> {
     type: 'objectgroup';
     draworder: 'topdown' | 'index';
     objects: TiledObject<O>[];
 }
 
-interface TiledLayerImagelayer extends TiledLayerAbstract<'imagelayer'> {
+export interface TiledLayerImagelayer extends TiledLayerAbstract<'imagelayer'> {
     type: 'imagelayer';
     image: string;
 }

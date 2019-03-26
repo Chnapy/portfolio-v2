@@ -1,4 +1,5 @@
 import { TiledLayerObjectgroup } from "./layer";
+import { TiledProperty } from ".";
 
 interface TiledTileset {
     columns: number;
@@ -9,7 +10,7 @@ interface TiledTileset {
     imageheight?: number;
     margin: number;
     name: string;
-    properties?: TiledProperties[];
+    properties?: TiledProperty[];
     spacing: number;
     terrains?: TiledTerrain[];
     tilecount: number;
@@ -35,7 +36,7 @@ interface TiledTile {
     imageheight: number;
     imagewidth: number;
     objectgroup?: TiledLayerObjectgroup;
-    properties?: TiledProperties[];
+    properties?: TiledProperty[];
     terrain?: number[];
     type?: string;
 }

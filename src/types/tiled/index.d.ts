@@ -1,9 +1,9 @@
 
 import { TiledMap } from './map';
 
-export interface TiledProperties {
+export interface TiledProperty {
     name: string;
-    value: unknown;
+    value: string;
     type: 'string' | string;
 }
 

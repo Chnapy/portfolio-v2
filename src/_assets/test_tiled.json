@@ -1273,13 +1273,50 @@
                  "id":66,
                  "image":"kenney\/platformer-pack-redux-360-assets\/PNG\/Tiles\/water.png",
                  "imageheight":128,
-                 "imagewidth":128
+                 "imagewidth":128,
+                 "properties":[
+                        {
+                         "name":"mass",
+                         "type":"int",
+                         "value":400
+                        }, 
+                        {
+                         "name":"spring",
+                         "type":"string",
+                         "value":"tileTranslateX"
+                        }]
                 }, 
                 {
                  "id":67,
                  "image":"kenney\/platformer-pack-redux-360-assets\/PNG\/Tiles\/waterTop_high.png",
                  "imageheight":128,
-                 "imagewidth":128
+                 "imagewidth":128,
+                 "properties":[
+                        {
+                         "name":"animationDirection",
+                         "type":"string",
+                         "value":"alternate"
+                        }, 
+                        {
+                         "name":"animationDuration",
+                         "type":"string",
+                         "value":"10s"
+                        }, 
+                        {
+                         "name":"animationIterationCount",
+                         "type":"string",
+                         "value":"infinite"
+                        }, 
+                        {
+                         "name":"animationName",
+                         "type":"string",
+                         "value":"keyTranslateRight"
+                        }, 
+                        {
+                         "name":"animationTimingFunction",
+                         "type":"string",
+                         "value":"linear"
+                        }]
                 }, 
                 {
                  "id":68,

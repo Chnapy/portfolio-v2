@@ -9,6 +9,8 @@
 .layer_0,
 .layer_1,
 .layer_2 {
+  position: relative;
+
   &:not(.content) {
     position: absolute;
     top: 0;
