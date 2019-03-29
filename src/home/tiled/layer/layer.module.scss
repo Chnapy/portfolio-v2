@@ -1,16 +1,29 @@
-
 .tiled_layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
-    &.tiled_layer_tilelayer {
+  &.tiled_layer_tilelayer {
+    // position: initial;
 
+    // & ~ .tiled_layer_tilelayer {
+    //   position: absolute;
+    // }
+  }
+
+  &.tiled_layer_imagelayer {
+    .image {
+      min-width: 100%;
+      min-height: 100%;
+      background-repeat: repeat-x;
+      background-position-y: bottom;
+      background-position-x: left;
     }
+  }
 
-    > .tiled_layer_line {
-        white-space: nowrap;
-    }
+  > .tiled_layer_line {
+    white-space: nowrap;
+  }
 }

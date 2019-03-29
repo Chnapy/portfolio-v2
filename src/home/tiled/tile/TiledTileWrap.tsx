@@ -9,6 +9,7 @@ import SpringWrap from "../../../spring/SpringWrap";
 export interface TiledTileWrapProps {
     tile?: TiledTile;
     tilepercentX: number;
+    tileMinWidth: number;
 }
 
 interface TiledTileWrapState {
@@ -18,7 +19,7 @@ interface TiledTileWrapState {
 export default class TiledTileWrap extends React.Component<TiledTileWrapProps, TiledTileWrapState> {
 
     render() {
-        const { tile, tilepercentX } = this.props;
+        const { tile, tilepercentX, tileMinWidth } = this.props;
 
         let content: JSX.Element | null = null;
         if (tile && tile.image) {
@@ -30,6 +31,7 @@ export default class TiledTileWrap extends React.Component<TiledTileWrapProps, T
         return (
             <div className={style.tiled_tile} style={{
                 width: `${tilepercentX}%`,
+                // minWidth: tileMinWidth,
                 height: `100%`
             }}>
                 {content}

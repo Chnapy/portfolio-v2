@@ -40,19 +40,19 @@ export interface TiledLayerAbstract<T extends TiledLayerType> {
     y: number;
     width: number;
     height: number;
-    offsetx: number;
-    offsety: number;
+    offsetx?: number;
+    offsety?: number;
     opacity: number;
-    properties: TiledProperty[];
+    properties?: TiledProperty[];
     visible: boolean;
 }
 
 export interface TiledLayerTilelayer extends TiledLayerAbstract<'tilelayer'> {
     type: 'tilelayer';
     chunks?: TiledChunk[];
-    compression: 'zlib' | 'gzip' | '';
+    compression?: 'zlib' | 'gzip' | '';
     data?: number[];    // | string ?
-    encoding: 'csv' | 'base64';
+    encoding?: 'csv' | 'base64';
     transparentcolor?: string;
 }
 

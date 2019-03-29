@@ -2,7 +2,12 @@
 .tiled_tile {
     position: relative;
     display: inline-block;
+    // display: table-cell;
     overflow: hidden;
+
+    &::before {
+        content: ' ';
+    }
 
     > img {
         width: 100%;

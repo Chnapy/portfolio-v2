@@ -1,10 +1,18 @@
 
 import { TiledMap } from './map';
 
-export interface TiledProperty {
+type TiledPropertyValue = string | number;
+
+type TiledPropertyType = 'string' | 'int';
+
+export interface TiledPropertyAbstract<V extends TiledPropertyValue, T extends TiledPropertyType> {
     name: string;
-    value: string;
-    type: 'string' | string;
+    value: V;
+    type: T;
 }
+
+export type TiledProperty =
+    TiledPropertyAbstract<string, 'string'>
+    | TiledPropertyAbstract<number, 'int'>;
 
 export default TiledMap;

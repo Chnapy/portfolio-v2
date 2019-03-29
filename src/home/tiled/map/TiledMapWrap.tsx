@@ -16,16 +16,6 @@ export default class TiledMapWrap extends React.Component<TiledMapWrapProps, Til
     render(): JSX.Element {
         const { map } = this.props;
 
-        const { width, height, tilewidth, tileheight } = map;
-
-        const maxWidthPx = width * tilewidth;
-        const paddingTopRatio = height * tileheight / maxWidthPx * 100;
-
-        const style: CSSProperties = {
-            maxWidth: maxWidthPx,
-            paddingTop: `${paddingTopRatio}%`
-        };
-
         let content: JSX.Element;
 
         switch (map.orientation) {
@@ -39,7 +29,7 @@ export default class TiledMapWrap extends React.Component<TiledMapWrapProps, Til
         }
 
         return (
-            <div className={css.tiled_root} style={style}>
+            <div className={css.tiled_root}>
                 {content}
             </div>
         );

@@ -20,17 +20,22 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
 
     private static async parsingTiledMap(map: TiledMap): Promise<any[]> {
 
+        const promises: Promise<any>[] = [];
+
         const dataSetArray: number[] = [];
 
         map.layers.forEach(layer => {
             if (layer.type === 'tilelayer' && layer.data) {
                 dataSetArray.push(...layer.data);
+            } else if (layer.type === 'imagelayer' && layer.image) {
+                const promise = import('../../_assets/' + layer.image)
+                    .then(mod => layer.image = mod.default)
+                    .catch(err => console.error(err));
+                promises.push(promise);
             }
         });
 
         const dataSet: Set<number> = new Set(dataSetArray);
-
-        const promises: Promise<any>[] = [];
 
         map.tilesets.forEach(tileset => {
             tileset.tiles = tileset.tiles.filter(tile => {
