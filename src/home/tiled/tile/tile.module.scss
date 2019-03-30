@@ -1,24 +1,18 @@
-
 .tiled_tile {
-    position: relative;
-    display: inline-block;
-    // display: table-cell;
-    overflow: hidden;
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
 
-    &::before {
-        content: ' ';
-    }
+  > img {
+    width: 100%;
+    height: auto;
+    backface-visibility: hidden;
+  }
 
-    > img {
-        width: 100%;
-        height: auto;
-        animation-name: keyTranslateRight;
-    }
-
-    > .imgGhost {
-        position: absolute;
-        left: 0;
-        top: 0;
-        transform: translateX(-100%);
-    }
+  > .imgGhost {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+  }
 }

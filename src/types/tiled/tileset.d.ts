@@ -33,8 +33,8 @@ interface TiledTile {
     animation?: TiledFrame[];//todo
     id: number;
     image?: string;
-    imageheight: number;
-    imagewidth: number;
+    imageheight?: number;
+    imagewidth?: number;
     objectgroup?: TiledLayerObjectgroup;
     properties?: TiledProperty[];
     terrain?: number[];

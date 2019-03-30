@@ -2,6 +2,7 @@ import React from 'react';
 import { TiledMap } from '../../types/tiled/map';
 import TiledMapWrap from './map/TiledMapWrap';
 import style from './tiled.module.scss';
+import { TiledTile } from '../../types/tiled/tileset';
 
 export interface TiledProps {
 
@@ -18,9 +19,7 @@ export interface TiledState {
 
 export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
 
-    private static async parsingTiledMap(map: TiledMap): Promise<any[]> {
-
-        const promises: Promise<any>[] = [];
+    private static async parsingTiledMap(map: TiledMap): Promise<void> {
 
         const dataSetArray: number[] = [];
 
@@ -28,29 +27,83 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
             if (layer.type === 'tilelayer' && layer.data) {
                 dataSetArray.push(...layer.data);
             } else if (layer.type === 'imagelayer' && layer.image) {
-                const promise = import('../../_assets/' + layer.image)
-                    .then(mod => layer.image = mod.default)
-                    .catch(err => console.error(err));
-                promises.push(promise);
+                layer.image = process.env.PUBLIC_URL + '/assets/' + layer.image;
             }
         });
 
         const dataSet: Set<number> = new Set(dataSetArray);
 
-        map.tilesets.forEach(tileset => {
+        const mapPromises = await map.tilesets.map(async tileset => {
+
+            if (tileset.image) {
+
+                const { columns, imagewidth, imageheight, tilewidth, tileheight } = tileset;
+
+                if (!columns || !imagewidth || !imageheight || !tilewidth || !tileheight) {
+                    throw new Error('!columns || !imagewidth || !imageheight || !tilewidth || !tileheight');
+                }
+
+                const fetchPromise = fetch(process.env.PUBLIC_URL + '/assets/' + tileset.image)
+                    .then(res => {
+                        return res.blob();
+                    })
+                    .then(blob => {
+                        tileset.image = URL.createObjectURL(blob);
+                    });
+                await fetchPromise;
+
+                const rows = Number.parseInt(imageheight / tileheight + '');
+
+                const canvas = document.createElement('canvas');
+                canvas.setAttribute('width', tilewidth + '');
+                canvas.setAttribute('height', tileheight + '');
+
+                const ctx = canvas.getContext('2d');
+                if (!ctx) throw new Error();
+
+                const image = new Image();
+                const imgPromise = new Promise(resolve => {
+                    image.onload = () => {
+
+                        const tiles: TiledTile[] = [];
+
+                        for (let indexY = 0; indexY < columns; indexY++) {
+                            for (let indexX = 0; indexX < rows; indexX++) {
+                                const id = indexY * columns + indexX;
+                                const x = tilewidth * indexX;
+                                const y = tileheight * indexY;
+                                ctx.drawImage(image, x, y, tilewidth, tileheight, 0, 0, tilewidth, tileheight);
+
+                                const tile: TiledTile = tileset.tiles.find(t => t.id === id) || { id };
+                                tile.image = canvas.toDataURL();
+
+                                tiles.push(tile);
+
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                            }
+                        }
+
+                        tileset.tiles = tiles;
+
+                        resolve();
+                    };
+                    image.src = tileset.image!;
+                });
+                await imgPromise;
+
+            }
+
             tileset.tiles = tileset.tiles.filter(tile => {
                 if (tile.image && dataSet.has(tileset.firstgid + tile.id)) {
-                    const promise = import('../../_assets/' + tile.image)
-                        .then(mod => tile.image = mod.default)
-                        .catch(err => console.error(err));
-                    promises.push(promise);
+                    if (!tileset.image)
+                        tile.image = process.env.PUBLIC_URL + '/assets/' + tile.image;
                     return true;
                 }
                 return false;
             });
-        });
 
-        return Promise.all(promises);
+        });
+        await Promise.all(mapPromises);
     }
 
     constructor(props: TiledProps) {
@@ -62,12 +115,19 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
             }
         };
 
-        import('../../_assets/test_tiled.json')
-            .then(mod => {
-                const map: TiledMap = mod.default as TiledMap;
+        fetch(process.env.PUBLIC_URL + '/assets/test_sheet.json')
+            .then(res => {
+                return res.json();
+            })
+            .then((map: TiledMap) => {
+
+                console.time('parsingTiledMap');
+
                 Tiled.parsingTiledMap(map)
                     .then(() => {
-                        console.log('map', map)
+                        console.timeEnd('parsingTiledMap');
+                        console.log('map', JSON.parse(JSON.stringify(map)))
+
                         this.setState({
                             step: {
                                 type: "mapLoaded",

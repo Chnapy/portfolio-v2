@@ -7,9 +7,11 @@ import { AnimatedValue, animated, SpringConfig } from "react-spring";
 import SpringWrap from "../../../spring/SpringWrap";
 
 export interface TiledTileWrapProps {
-    tile?: TiledTile;
+    tile: TiledTile;
     tilepercentX: number;
+    tilepercentY: number;
     tileMinWidth: number;
+    pos: { x: number; y: number; };
 }
 
 interface TiledTileWrapState {
@@ -19,10 +21,10 @@ interface TiledTileWrapState {
 export default class TiledTileWrap extends React.Component<TiledTileWrapProps, TiledTileWrapState> {
 
     render() {
-        const { tile, tilepercentX, tileMinWidth } = this.props;
+        const { tile, tilepercentX, tilepercentY, pos } = this.props;
 
         let content: JSX.Element | null = null;
-        if (tile && tile.image) {
+        if (tile.image) {
             content = tile.properties
                 ? this.renderDynamicImg(tile.image, tile.properties)
                 : this.renderStaticImg(tile.image);
@@ -30,9 +32,10 @@ export default class TiledTileWrap extends React.Component<TiledTileWrapProps, T
 
         return (
             <div className={style.tiled_tile} style={{
+                top: `${pos.y}%`,
+                left: `${pos.x}%`,
                 width: `${tilepercentX}%`,
-                // minWidth: tileMinWidth,
-                height: `100%`
+                height: `${tilepercentY}%`
             }}>
                 {content}
             </div>

@@ -15,6 +15,15 @@
     display: inline;
   }
 
+  :global {
+    .Cursor {
+      color: #f0f0f0;
+      animation-name: cursorBlinking;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
+    }
+  }
+
   .code_tag_container {
     .code_tag {
     }

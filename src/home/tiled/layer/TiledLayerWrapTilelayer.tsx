@@ -65,20 +65,20 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
             throw new Error('data id not found: ' + id);
         });
 
-        return buffer.map((b, i) => (
-            <div key={i} className={styles.tiled_layer_line} style={{
-                height: `${tilepercentY}%`,
-                // minHeight: tileMinHeight
-            }}>
-                {b.map((tile, j) => (
-                    <TiledTileWrap {...{
-                        key: j,
-                        tile,
-                        tilepercentX,
-                        tileMinWidth
-                    }} />
-                ))}
-            </div>
-        ));
+        return buffer.map((b, i) => b.map((tile, j) => {
+            return tile ? (
+                <TiledTileWrap {...{
+                    key: i + '_' + j,
+                    tile,
+                    tilepercentX,
+                    tilepercentY,
+                    tileMinWidth,
+                    pos: {
+                        x: (j % buffer[0].length) * tilepercentX,
+                        y: i * tilepercentY
+                    }
+                }} />
+            ) : null;
+        }));
     }
 }

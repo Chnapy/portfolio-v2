@@ -15,26 +15,7 @@ body {
   color: #222;
 }
 
-* {
-  backface-visibility: hidden;
-}
-
 .field.field-center {
   justify-content: space-evenly;
 }
 
-@keyframes cursorBlinking {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-.Cursor {
-  color: #f0f0f0;
-  animation-name: cursorBlinking;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-}
