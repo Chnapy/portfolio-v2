@@ -26,22 +26,21 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
                         {
                             tagName: 'Sky',
                             attributes: {
-                                clouds: true,
-                                toto: 'africa',
-                                tata: 45
+                                clouds: true
                             }
                         },
                         {
                             tagName: 'Ground',
                             attributes: {
+                                platforms: true
                             },
                             children: [
                                 {
-                                    tagName: 'Sky',
+                                    tagName: 'Decor',
                                     attributes: {
-                                        clouds: true,
-                                        toto: 'africa',
-                                        tata: 45
+                                        bush: true,
+                                        grass: true,
+                                        woods: true
                                     }
                                 }
                             ]
@@ -50,6 +49,23 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
                             tagName: 'Sea',
                             attributes: {
                                 waves: true
+                            }
+                        },
+                        {
+                            tagName: 'Interactive',
+                            attributes: {
+                                doors: 'closed',
+                                blocs: true,
+                                chest: true,
+                                windows: 'open'
+                            }
+                        },
+                        {
+                            tagName: 'Items',
+                            attributes: {
+                                coins: true,
+                                key: 'green',
+                                diamond: true
                             }
                         }
                     ]

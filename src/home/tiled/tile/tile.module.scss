@@ -1,7 +1,9 @@
 .tiled_tile {
-  position: absolute;
+  position: relative;
   display: inline-block;
   overflow: hidden;
+  height: 100%;
+  // animation: appear .8s ease-in-out;
 
   > img {
     width: 100%;
@@ -14,5 +16,16 @@
     left: 0;
     top: 0;
     transform: translateX(-100%);
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
   }
 }

@@ -44,13 +44,10 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
                 }
 
                 const fetchPromise = fetch(process.env.PUBLIC_URL + '/assets/' + tileset.image)
-                    .then(res => {
-                        return res.blob();
-                    })
+                    .then(res => res.blob())
                     .then(blob => {
                         tileset.image = URL.createObjectURL(blob);
                     });
-                await fetchPromise;
 
                 const rows = Number.parseInt(imageheight / tileheight + '');
 
@@ -62,13 +59,16 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
                 if (!ctx) throw new Error();
 
                 const image = new Image();
+
+                await fetchPromise;
+
                 const imgPromise = new Promise(resolve => {
                     image.onload = () => {
 
                         const tiles: TiledTile[] = [];
 
-                        for (let indexY = 0; indexY < columns; indexY++) {
-                            for (let indexX = 0; indexX < rows; indexX++) {
+                        for (let indexY = 0; indexY < rows; indexY++) {
+                            for (let indexX = 0; indexX < columns; indexX++) {
                                 const id = indexY * columns + indexX;
                                 const x = tilewidth * indexX;
                                 const y = tileheight * indexY;
@@ -93,8 +93,10 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
 
             }
 
+            // console.log(Array.from(dataSet).sort((a,b) => a < b ? -1 : 1))
+
             tileset.tiles = tileset.tiles.filter(tile => {
-                if (tile.image && dataSet.has(tileset.firstgid + tile.id)) {
+                if (tile.image && dataSet.has(tile.id + 1)) {
                     if (!tileset.image)
                         tile.image = process.env.PUBLIC_URL + '/assets/' + tile.image;
                     return true;
@@ -115,7 +117,7 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
             }
         };
 
-        fetch(process.env.PUBLIC_URL + '/assets/test_sheet.json')
+        fetch(process.env.PUBLIC_URL + '/assets/home_tiledsheet.json')
             .then(res => {
                 return res.json();
             })

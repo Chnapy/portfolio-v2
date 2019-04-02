@@ -9,9 +9,10 @@ import SpringWrap from "../../../spring/SpringWrap";
 export interface TiledTileWrapProps {
     tile: TiledTile;
     tilepercentX: number;
-    tilepercentY: number;
+    // tilepercentY: number;
     tileMinWidth: number;
-    pos: { x: number; y: number; };
+    marginLeft: number;
+    // pos: { x: number; y: number; };
 }
 
 interface TiledTileWrapState {
@@ -21,7 +22,7 @@ interface TiledTileWrapState {
 export default class TiledTileWrap extends React.Component<TiledTileWrapProps, TiledTileWrapState> {
 
     render() {
-        const { tile, tilepercentX, tilepercentY, pos } = this.props;
+        const { tile, tilepercentX, marginLeft } = this.props;
 
         let content: JSX.Element | null = null;
         if (tile.image) {
@@ -32,11 +33,9 @@ export default class TiledTileWrap extends React.Component<TiledTileWrapProps, T
 
         return (
             <div className={style.tiled_tile} style={{
-                top: `${pos.y}%`,
-                left: `${pos.x}%`,
-                width: `${tilepercentX}%`,
-                height: `${tilepercentY}%`
-            }}>
+                marginLeft: `${marginLeft}%`,
+                width: `${tilepercentX}%`
+            }} data-id={tile.id}>
                 {content}
             </div>
         );
@@ -50,7 +49,7 @@ export default class TiledTileWrap extends React.Component<TiledTileWrapProps, T
 
     private renderDynamicImg(imageSrc: string, properties: TiledProperty[]): JSX.Element {
 
-        console.log('properties', properties)
+        // console.log('properties', properties);
 
         const animationProp = properties.find(p => p.name === 'spring');
 

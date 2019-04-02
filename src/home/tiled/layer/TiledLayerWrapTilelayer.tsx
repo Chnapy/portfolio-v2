@@ -29,7 +29,7 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
             throw new Error('TODO');
         }
 
-        return <div className={`${styles.tiled_layer} ${styles.tiled_layer_tilelayer}`}>
+        return <div className={`${styles.tiled_layer} ${styles.tiled_layer_tilelayer}`} data-id={layer.id} data-name={layer.name}>
             {content}
         </div>;
     }
@@ -62,23 +62,42 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
                 }
             };
 
-            throw new Error('data id not found: ' + id);
+            console.error('data id not found: ' + id);
         });
 
-        return buffer.map((b, i) => b.map((tile, j) => {
-            return tile ? (
-                <TiledTileWrap {...{
-                    key: i + '_' + j,
-                    tile,
-                    tilepercentX,
-                    tilepercentY,
-                    tileMinWidth,
-                    pos: {
-                        x: (j % buffer[0].length) * tilepercentX,
-                        y: i * tilepercentY
-                    }
-                }} />
-            ) : null;
-        }));
+        return buffer.map((b, i) => {
+
+            let indexLeft: number = 0;
+
+            return (
+                <div key={i} className={styles.tiled_layer_line} style={{
+                    height: `${tilepercentY}%`
+                }}>
+                    {b.map((tile, j) => {
+
+                        if(tile) {
+                            const marginLeft = indexLeft * tilepercentX;
+                            indexLeft = 0;
+                            return (
+                                <TiledTileWrap {...{
+                                    key: i + '_' + j,
+                                    tile,
+                                    tilepercentX,
+                                    // tilepercentY,
+                                    tileMinWidth,
+                                    marginLeft
+                                    // pos: {
+                                    //     x: (j % buffer[0].length) * tilepercentX,
+                                    //     y: i * tilepercentY
+                                    // }
+                                }} />
+                            );
+                        }
+
+                        indexLeft++;
+                    })}
+                </div>
+            );
+        });
     }
 }
