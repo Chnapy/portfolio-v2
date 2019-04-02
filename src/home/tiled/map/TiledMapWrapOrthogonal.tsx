@@ -23,6 +23,10 @@ export default class TiledMapWrapOrthogonal extends React.Component<TiledMapWrap
 
         const propTileMinWidthPx = (properties || []).find(p => p.name === 'tileMinWidthPx');
 
+        if(!propTileMinWidthPx) {
+            console.error('no tileMinWidth prop on map', map);
+        }
+
         const tileMinWidth: number = propTileMinWidthPx && propTileMinWidthPx.type === "int"
             ? propTileMinWidthPx.value
             : 0;
