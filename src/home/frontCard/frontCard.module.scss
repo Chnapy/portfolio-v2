@@ -6,7 +6,10 @@
   // left: 0;
   // bottom: 0;
   // right: 0;
-  // pointer-events: none;
+
+  & {
+    pointer-events: none;
+  }
 
   .front_card {
     display: inline-block;
@@ -14,6 +17,7 @@
     flex-grow: initial;
     background-color: rgba($white, 0.1);
     border-color: rgba($white, 0.1);
+    pointer-events: initial;
 
     .avatar {
       display: inline-block;

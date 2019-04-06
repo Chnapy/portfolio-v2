@@ -35,7 +35,72 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
                     <div className={style.code_wrapper}>
 
-                        <CodeTyping />
+                        <div className={style.code_content}>
+
+                            <CodeTyping
+                                global={{
+                                    className: style.tag_hover,
+                                }}
+                                tags={[
+                                    {
+                                        tagName: 'World',
+                                        // onMouseEnter: () => console.log('toto'),
+                                        children: [
+                                            {
+                                                tagName: 'Sky',
+                                                attributes: {
+                                                    clouds: true
+                                                }
+                                            },
+                                            {
+                                                tagName: 'Ground',
+                                                attributes: {
+                                                    platforms: true
+                                                },
+                                                children: [
+                                                    {
+                                                        tagName: 'Decor',
+                                                        attributes: {
+                                                            bush: true,
+                                                            grass: true,
+                                                            woods: true
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                tagName: 'Sea',
+                                                attributes: {
+                                                    waves: true
+                                                }
+                                            },
+                                            {
+                                                tagName: 'Interactive',
+                                                attributes: {
+                                                    doors: 'closed',
+                                                    blocs: true,
+                                                    chest: true,
+                                                    windows: 'open'
+                                                }
+                                            },
+                                            {
+                                                tagName: 'Items',
+                                                attributes: {
+                                                    coins: true,
+                                                    key: 'green',
+                                                    diamond: true
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]}
+                                typistProps={{
+                                    stdTypingDelay: 50,
+                                    startDelay: 200
+                                }}
+                            />
+
+                        </div>
 
                     </div>
 
@@ -43,7 +108,7 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
                 <div className={classNames(style.layer_2, style.content)}>
 
-                    <FrontCard  />
+                    <FrontCard />
 
                 </div>
 

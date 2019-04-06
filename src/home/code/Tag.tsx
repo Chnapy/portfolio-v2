@@ -2,18 +2,16 @@ import React from "react";
 import classNames from "classnames";
 import styles from './tag.module.scss';
 
-export default function CodeRoot(tags: Omit<TagProps, 'level'>[], render: (nodes: ReturnType<typeof Tag>[]) => React.ReactNode = (nodes) => nodes): JSX.Element {
+export default function CodeRoot(tags: Omit<TagProps, 'level'>[], global: Partial<Omit<TagProps, 'level'>>, render: (nodes: ReturnType<typeof Tag>[]) => React.ReactNode = (nodes) => nodes): JSX.Element {
 
     return (
         <div className={styles.code_root}>
             {render(tags.map((p, i) => Tag({
+                ...p,
                 key: i,
-                tagName: p.tagName,
-                attributes: p.attributes,
-                level: 0,
-                children: p.children
-            })))}
-            <br/>{' '}
+                level: 0
+            }, global)))}
+            <br />{' '}
         </div>
     );
 }
@@ -23,10 +21,22 @@ export interface TagProps {
     tagName: string;
     attributes?: { [k: string]: any; };
     level?: number;
+    className?: string;
+    onMouseEnter?: (tag: TagProps) => void;
+    onMouseOut?: (tag: TagProps) => void;
     children?: TagProps[];
 }
 
-export function Tag({ key, tagName, attributes, level, children }: TagProps): JSX.Element {
+export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
+
+    props = {
+        ...global,
+        ...props
+    };
+
+    console.log(props);
+
+    const { key, tagName, attributes, level, className, onMouseEnter, onMouseOut, children } = props;
 
     const orphelin = !children || !children.length;
 
@@ -36,10 +46,18 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
         <span key={i}> &emsp; </span>
     ));
 
+    const ome = onMouseEnter
+        ? (e: React.MouseEvent) => onMouseEnter!(props)
+        : undefined;
+
+    const omo = onMouseOut
+        ? (e: React.MouseEvent) => onMouseOut!(props)
+        : undefined;
+
     return (
         <div key={key} className={classNames(styles.code_tag_container)}>
             {spaces()}
-            <div className={styles.code_tag}>
+            <div className={classNames(styles.code_tag, className)} onMouseEnter={ome} onMouseOut={omo}>
 
                 <span className={styles.code_tag_limit}>{'<'}</span>
 
@@ -68,7 +86,7 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
                     key: i,
                     ...c,
                     level: (level || 0) + 1
-                }),
+                }, global),
                 <br key={i + 'br'} />
             ])) || ''}
 
