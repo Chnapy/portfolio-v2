@@ -6,9 +6,11 @@
     "classnames": "^2.2.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-redux": "^7.0.1",
     "react-scripts": "2.1.8",
     "react-spring": "^8.0.18",
     "react-typist": "^2.0.5",
+    "redux": "^4.0.1",
     "typescript": "3.3.3333"
   },
   "scripts": {
@@ -34,10 +36,12 @@
     "@types/node": "11.10.5",
     "@types/react": "^16.8.7",
     "@types/react-dom": "16.8.2",
+    "@types/react-redux": "^7.0.6",
     "bulma": "0.7.4",
     "bulmaswatch": "^0.7.2",
     "hoist-non-react-statics": "^3.0.1",
     "node-sass": "^4.11.0",
+    "redux-devtools-extension": "^2.13.8",
     "source-map-explorer": "^1.8.0",
     "styled-components": "^3.3.3"
   }

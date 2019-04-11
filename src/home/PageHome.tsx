@@ -1,26 +1,28 @@
 import React from "react";
 import style from './pageHome.module.scss';
-import CodeTyping from "./code/CodeTyping";
+import CodeTyping, { CodeTypingProps } from "./code/CodeTyping";
 import Tiled from './tiled/Tiled';
 import classNames from 'classnames';
 import FrontCard from './frontCard/FrontCard';
+import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
+import StoreState from "../StoreState";
 
 export interface PageHomeProps {
-
+    typingProps: CodeTypingProps;
 }
 
 export interface PageHomeState {
 
 }
 
-export default class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
+class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
     constructor(props: PageHomeProps) {
         super(props);
         this.state = {};
     }
 
     render(): JSX.Element {
-
+        const { typingProps } = this.props;
 
         return (
             <div className={style.page} id={style.page_home}>
@@ -37,68 +39,7 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
                         <div className={style.code_content}>
 
-                            <CodeTyping
-                                global={{
-                                    className: style.tag_hover,
-                                }}
-                                tags={[
-                                    {
-                                        tagName: 'World',
-                                        // onMouseEnter: () => console.log('toto'),
-                                        children: [
-                                            {
-                                                tagName: 'Sky',
-                                                attributes: {
-                                                    clouds: true
-                                                }
-                                            },
-                                            {
-                                                tagName: 'Ground',
-                                                attributes: {
-                                                    platforms: true
-                                                },
-                                                children: [
-                                                    {
-                                                        tagName: 'Decor',
-                                                        attributes: {
-                                                            bush: true,
-                                                            grass: true,
-                                                            woods: true
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                tagName: 'Sea',
-                                                attributes: {
-                                                    waves: true
-                                                }
-                                            },
-                                            {
-                                                tagName: 'Interactive',
-                                                attributes: {
-                                                    doors: 'closed',
-                                                    blocs: true,
-                                                    chest: true,
-                                                    windows: 'open'
-                                                }
-                                            },
-                                            {
-                                                tagName: 'Items',
-                                                attributes: {
-                                                    coins: true,
-                                                    key: 'green',
-                                                    diamond: true
-                                                }
-                                            }
-                                        ]
-                                    }
-                                ]}
-                                typistProps={{
-                                    stdTypingDelay: 50,
-                                    startDelay: 200
-                                }}
-                            />
+                            <CodeTyping {...typingProps} />
 
                         </div>
 
@@ -116,3 +57,18 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
         );
     }
 }
+
+const mapStateToProps: MapStateToProps<PageHomeProps, {}, StoreState> = state => {
+    return {
+        typingProps: state.typingProps
+    };
+};
+
+const mapDispatchToProps: MapDispatchToProps<{}, {}> = dispatch => {
+    return {};
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PageHome);

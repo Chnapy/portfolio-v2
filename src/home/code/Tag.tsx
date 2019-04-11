@@ -16,14 +16,27 @@ export default function CodeRoot(tags: Omit<TagProps, 'level'>[], global: Partia
     );
 }
 
-export interface TagProps {
-    key?: string | number;
-    tagName: string;
-    attributes?: { [k: string]: any; };
-    level?: number;
+interface TagParams {
     className?: string;
     onMouseEnter?: (tag: TagProps) => void;
     onMouseOut?: (tag: TagProps) => void;
+}
+
+interface TagAttr {
+    className?: string;
+    onMouseEnter?: React.MouseEventHandler;
+    onMouseOut?: React.MouseEventHandler;
+}
+
+export interface TagProps {
+    key?: string | number;
+    id?: string;
+    tagName: string;
+    attributes?: { [k: string]: any; };
+    level?: number;
+    tagOpen?: TagParams;
+    tagClosure?: TagParams;
+    // tagOrphelin?: TagParams;
     children?: TagProps[];
 }
 
@@ -36,7 +49,7 @@ export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
 
     console.log(props);
 
-    const { key, tagName, attributes, level, className, onMouseEnter, onMouseOut, children } = props;
+    const { key, tagName, attributes, level, tagOpen, tagClosure, children } = props;
 
     const orphelin = !children || !children.length;
 
@@ -46,18 +59,14 @@ export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
         <span key={i}> &emsp; </span>
     ));
 
-    const ome = onMouseEnter
-        ? (e: React.MouseEvent) => onMouseEnter!(props)
-        : undefined;
-
-    const omo = onMouseOut
-        ? (e: React.MouseEvent) => onMouseOut!(props)
-        : undefined;
+    const attrOpen = getFinalAttr(tagOpen, props);
+    const attrClosure = getFinalAttr(tagClosure, props);
+    // const attrOrphelin = getFinalAttr(tagOrphelin);
 
     return (
         <div key={key} className={classNames(styles.code_tag_container)}>
             {spaces()}
-            <div className={classNames(styles.code_tag, className)} onMouseEnter={ome} onMouseOut={omo}>
+            <div className={classNames(styles.code_tag, attrOpen.className)} onMouseEnter={attrOpen.onMouseEnter} onMouseOut={attrOpen.onMouseOut}>
 
                 <span className={styles.code_tag_limit}>{'<'}</span>
 
@@ -92,7 +101,7 @@ export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
 
             {(!orphelin && (
 
-                <div className={styles.code_tag}>
+                <div className={classNames(styles.code_tag, attrClosure.className)} onMouseEnter={attrClosure.onMouseEnter} onMouseOut={attrClosure.onMouseOut}>
 
                     {spaces()}
 
@@ -108,6 +117,23 @@ export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
 
         </div>
     );
+}
+
+function getFinalAttr(attr: TagParams | undefined, props: TagProps): TagAttr {
+
+    const finalAttr: TagAttr = {};
+
+    if (attr) {
+        finalAttr.className = attr.className;
+        if (attr.onMouseEnter) {
+            finalAttr.onMouseEnter = e => attr.onMouseEnter!(props);
+        }
+        if (attr.onMouseOut) {
+            finalAttr.onMouseOut = e => attr.onMouseOut!(props);
+        }
+    }
+
+    return finalAttr;
 }
 
 interface TagAttributesProps {
