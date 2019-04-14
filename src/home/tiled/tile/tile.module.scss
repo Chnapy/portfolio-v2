@@ -3,7 +3,8 @@
   display: inline-block;
   overflow: hidden;
   height: 100%;
-  // animation: appear .8s ease-in-out;
+  will-change: transform, opacity;
+  animation: appear .8s ease-out;
 
   > img {
     width: 100%;
@@ -21,11 +22,13 @@
 
 @keyframes appear {
   0% {
-    transform: scale(0) rotate(45deg);
+    // transform: scale(0);
+    transform: translateY(-100%);
     opacity: 0;
   }
   100% {
-    transform: scale(1) rotate(0);
+    // transform: scale(1);
+    transform: translateY(0%);
     opacity: 1;
   }
 }

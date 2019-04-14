@@ -1,7 +1,7 @@
 import React from "react";
 import style from './pageHome.module.scss';
 import CodeTyping, { CodeTypingProps } from "./code/CodeTyping";
-import Tiled from './tiled/Tiled';
+import Tiled, { TiledProps } from './tiled/Tiled';
 import classNames from 'classnames';
 import FrontCard from './frontCard/FrontCard';
 import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
@@ -9,6 +9,7 @@ import StoreState from "../StoreState";
 
 export interface PageHomeProps {
     typingProps: CodeTypingProps;
+    tiledProps: TiledProps;
 }
 
 export interface PageHomeState {
@@ -22,14 +23,14 @@ class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
     }
 
     render(): JSX.Element {
-        const { typingProps } = this.props;
+        const { tiledProps, typingProps } = this.props;
 
         return (
             <div className={style.page} id={style.page_home}>
 
                 <div className={classNames(style.layer_0, style.frame)}>
 
-                    <Tiled />
+                    <Tiled {...tiledProps} />
 
                 </div>
 
@@ -60,7 +61,8 @@ class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
 
 const mapStateToProps: MapStateToProps<PageHomeProps, {}, StoreState> = state => {
     return {
-        typingProps: state.typingProps
+        typingProps: state.typingProps,
+        tiledProps: state.tiledProps
     };
 };
 

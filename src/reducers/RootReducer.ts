@@ -1,18 +1,34 @@
-import { Reducer, Action } from "redux";
+import { Action, Dispatch } from "redux";
 import StoreState from "../StoreState";
-import typingReducer from "./TypingReducer";
+import MyReducer from './MyReducer';
+import TiledReducer, { TiledAction } from './TiledReducer';
+import TypingReducer from './TypingReducer';
 
-export interface InitAction extends Action<'init'> {
+export type InitAction = Action<'init'>;
+
+export type StoreAction = InitAction | TiledAction;
+
+export default class RootReducer extends MyReducer<StoreState> {
+
+    private readonly typingReducer: TypingReducer;
+    private readonly tiledReducer: TiledReducer;
+
+    constructor(dispatch: Dispatch<StoreAction>) {
+        super(dispatch);
+        this.typingReducer = new TypingReducer(dispatch);
+        this.tiledReducer = new TiledReducer(dispatch);
+    }
+
+    getInitialState = () => ({
+        typingProps: this.typingReducer.getInitialState(),
+        tiledProps: this.tiledReducer.getInitialState()
+    });
+
+    onReduce = (state: Readonly<StoreState>, action: StoreAction): StoreState => {
+        return {
+            typingProps: this.typingReducer.reduce(state.typingProps, action),
+            tiledProps: this.tiledReducer.reduce(state.tiledProps, action)
+        };
+    };
 
 }
-
-export type StoreAction = InitAction;
-
-const rootReducer: Reducer<StoreState, StoreAction> = (state, action) => {
-
-    return {
-        typingProps: typingReducer(state ? state.typingProps : undefined, action)
-    };
-};
-
-export default rootReducer;

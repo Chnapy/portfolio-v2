@@ -47,7 +47,7 @@ export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
         ...props
     };
 
-    console.log(props);
+    // console.log(props);
 
     const { key, tagName, attributes, level, tagOpen, tagClosure, children } = props;
 

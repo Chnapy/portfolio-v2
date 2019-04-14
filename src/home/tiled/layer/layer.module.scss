@@ -5,6 +5,18 @@
   bottom: 0;
   right: 0;
 
+  &.tiled_layer_hide {
+    opacity: 0;
+  }
+
+  &.tiled_layer_mid {
+    opacity: 0.5;
+  }
+
+  &.tiled_layer_show {
+    opacity: 1;
+  }
+
   &.tiled_layer_tilelayer {
     // position: initial;
 
@@ -20,10 +32,21 @@
       background-repeat: repeat-x;
       background-position-y: bottom;
       background-position-x: left;
+      animation: appear .8s ease-in; 
     }
   }
 
   > .tiled_layer_line {
     white-space: nowrap;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

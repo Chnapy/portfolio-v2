@@ -1,10 +1,13 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import TiledMap from "../../../types/tiled";
 import TiledMapWrapOrthogonal from "./TiledMapWrapOrthogonal";
 import css from './map.module.scss';
 
 export interface TiledMapWrapProps {
     map: TiledMap;
+    layerState?: {
+        [ k: string ]: 'hide' | 'mid-opacity' | 'show';
+    };
 }
 
 export interface TiledMapWrapState {
@@ -14,14 +17,14 @@ export interface TiledMapWrapState {
 export default class TiledMapWrap extends React.Component<TiledMapWrapProps, TiledMapWrapState> {
 
     render(): JSX.Element {
-        const { map } = this.props;
+        const { map, layerState } = this.props;
 
         let content: JSX.Element;
 
         switch (map.orientation) {
             case "orthogonal":
                 content = (
-                    <TiledMapWrapOrthogonal map={map} />
+                    <TiledMapWrapOrthogonal map={map} layerState={layerState} />
                 );
                 break;
             default:

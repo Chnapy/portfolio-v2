@@ -7,6 +7,12 @@ export interface CodeTypingProps {
     tags: Omit<TagProps, 'level'>[];
     global: Partial<Omit<TagProps, 'level'>>;
     typistProps?: TypistProps;
+    onLineEnd?: {
+        [ k: string ]: {
+            for: 'open' | 'closure';
+            onLineEnd: (tagName: string) => void;
+        };
+    };
 }
 
 export interface CodeTypingState {
@@ -32,6 +38,7 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
     }
 
     private onCharTyped = () => {
+        const { onLineEnd = {} } = this.props;
 
         let start: boolean = false;
         let presentTag: string | undefined;
@@ -39,7 +46,6 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
         let orphelin: boolean;
 
         return (char: string, charIdx: number): void => {
-            // console.log('char', char, charIdx);
 
             switch (char.trim()) {
                 case '<':
@@ -60,7 +66,17 @@ export default class CodeTyping extends React.PureComponent<CodeTypingProps, Cod
                     break;
                 case '>':
                     start = false;
-                    console.log('END', presentTag, close, orphelin);
+                    
+                    const trigger = presentTag && onLineEnd[ presentTag ];
+                    if (trigger) {
+
+                        if (trigger.for === 'open' && !close) {
+                            trigger.onLineEnd(presentTag!);
+                        } else if (trigger.for === 'closure' && close) {
+                            trigger.onLineEnd(presentTag!);
+                        }
+
+                    }
                     break;
                 default:
                     if (start) {

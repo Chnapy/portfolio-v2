@@ -3,6 +3,9 @@ import { TiledLayer } from "../../../types/tiled/layer";
 import { TiledTileset } from "../../../types/tiled/tileset";
 import TiledLayerWrapTilelayer from "./TiledLayerWrapTilelayer";
 import TiledLayerWrapImagelayer from "./TiledLayerWrapImagelayer";
+import styles from './layer.module.scss';
+
+export type TiledLayerState = 'hide' | 'mid-opacity' | 'show';
 
 export interface TiledTileProps {
     tilepercentX: number;
@@ -17,6 +20,8 @@ export interface TiledLayerWrapProps {
     width: number;
     height: number;
     tileProps: TiledTileProps;
+
+    state?: TiledLayerState;
 }
 
 export interface TiledLayerWrapState {
@@ -25,8 +30,21 @@ export interface TiledLayerWrapState {
 
 export default class TiledLayerWrap extends React.Component<TiledLayerWrapProps, TiledLayerWrapState> {
 
+    private getStateCSSClass(state: TiledLayerState): string {
+        switch (state) {
+            case "hide":
+                return styles.tiled_layer_hide;
+            case "mid-opacity":
+                return styles.tiled_layer_mid;
+            case "show":
+                return styles.tiled_layer_show;
+        }
+    }
+
     render() {
-        const { layer, tilesets, width, height, tileProps } = this.props;
+        const { layer, tilesets, width, height, tileProps, state = 'show' } = this.props;
+
+        const stateClass = this.getStateCSSClass(state);
 
         switch (layer.type) {
             case "tilelayer":
@@ -36,7 +54,8 @@ export default class TiledLayerWrap extends React.Component<TiledLayerWrapProps,
                         tilesets,
                         width,
                         height,
-                        tileProps
+                        tileProps,
+                        stateClass
                     }} />
                 );
             case "imagelayer":
@@ -44,7 +63,8 @@ export default class TiledLayerWrap extends React.Component<TiledLayerWrapProps,
                     <TiledLayerWrapImagelayer {...{
                         layer,
                         width,
-                        height
+                        height,
+                        stateClass
                     }} />
                 );
             default:

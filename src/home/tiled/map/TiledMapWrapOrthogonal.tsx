@@ -5,6 +5,9 @@ import styles from './map.module.scss';
 
 export interface TiledMapWrapOrthogonalProps {
     map: TiledMapOrthogonal;
+    layerState?: {
+        [ k: string ]: 'hide' | 'mid-opacity' | 'show';
+    };
 }
 
 export interface TiledMapWrapOrthogonalState {
@@ -14,7 +17,7 @@ export interface TiledMapWrapOrthogonalState {
 export default class TiledMapWrapOrthogonal extends React.Component<TiledMapWrapOrthogonalProps, TiledMapWrapOrthogonalState> {
 
     render() {
-        const { map } = this.props;
+        const { map, layerState } = this.props;
 
         const { layers, tilesets, width, height, properties, tilewidth, tileheight } = map;
 
@@ -56,14 +59,17 @@ export default class TiledMapWrapOrthogonal extends React.Component<TiledMapWrap
 
         return (
             <div className={`${styles.tiled_map} ${styles.tiled_map_orthogonal}`} style={style}>
-                {layers.map(layer => (
+                {layers
+                .filter(layer => (layerState || {})[layer.name] !== 'hide')
+                .map(layer => (
                     <TiledLayerWrap {...{
                         key: layer.name,
                         layer,
                         tilesets,
                         width,
                         height,
-                        tileProps
+                        tileProps,
+                        state: (layerState || {})[layer.name]
                     }} />
                 ))}
             </div>

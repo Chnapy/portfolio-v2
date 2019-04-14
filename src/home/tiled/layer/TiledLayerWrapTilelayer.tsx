@@ -4,6 +4,7 @@ import { TiledTileset, TiledTile } from "../../../types/tiled/tileset";
 import TiledTileWrap from "../tile/TiledTileWrap";
 import styles from './layer.module.scss';
 import { TiledTileProps } from "./TiledLayerWrap";
+import classNames from 'classnames';
 
 export interface TiledLayerWrapTilelayerProps {
     layer: TiledLayerTilelayer;
@@ -11,6 +12,7 @@ export interface TiledLayerWrapTilelayerProps {
     width: number;
     height: number;
     tileProps: TiledTileProps;
+    stateClass: string;
 }
 
 export interface TiledLayerWrapTilelayerState {
@@ -20,7 +22,7 @@ export interface TiledLayerWrapTilelayerState {
 export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerWrapTilelayerProps, TiledLayerWrapTilelayerState> {
 
     render() {
-        const { layer, tilesets, width, height, tileProps } = this.props;
+        const { layer, tilesets, width, height, tileProps, stateClass } = this.props;
 
         let content;
         if (layer.data) {
@@ -29,7 +31,7 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
             throw new Error('TODO');
         }
 
-        return <div className={`${styles.tiled_layer} ${styles.tiled_layer_tilelayer}`} data-id={layer.id} data-name={layer.name}>
+        return <div className={classNames(styles.tiled_layer, styles.tiled_layer_tilelayer, stateClass)} data-id={layer.id} data-name={layer.name}>
             {content}
         </div>;
     }
@@ -43,7 +45,7 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
         function addTile(tile: TiledTile | undefined, i: number): void {
             const bufferIndex = i ? Number.parseInt(`${i / width}`, 10) : 0;
 
-            buffer[bufferIndex] = [...(buffer[bufferIndex] || []), tile];
+            buffer[ bufferIndex ] = [ ...(buffer[ bufferIndex ] || []), tile ];
         }
 
         data.forEach((id, i) => {
@@ -75,7 +77,7 @@ export default class TiledLayerWrapTilelayer extends React.Component<TiledLayerW
                 }}>
                     {b.map((tile, j) => {
 
-                        if(tile) {
+                        if (tile) {
                             const marginLeft = indexLeft * tilepercentX;
                             indexLeft = 0;
                             return (

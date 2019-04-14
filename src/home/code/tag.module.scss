@@ -13,11 +13,13 @@
   &,
   * {
     display: inline;
+    cursor: default;
   }
 
   :global {
     .Cursor {
       color: #f0f0f0;
+      will-change: opacity;
       animation-name: cursorBlinking;
       animation-duration: 1.5s;
       animation-iteration-count: infinite;
