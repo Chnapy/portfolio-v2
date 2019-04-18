@@ -66,9 +66,7 @@ const mapStateToProps: MapStateToProps<PageHomeProps, {}, StoreState> = state =>
     };
 };
 
-const mapDispatchToProps: MapDispatchToProps<{}, {}> = dispatch => {
-    return {};
-};
+const mapDispatchToProps: MapDispatchToProps<{}, {}> = dispatch => ({});
 
 export default connect(
     mapStateToProps,

@@ -4,17 +4,17 @@ import TiledMapWrap from './map/TiledMapWrap';
 import style from './tiled.module.scss';
 import { TiledLayerState } from './layer/TiledLayerWrap';
 
-export interface TiledProps {
+export type TiledProps<K extends string = string> = {
     step: {
         type: 'loading';
     } | {
         type: 'mapLoaded';
         map: TiledMap;
         layerState: {
-            [ k: string ]: TiledLayerState;
+            [k in K]: TiledLayerState;
         };
     };
-}
+};
 
 export interface TiledState {
 }

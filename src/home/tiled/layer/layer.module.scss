@@ -4,6 +4,7 @@
   left: 0;
   bottom: 0;
   right: 0;
+  transition: opacity .4s;
 
   &.tiled_layer_hide {
     opacity: 0;
@@ -18,11 +19,6 @@
   }
 
   &.tiled_layer_tilelayer {
-    // position: initial;
-
-    // & ~ .tiled_layer_tilelayer {
-    //   position: absolute;
-    // }
   }
 
   &.tiled_layer_imagelayer {

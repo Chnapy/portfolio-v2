@@ -12,21 +12,25 @@ export interface TiledLoadedAction extends Action<'tiled/loaded'> {
 }
 
 export interface TiledLayerStateAction extends Action<'tiled/layerState'> {
-    layerNames: string[];
+    layerNames: ReadonlyArray<TiledLayerName>;
     state: TiledLayerState;
 }
 
 export type TiledAction = TiledLoadedAction | TiledLayerStateAction;
 
-export default class TiledReducer extends MyReducer<TiledProps> {
+export type TiledLayerName = 'background' | 'clouds' | 'sea' | 'decor' | 'ground' | 'interactif' | 'items';
 
-    getInitialState = (): TiledProps => ({
+export const tiledLayerNames: ReadonlyArray<TiledLayerName> = ['background' , 'clouds' , 'sea' , 'decor' , 'ground' , 'interactif' , 'items'];
+
+export default class TiledReducer extends MyReducer<TiledProps<TiledLayerName>> {
+
+    getInitialState = (): TiledProps<TiledLayerName> => ({
         step: {
             type: "loading"
         }
     });
 
-    onReduce(state: Readonly<TiledProps>, action: StoreAction): TiledProps {
+    onReduce(state: Readonly<TiledProps<TiledLayerName>>, action: StoreAction): TiledProps<TiledLayerName> {
 
         switch (action.type) {
             case "init":
@@ -54,7 +58,7 @@ export default class TiledReducer extends MyReducer<TiledProps> {
         return state;
     }
 
-    private layerState(state: Readonly<TiledProps>, action: TiledLayerStateAction): TiledProps {
+    private layerState(state: Readonly<TiledProps<TiledLayerName>>, action: TiledLayerStateAction): TiledProps<TiledLayerName> {
         if (state.step.type !== 'mapLoaded') {
             throw new Error('business error');
         }
@@ -76,7 +80,7 @@ export default class TiledReducer extends MyReducer<TiledProps> {
         };
     }
 
-    private init(state: Readonly<TiledProps>, action: InitAction): TiledProps {
+    private init(state: Readonly<TiledProps<TiledLayerName>>, action: InitAction): TiledProps<TiledLayerName> {
 
         fetch(mapUrl.tiled_home)
             .then(res => {

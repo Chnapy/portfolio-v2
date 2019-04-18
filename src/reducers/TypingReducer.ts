@@ -3,6 +3,8 @@ import { StoreAction } from "./RootReducer";
 import style from '../home/pageHome.module.scss';
 import MyReducer from './MyReducer';
 import getBindTypingTiled from '../home/code/BindTypingTiled';
+import { TagProps } from "../home/code/Tag";
+import { TiledLayerStateAction, tiledLayerNames } from "./TiledReducer";
 
 export default class TypingReducer extends MyReducer<CodeTypingProps> {
 
@@ -20,17 +22,51 @@ export default class TypingReducer extends MyReducer<CodeTypingProps> {
         }
     };
 
+    private onTagMouseEnter = (tagName: string) => {
+
+        const layerNamesTarget = getBindTypingTiled(tagName);
+        if (!layerNamesTarget) {
+            throw new Error('business error');
+        }
+
+        if(!layerNamesTarget.length) {
+            return;
+        }
+
+        const layerNames = [...tiledLayerNames]
+            .filter(name => !layerNamesTarget.includes(name));
+
+        return this.dispatch<TiledLayerStateAction>({
+            type: 'tiled/layerState',
+            layerNames,
+            state: "mid-opacity"
+        });
+    };
+
+    private onTagMouseOut = (tagName: string) => {
+
+        console.log('out', tagName)
+
+        const layerNames = [...tiledLayerNames];
+
+        return this.dispatch<TiledLayerStateAction>({
+            type: 'tiled/layerState',
+            layerNames,
+            state: "show"
+        });
+    };
+
     getInitialState = (): CodeTypingProps => ({
         global: {
             tagOpen: {
                 className: style.tag_hover,
-                onMouseEnter: () => console.log('enter'),   // TODO action redux
-                onMouseOut: () => console.log('out')   // TODO action redux
+                onMouseEnter: (tagProps: TagProps) => this.onTagMouseEnter(tagProps.tagName),
+                onMouseOut: (tagProps: TagProps) => this.onTagMouseOut(tagProps.tagName)
             },
             tagClosure: {
                 className: style.tag_hover,
-                // onMouseEnter: () => console.log('enter'),
-                // onMouseOut: () => console.log('out')
+                onMouseEnter: (tagProps: TagProps) => this.onTagMouseEnter(tagProps.tagName),
+                onMouseOut: (tagProps: TagProps) => this.onTagMouseOut(tagProps.tagName)
             }
         },
         tags: [

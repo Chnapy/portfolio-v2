@@ -28,7 +28,9 @@
 
   .code_tag_container {
     .code_tag {
-
+      > * {
+        pointer-events: none;
+      }
     }
 
     .code_tag_limit {

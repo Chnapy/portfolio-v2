@@ -47,7 +47,7 @@ export default class FrontCard extends React.Component<FrontCardProps, FrontCard
                                             </span>
 
                                         </span>
-                                        <span className="tag is-info">Typescript</span>
+                                        <span className="tag is-primary">Typescript</span>
                                     </div>
                                 </div>
 
@@ -60,7 +60,7 @@ export default class FrontCard extends React.Component<FrontCardProps, FrontCard
                                             </span>
 
                                         </span>
-                                        <span className="tag is-info">React</span>
+                                        <span className="tag is-primary">React</span>
                                     </div>
                                 </div>
 
@@ -73,7 +73,7 @@ export default class FrontCard extends React.Component<FrontCardProps, FrontCard
                                             </span>
 
                                         </span>
-                                        <span className="tag is-info">Java</span>
+                                        <span className="tag is-primary">Java</span>
                                     </div>
                                 </div>
 
@@ -93,7 +93,7 @@ export default class FrontCard extends React.Component<FrontCardProps, FrontCard
                                             </span>
 
                                         </span>
-                                        <span className="tag is-info">CNP</span>
+                                        <span className="tag is-primary">CNP</span>
                                         <span className="tag is-success">Freelance</span>
                                     </div>
                                 </div>
