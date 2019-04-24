@@ -1,0 +1,24 @@
+@import "../variables";
+
+@import "../page.module.scss";
+
+.code_wrapper {
+  display: inline-block;
+
+  padding: 30px;
+  border-bottom-right-radius: 10px;
+
+  background: #454545;
+
+  filter: drop-shadow(0px 0px 0.25rem #454545);
+
+  &:hover .tag_hover {
+    opacity: .4;
+    transition: opacity .4s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+}

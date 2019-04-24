@@ -1,0 +1,47 @@
+@import "variables";
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.layer_0,
+.layer_1,
+.layer_2 {
+  position: relative;
+  pointer-events: none;
+
+  > * {
+    pointer-events: all;
+  }
+
+  &:not(.content) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &.fixed {
+    position: fixed;
+  }
+
+  &.frame {
+    bottom: 0;
+    // top: 100vh;
+    // transform: translate(0, -100%);
+  }
+}
+
+.layer_0 {
+  z-index: 0;
+}
+
+.layer_1 {
+  z-index: 100;
+}
+
+.layer_2 {
+  z-index: 200;
+}

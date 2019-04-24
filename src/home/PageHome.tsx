@@ -1,48 +1,46 @@
 import React from "react";
-import './home.scss';
-import CodeTyping from "./CodeTyping";
+import style from './pageHome.module.scss';
+import CodeTyping, { CodeTypingProps } from "./code/CodeTyping";
+import Tiled, { TiledProps } from './tiled/Tiled';
+import classNames from 'classnames';
+import FrontCard from './frontCard/FrontCard';
+import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
+import StoreState from "../StoreState";
 
 export interface PageHomeProps {
-
+    typingProps: CodeTypingProps;
+    tiledProps: TiledProps;
 }
 
 export interface PageHomeState {
 
 }
 
-export default class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
+class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
     constructor(props: PageHomeProps) {
         super(props);
         this.state = {};
     }
 
     render(): JSX.Element {
-
+        const { tiledProps, typingProps } = this.props;
 
         return (
-            <div className={'page'} id={'page-home'}>
+            <div className={style.page} id={style.page_home}>
 
-                <div className={'layer-0'}>
+                <div className={classNames(style.layer_0, style.frame)}>
 
-                    {/* <VaraWrapper {...varaProps} /> */}
-
-                    <CodeTyping />
+                    <Tiled {...tiledProps} />
 
                 </div>
 
-                <div className={"layer-1"}>
+                <div className={classNames(style.layer_1)}>
 
-                </div>
+                    <div className={style.code_wrapper}>
 
-                <div className={"layer-2"}>
+                        <div className={style.code_content}>
 
-                    <div className="front-card-wrapper">
-
-                        <div className="front-card box">
-
-                            <figure className="avatar image is-128x128">
-                                <img className="is-rounded" src="https://avatars0.githubusercontent.com/u/7474483?s=460&v=4" />
-                            </figure>
+                            <CodeTyping {...typingProps} />
 
                         </div>
 
@@ -50,7 +48,27 @@ export default class PageHome extends React.PureComponent<PageHomeProps, PageHom
 
                 </div>
 
+                <div className={classNames(style.layer_2, style.content)}>
+
+                    <FrontCard />
+
+                </div>
+
             </div>
         );
     }
 }
+
+const mapStateToProps: MapStateToProps<PageHomeProps, {}, StoreState> = state => {
+    return {
+        typingProps: state.typingProps,
+        tiledProps: state.tiledProps
+    };
+};
+
+const mapDispatchToProps: MapDispatchToProps<{}, {}> = dispatch => ({});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PageHome);

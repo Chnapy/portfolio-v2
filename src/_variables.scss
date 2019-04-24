@@ -1,12 +1,24 @@
 
+
 @import "~bulmaswatch/lumen/variables";
+
+$yellow: #FFCC00;
+$orange: #E86A17;
+$green: #80BE1F;
+$blue: #1EA7E1;
+$red: #E85017;
+$cyan: #69C5EB;
+
+
+$primary: $blue;
+
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
 
 // Code
 $CODE-ROOT-FONT_FAMILY: 'Fira Code', monospace;
-$CODE-ROOT-FONT_SIZE: 2em;
+$CODE-ROOT-FONT_SIZE: 1em;
 $CODE-ROOT-FONT_LIGATURES: no-common-ligatures;
 $CODE-TAG_LIMIT-COLOR: #7f7f6f;
 $CODE-TAG_NAME-COLOR: #4dc8b0;
@@ -16,7 +28,6 @@ $CODE-ATTRIBUTE_BRACE-COLOR: #3e9cc9;
 $CODE-ATTRIBUTE_VALUE_STRING-COLOR: #cd9078;
 $CODE-ATTRIBUTE_VALUE_NUMBER-COLOR: #b4cda8;
 $CODE-ATTRIBUTE_VALUE_BOOLEAN-COLOR: #3e9cc9;
-
 
 
 $radius-small: 0;

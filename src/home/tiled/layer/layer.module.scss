@@ -1,0 +1,48 @@
+.tiled_layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: opacity .4s;
+
+  &.tiled_layer_hide {
+    opacity: 0;
+  }
+
+  &.tiled_layer_mid {
+    opacity: 0.5;
+  }
+
+  &.tiled_layer_show {
+    opacity: 1;
+  }
+
+  &.tiled_layer_tilelayer {
+  }
+
+  &.tiled_layer_imagelayer {
+    .image {
+      min-width: 100%;
+      min-height: 100%;
+      background-repeat: repeat-x;
+      background-position-y: bottom;
+      background-position-x: left;
+      animation: appear .8s ease-in; 
+    }
+  }
+
+  > .tiled_layer_line {
+    white-space: nowrap;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -2,31 +2,54 @@ import React from "react";
 import classNames from "classnames";
 import styles from './tag.module.scss';
 
-export default function CodeRoot(tags: Omit<TagProps, 'level'>[], render: (nodes: ReturnType<typeof Tag>[]) => React.ReactNode = (nodes) => nodes): JSX.Element {
+export default function CodeRoot(tags: Omit<TagProps, 'level'>[], global: Partial<Omit<TagProps, 'level'>>, render: (nodes: ReturnType<typeof Tag>[]) => React.ReactNode = (nodes) => nodes): JSX.Element {
 
     return (
         <div className={styles.code_root}>
-            {render(tags.map(p => Tag({
-                key: p.key,
-                tagName: p.tagName,
-                attributes: p.attributes,
-                level: 0,
-                children: p.children
-            })))}
-            <br/>{' '}
+            {render(tags.map((p, i) => Tag({
+                ...p,
+                key: i,
+                level: 0
+            }, global)))}
+            <br />{' '}
         </div>
     );
 }
 
+interface TagParams {
+    className?: string;
+    onMouseEnter?: (tag: TagProps) => void;
+    onMouseOut?: (tag: TagProps) => void;
+}
+
+interface TagAttr {
+    className?: string;
+    onMouseEnter?: React.MouseEventHandler;
+    onMouseOut?: React.MouseEventHandler;
+}
+
 export interface TagProps {
     key?: string | number;
+    id?: string;
     tagName: string;
     attributes?: { [k: string]: any; };
     level?: number;
+    tagOpen?: TagParams;
+    tagClosure?: TagParams;
+    // tagOrphelin?: TagParams;
     children?: TagProps[];
 }
 
-export function Tag({ key, tagName, attributes, level, children }: TagProps): JSX.Element {
+export function Tag(props: TagProps, global: Partial<TagProps>): JSX.Element {
+
+    props = {
+        ...global,
+        ...props
+    };
+
+    // console.log(props);
+
+    const { key, tagName, attributes, level, tagOpen, tagClosure, children } = props;
 
     const orphelin = !children || !children.length;
 
@@ -36,17 +59,21 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
         <span key={i}> &emsp; </span>
     ));
 
+    const attrOpen = getFinalAttr(tagOpen, props);
+    const attrClosure = getFinalAttr(tagClosure, props);
+    // const attrOrphelin = getFinalAttr(tagOrphelin);
+
     return (
         <div key={key} className={classNames(styles.code_tag_container)}>
             {spaces()}
-            <div className={'code-tag'}>
+            <div className={classNames(styles.code_tag, attrOpen.className)} onMouseEnter={attrOpen.onMouseEnter} onMouseOut={attrOpen.onMouseOut}>
 
                 <span className={styles.code_tag_limit}>{'<'}</span>
 
                 <span className={styles.code_tagName}>{tagName}</span>
 
                 {(hasAttributes && (
-                    <span className={'code-attribute-list'}>
+                    <span>
                         {TagAttributes({ attributes })}
                     </span>
                 )) || ''}
@@ -68,13 +95,13 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
                     key: i,
                     ...c,
                     level: (level || 0) + 1
-                }),
-                <br />
+                }, global),
+                <br key={i + 'br'} />
             ])) || ''}
 
             {(!orphelin && (
 
-                <div className={'code-tag'}>
+                <div className={classNames(styles.code_tag, attrClosure.className)} onMouseEnter={attrClosure.onMouseEnter} onMouseOut={attrClosure.onMouseOut}>
 
                     {spaces()}
 
@@ -90,6 +117,23 @@ export function Tag({ key, tagName, attributes, level, children }: TagProps): JS
 
         </div>
     );
+}
+
+function getFinalAttr(attr: TagParams | undefined, props: TagProps): TagAttr {
+
+    const finalAttr: TagAttr = {};
+
+    if (attr) {
+        finalAttr.className = attr.className;
+        if (attr.onMouseEnter) {
+            finalAttr.onMouseEnter = e => attr.onMouseEnter!(props);
+        }
+        if (attr.onMouseOut) {
+            finalAttr.onMouseOut = e => attr.onMouseOut!(props);
+        }
+    }
+
+    return finalAttr;
 }
 
 interface TagAttributesProps {

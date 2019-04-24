@@ -6,13 +6,33 @@
   font-family: $CODE-ROOT-FONT_FAMILY;
   font-size: $CODE-ROOT-FONT_SIZE;
   font-variant-ligatures: $CODE-ROOT-FONT_LIGATURES;
+}
+
+.code_root {
 
   &,
   * {
     display: inline;
+    cursor: default;
+  }
+
+  :global {
+    .Cursor {
+      color: #f0f0f0;
+      will-change: opacity;
+      animation-name: cursorBlinking;
+      animation-duration: 1.5s;
+      animation-iteration-count: infinite;
+    }
   }
 
   .code_tag_container {
+    .code_tag {
+      > * {
+        pointer-events: none;
+      }
+    }
+
     .code_tag_limit {
       color: $CODE-TAG_LIMIT-COLOR;
     }

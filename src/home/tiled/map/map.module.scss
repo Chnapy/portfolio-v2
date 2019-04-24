@@ -1,0 +1,15 @@
+.tiled_root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tiled_map {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: 0;
+
+  &.tiled_map_orthogonal {
+  }
+}
