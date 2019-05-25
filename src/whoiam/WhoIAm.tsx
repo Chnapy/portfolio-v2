@@ -1,12 +1,17 @@
 import React from 'react';
 import css from './pageWhoIAm.module.scss';
+import classNames from 'classnames';
+import { SkillItem } from '../components/skillItem/SkillItem';
+import WIAContent from './content/WIAContent';
+import { BulmaSection } from '../components/bulma/BulmaSection';
+import { Bubble } from '../components/bubble/Bubble';
 
 export interface WhoIAmProps {
-    
+
 }
 
 export interface WhoIAmState {
-    
+
 }
 
 export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
@@ -28,15 +33,15 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
 
                 </div>
 
-                <div className={css.layer_1}>
+                <div className={classNames(css.layer_1, css.content)}>
 
-                    
+                    <WIAContent />
 
                 </div>
 
-                <div className={css.layer_2}>
+                <div className={classNames(css.layer_2, css.frame)}>
 
-                    
+                    <Bubble icon={'nerf'} />
 
                 </div>
 

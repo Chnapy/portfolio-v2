@@ -1,0 +1,10 @@
+
+.card:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.card_skills {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -1,0 +1,16 @@
+.skill {
+  display: inline-block;
+  text-align: center;
+
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .skillIcon {
+    font-size: 4em;
+  }
+
+  .skillSub {
+    display: block;
+  }
+}
