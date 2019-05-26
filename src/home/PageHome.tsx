@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import FrontCard from './frontCard/FrontCard';
 import { connect, MapStateToProps, MapDispatchToProps } from "react-redux";
 import StoreState from "../StoreState";
+import { ParallaxLayer } from 'react-spring/renderprops-addons';
 
 export interface PageHomeProps {
     typingProps: CodeTypingProps;
@@ -26,35 +27,41 @@ class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
         const { tiledProps, typingProps } = this.props;
 
         return (
-            <div className={style.page} id={style.page_home}>
+            <ParallaxLayer offset={0} speed={0} >
+                <div className={style.page} id={style.page_home}>
 
-                <div className={classNames(style.layer_0, style.frame)}>
+                    <div className={classNames(style.layer_0, style.frame)}>
 
-                    <Tiled {...tiledProps} />
+                        <Tiled {...tiledProps} />
 
-                </div>
+                    </div>
 
-                <div className={classNames(style.layer_1)}>
+                    <div className={classNames(style.layer_1)}>
 
-                    <div className={style.code_wrapper}>
+                        <div className={style.code_wrapper}>
 
-                        <div className={style.code_content}>
+                            <div className={style.code_content}>
 
-                            <CodeTyping {...typingProps} />
+                                <CodeTyping {...typingProps} />
+
+                            </div>
 
                         </div>
 
                     </div>
 
+                    <div className={classNames(style.layer_2, style.content)}>
+
+                        <ParallaxLayer offset={0} speed={5} >
+
+                            <FrontCard/>
+
+                        </ParallaxLayer>
+
+                    </div>
+
                 </div>
-
-                <div className={classNames(style.layer_2, style.content)}>
-
-                    <FrontCard />
-
-                </div>
-
-            </div>
+            </ParallaxLayer>
         );
     }
 }

@@ -58,7 +58,7 @@ export default class WIAContent extends React.Component {
 <div className={classNames("card", css.card)}>
     <header className="card-header">
         <p className="card-header-title subtitle has-text-weight-normal">
-            There is things I{` `}<u className={classNames('is-size-4')}>want</u>{' '}
+            And things I{` `}<u className={classNames('is-size-4')}>want</u>{' '}
             to do
         </p>
     </header>

@@ -3,24 +3,36 @@ import './App.scss';
 import PageHome from './home/PageHome';
 import MenuLeft from './menuLeft/MenuLeft';
 import WhoIAm from './whoiam/WhoIAm';
+import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
+import { TransiBackground } from './transiBackground/TransiBackground';
 
-export default class App extends Component<any, {}> {
+export default class App extends Component<{}, {}> {
 
-  constructor(props: any) {
+  private parallax: Parallax | null;
+
+  constructor(props: {}) {
     super(props);
+
+    this.parallax = null;
     this.state = {};
   }
 
   render() {
-    
+
     return (
       <main>
 
-        <MenuLeft  />
+        <MenuLeft />
 
-        <PageHome  />
+        <Parallax ref={ref => (this.parallax = ref)} pages={3}>
 
-        <WhoIAm  />
+          <PageHome />
+
+          <TransiBackground offset={1} background={'dino'} />
+
+          <WhoIAm />
+
+        </Parallax>
 
       </main>
     );
