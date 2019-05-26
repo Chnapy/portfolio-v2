@@ -1,9 +1,10 @@
 import React from 'react';
 import css from './skillItem.module.scss';
 import classNames from 'classnames';
+import MapIcons, { Icon } from '../../MapIcons';
 
 type SkillItemType = 'string' | 'tag' | 'icon' | 'full-icon';
-type SkillName = 'ts' | 'react' | 'node' | 'java';
+type SkillName = 'ts' | 'react' | 'node' | 'java' | 'hummus';
 
 interface SkillItemProps {
     type: SkillItemType;
@@ -14,43 +15,70 @@ interface SkillItemProps {
 }
 
 interface SkillItemChildProps {
-    colored?: boolean;
-    iconClassName: string;
+    colored: boolean;
+    icon: SkillItemIcon;
     sub: string;
     children?: never;
 }
 
+type SkillItemIcon = {
+    type: 'className';
+    className: string;
+} | {
+    type: 'img';
+    img: Icon;
+};
+
 const mapTypeToContent: {
     [ k in SkillName ]: {
-        iconClassName: string;
+        icon: SkillItemIcon;
         sub: string;
     };
 } = {
     ts: {
-        iconClassName: 'devicon-typescript-plain',
+        icon: {
+            type: 'className',
+            className: 'devicon-typescript-plain'
+        },
         sub: 'TypeScript'
     },
     react: {
-        iconClassName: 'devicon-react-original',
+        icon: {
+            type: 'className',
+            className: 'devicon-react-original'
+        },
         sub: 'React'
     },
     node: {
-        iconClassName: 'devicon-nodejs-plain',
+        icon: {
+            type: 'className',
+            className: 'devicon-nodejs-plain'
+        },
         sub: 'Node'
     },
     java: {
-        iconClassName: 'devicon-java-plain',
+        icon: {
+            type: 'className',
+            className: 'devicon-java-plain'
+        },
         sub: 'Java'
+    },
+    hummus: {
+        icon: {
+            type: 'img',
+            img: 'hummus'
+        },
+        sub: 'Making hummus'
     }
 };
 
 export function SkillItem({ type, skillName, colored, className }: SkillItemProps) {
 
-    const { iconClassName, sub } = mapTypeToContent[ skillName ];
+    const { icon, sub } = mapTypeToContent[ skillName ];
 
-    const childProps = {
-        colored,
-        iconClassName,
+    const childProps: SkillItemChildProps = {
+        colored: !!colored,
+        icon,
         sub
     };
 
@@ -72,13 +100,22 @@ export function SkillItem({ type, skillName, colored, className }: SkillItemProp
     );
 }
 
-function SkillItemFullIcon({ colored, iconClassName, sub }: SkillItemChildProps) {
+function getIcon(icon: SkillItemIcon, colored: boolean): JSX.Element {
+    switch (icon.type) {
+        case 'className':
+            return <i className={classNames(icon.className, {
+                colored
+            }, css.skillIcon)} />;
+        case 'img':
+            return <img src={MapIcons.getIcon(icon.img)} className={css.skillIcon} />;
+    }
+}
+
+function SkillItemFullIcon({ colored, icon, sub }: SkillItemChildProps) {
 
     return <>
 
-        <i className={classNames(iconClassName, {
-            colored
-        }, css.skillIcon)} />
+        {getIcon(icon, colored)}
 
         <div className={css.skillSub}>{sub}</div>
     </>;

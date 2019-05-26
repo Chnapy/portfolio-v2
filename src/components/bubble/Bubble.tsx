@@ -35,6 +35,9 @@ export class Bubble extends React.Component<BubbleProps> {
         this.top = Number.parseInt((Math.random() * 100) + '');
         this.left = Number.parseInt((Math.random() * 100) + '');
 
+        this.topNegative = this.randomBoolean();
+        this.leftNegative = this.randomBoolean();
+
         this.updateNode();
 
         setTimeout(() => {
@@ -48,6 +51,10 @@ export class Bubble extends React.Component<BubbleProps> {
         clearInterval(this.interval);
         delete this.top;
         delete this.left;
+    }
+
+    private randomBoolean(): boolean {
+        return Math.random() < 0.5;
     }
 
     private update = (): void => {

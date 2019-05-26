@@ -1,3 +1,5 @@
+$SKILL-ICON-SIZE: 4em;
+
 .skill {
   display: inline-block;
   text-align: center;
@@ -7,7 +9,13 @@
   }
 
   .skillIcon {
-    font-size: 4em;
+    &:not(img) {
+      font-size: $SKILL-ICON-SIZE;
+    }
+  }
+
+  img.skillIcon {
+    height: $SKILL-ICON-SIZE;
   }
 
   .skillSub {

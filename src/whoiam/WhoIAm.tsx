@@ -41,7 +41,8 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
 
                 <div className={classNames(css.layer_2, css.frame)}>
 
-                    <Bubble icon={'nerf'} />
+                <Bubble icon={'nerf'} />
+                    <Bubble icon={'hummus'} />
 
                 </div>
 

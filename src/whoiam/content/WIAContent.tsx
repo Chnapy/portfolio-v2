@@ -68,6 +68,7 @@ export default class WIAContent extends React.Component {
         <SkillItem type={'full-icon'} skillName={'react'} colored />
         <SkillItem type={'full-icon'} skillName={'node'} colored />
         <SkillItem type={'full-icon'} skillName={'java'} colored />
+        <SkillItem type={'full-icon'} skillName={'hummus'} colored />
 
     </div>
 </div>
