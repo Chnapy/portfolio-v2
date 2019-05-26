@@ -2,9 +2,10 @@ import React from 'react';
 import MapIcons, { Icon } from '../../MapIcons';
 import css from './bubble.module.scss';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 
 export interface BubbleProps {
-    icon: Icon;
+    icon?: Icon;
 }
 
 const MOVE_VALUE = 10;
@@ -22,11 +23,13 @@ export class Bubble extends React.Component<BubbleProps> {
 
     render() {
         const { icon } = this.props;
-        const img = MapIcons.getIcon(icon);
+        const img = icon && MapIcons.getIcon(icon);
 
-        return <div className={css.bubble_wrapper}>
+        return <div className={classNames(css.bubble_wrapper, {
+            [ css.bubble_empty ]: !img
+        })}>
             <div className={css.bubble}>
-                <img src={img} className={css.img} />
+                {img && <img src={img} className={css.img} />}
             </div>
         </div>;
     }
@@ -66,12 +69,16 @@ export class Bubble extends React.Component<BubbleProps> {
             this.topNegative = true;
         } else if (this.top < MOVE_VALUE) {
             this.topNegative = false;
+        } else {
+            this.topNegative = this.randomBoolean();
         }
 
         if (this.left > 100 - MOVE_VALUE) {
             this.leftNegative = true;
         } else if (this.left < MOVE_VALUE) {
             this.leftNegative = false;
+        } else {
+            this.leftNegative = this.randomBoolean();
         }
 
         this.top += this.topNegative ? -MOVE_VALUE : MOVE_VALUE;

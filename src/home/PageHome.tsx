@@ -38,15 +38,19 @@ class PageHome extends React.PureComponent<PageHomeProps, PageHomeState> {
 
                     <div className={classNames(style.layer_1)}>
 
-                        <div className={style.code_wrapper}>
+                        <ParallaxLayer offset={0} speed={.5} >
 
-                            <div className={style.code_content}>
+                            <div className={style.code_wrapper}>
 
-                                <CodeTyping {...typingProps} />
+                                <div className={style.code_content}>
+
+                                    <CodeTyping {...typingProps} />
+
+                                </div>
 
                             </div>
 
-                        </div>
+                        </ParallaxLayer>
 
                     </div>
 

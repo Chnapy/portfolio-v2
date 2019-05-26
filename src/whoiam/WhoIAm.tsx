@@ -48,6 +48,13 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
 
                             <Bubble icon={'nerf'} />
                             <Bubble icon={'hummus'} />
+                            
+                            <Bubble/>
+                            <Bubble/>
+                            <Bubble/>
+                            <Bubble/>
+                            <Bubble/>
+                            <Bubble/>
 
                         </ParallaxLayer>
 

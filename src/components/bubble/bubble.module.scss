@@ -23,6 +23,12 @@ $BUBBLE_SIZE: 50px;
   border-bottom-width: 4px;
   background: rgba(white, 0.25);
   transform: translate(-50%, -50%);
+
+  .bubble_empty > & {
+    width: $BUBBLE_SIZE / 4;
+    height: $BUBBLE_SIZE / 4;
+    border-width: 1px;
+  }
 }
 
 .img {
