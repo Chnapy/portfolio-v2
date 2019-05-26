@@ -5,3 +5,7 @@
 #page_home {
     background: #2c3e50;
 }
+
+.layer_2 > * {
+    pointer-events: none;
+}

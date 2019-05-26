@@ -1,5 +1,5 @@
 import React from 'react';
-import { SkillItem } from '../../components/skillItem/SkillItem';
+import { SkillItem, SkillName } from '../../components/skillItem/SkillItem';
 import { BulmaSection } from '../../components/bulma/BulmaSection';
 import classNames from 'classnames';
 import css from './wiaContent.module.scss';
@@ -7,6 +7,19 @@ import css from './wiaContent.module.scss';
 export default class WIAContent extends React.Component {
 
     render() {
+
+        const skillILike: SkillName[] = [
+            'ts', 'react', 'redux', 'react-router', 
+            'jest', 
+            'node', 'sequelize', 'java', 
+            'd3', 'crossfilter', 
+            'sass', 
+            'antd', 'bootstrap', 'webpack', 'git', 'hummus'
+        ];
+
+        const skillIWant: SkillName[] = [
+            'ts', 'react', 'redux', 'node', 'sequelize', 'java', 'sass', 'hummus'
+        ];
 
         return (
             <BulmaSection>
@@ -47,10 +60,7 @@ export default class WIAContent extends React.Component {
     </header>
     <div className={classNames("card-content", css.card_skills)}>
 
-        <SkillItem type={'full-icon'} skillName={'ts'} colored />
-        <SkillItem type={'full-icon'} skillName={'react'} colored />
-        <SkillItem type={'full-icon'} skillName={'node'} colored />
-        <SkillItem type={'full-icon'} skillName={'java'} colored />
+    {skillILike.map(s => <SkillItem key={s} type={'full-icon'} skillName={s} colored />)}
 
     </div>
 </div>
@@ -64,11 +74,7 @@ export default class WIAContent extends React.Component {
     </header>
     <div className={classNames("card-content", css.card_skills)}>
 
-        <SkillItem type={'full-icon'} skillName={'ts'} colored />
-        <SkillItem type={'full-icon'} skillName={'react'} colored />
-        <SkillItem type={'full-icon'} skillName={'node'} colored />
-        <SkillItem type={'full-icon'} skillName={'java'} colored />
-        <SkillItem type={'full-icon'} skillName={'hummus'} colored />
+{skillIWant.map(s => <SkillItem key={s} type={'full-icon'} skillName={s} colored />)}
 
     </div>
 </div>

@@ -18,13 +18,13 @@ export default class App extends Component<{}, {}> {
   }
 
   render() {
-
+    
     return (
       <main>
 
         <MenuLeft />
 
-        <Parallax ref={ref => (this.parallax = ref)} pages={3}>
+        <Parallax ref={ref => (this.parallax = ref)} pages={5}>
 
           <PageHome />
 
