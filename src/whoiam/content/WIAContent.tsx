@@ -9,12 +9,13 @@ export default class WIAContent extends React.Component {
     render() {
 
         const skillILike: SkillName[] = [
-            'ts', 'react', 'redux', 'react-router', 
+            'ts', 
+            'react', 'redux', 'react-router', 'd3', 'crossfilter', 
             'jest', 
             'node', 'sequelize', 'java', 
-            'd3', 'crossfilter', 
-            'sass', 
-            'antd', 'bootstrap', 'webpack', 'git', 'hummus'
+            'sass', 'antd', 'bootstrap', 
+            'webpack', 'git', 
+            'hummus'
         ];
 
         const skillIWant: SkillName[] = [
@@ -57,6 +58,47 @@ export default class WIAContent extends React.Component {
             There is things I{` `}<u className={classNames('is-size-4')}>like</u>{' '}
             to do
         </p>
+
+        <div className="tabs is-boxed">
+  <ul>
+    <li className="is-active">
+      <a>
+        <span className="icon is-small"><i className="fas fa-th" aria-hidden="true"></i></span>
+        <span>All</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span className="icon is-small"><i className="fas fa-code" aria-hidden="true"></i></span>
+        <span>Languages</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span className="icon is-small"><i className="fas fa-desktop" aria-hidden="true"></i></span>
+        <span>Front</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span className="icon is-small"><i className="fas fa-server" aria-hidden="true"></i></span>
+        <span>Back</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span className="icon is-small"><i className="far fa-magic" aria-hidden="true"></i></span>
+        <span>Design</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span className="icon is-small"><i className="far fa-dot-circle" aria-hidden="true"></i></span>
+        <span>Other</span>
+      </a>
+    </li>
+  </ul>
+</div>
     </header>
     <div className={classNames("card-content", css.card_skills)}>
 

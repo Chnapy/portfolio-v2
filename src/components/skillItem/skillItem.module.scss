@@ -36,7 +36,9 @@ $SKILL-MAP: (
 }
 
 .skill {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   width: 8.5rem;
 
