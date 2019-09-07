@@ -6,6 +6,7 @@ export type TileAnimations = {
 };
 
 const animations: TileAnimations = {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     'tileTranslateX': (config: Partial<SpringConfig>) => useSpring({
         config: {
             mass: 50,
