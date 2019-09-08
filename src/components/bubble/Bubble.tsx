@@ -13,6 +13,9 @@ const MOVE_INTERVAL = 10000;
 
 export class Bubble extends React.Component<BubbleProps> {
 
+    // TODO
+    static DISABLED = true;
+
     private top!: number;
     private left!: number;
 
@@ -22,6 +25,9 @@ export class Bubble extends React.Component<BubbleProps> {
     private interval!: NodeJS.Timeout;
 
     render() {
+        if(Bubble.DISABLED) {
+            return null;
+        }
         const { icon } = this.props;
         const img = icon && MapIcons.getIcon(icon);
 
@@ -35,6 +41,9 @@ export class Bubble extends React.Component<BubbleProps> {
     }
 
     componentDidMount(): void {
+        if(Bubble.DISABLED) {
+            return;
+        }
         this.top = Number.parseInt((Math.random() * 100) + '');
         this.left = Number.parseInt((Math.random() * 100) + '');
 
@@ -51,6 +60,9 @@ export class Bubble extends React.Component<BubbleProps> {
     }
 
     componentWillUnmount(): void {
+        if(Bubble.DISABLED) {
+            return;
+        }
         clearInterval(this.interval);
         delete this.top;
         delete this.left;
