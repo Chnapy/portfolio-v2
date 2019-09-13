@@ -1,13 +1,4 @@
 :global {
-  @keyframes keyTranslateRight {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
   @keyframes cursorBlinking {
     0% {
       opacity: 1;

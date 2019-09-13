@@ -72,6 +72,9 @@ export default class Tiled extends React.PureComponent<TiledProps, TiledState> {
 
         this.interval = setInterval(() => {
 
+            // TODO
+            // if(!onScreen) { return; }
+
             const bounds = node.getBoundingClientRect();
             const { scrollWidth } = node;
     

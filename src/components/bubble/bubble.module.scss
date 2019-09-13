@@ -1,0 +1,38 @@
+$BUBBLE_SIZE: 50px;
+
+.bubble_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 20s;
+  transition-timing-function: linear;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bubble {
+  display: flex;
+  width: $BUBBLE_SIZE;
+  height: $BUBBLE_SIZE;
+  border-radius: 100px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(white, 0.25);
+  border-bottom-width: 4px;
+  background: rgba(white, 0.15);
+  transform: translate(-50%, -50%);
+
+  .bubble_empty > & {
+    width: $BUBBLE_SIZE / 4;
+    height: $BUBBLE_SIZE / 4;
+    border-width: 1px;
+  }
+}
+
+.img {
+  max-width: 80%;
+  max-height: 80%;
+}

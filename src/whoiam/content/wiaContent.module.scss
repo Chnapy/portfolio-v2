@@ -1,0 +1,63 @@
+$BOX_BACKGROUND: rgba(white, .05);
+
+.intro {
+  color: white;
+  background: $BOX_BACKGROUND;
+  border-width: 0;
+
+  :global(.subtitle) {
+    color: inherit;
+  }
+}
+
+.card {
+  color: white;
+  background: $BOX_BACKGROUND;
+
+  &, :global(.card-header), :global(.tabs) ul, :global(.tabs) a {
+    border-width: 0;
+  }
+
+  .card_skills, :global(.tabs) li:global(.is-active) a {
+    background: rgba(black, .05);
+  }
+
+  :global(.card-header-title), :global(.tabs) a {
+    color: inherit;
+  }
+}
+
+.card:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.card_skills {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: space-around;
+
+  > * {
+    margin: .5rem;
+    margin-bottom: .5rem !important;
+  }
+}
+
+:global(.card-header-title) {
+  display: block;
+}
+
+:global(.card-header) {
+  display: flex;
+  flex-direction: column;
+}
+
+:global(.tabs) {
+  margin-bottom: 0 !important;
+
+  + :global(.card) {
+    border-top: none;
+  }
+}

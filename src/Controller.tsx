@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { Store, createStore, Dispatch, Reducer } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { Provider } from 'react-redux';
-import rootReducer, { StoreAction } from './reducers/RootReducer';
+import {Store, createStore, Dispatch, Reducer, applyMiddleware} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {Provider} from 'react-redux';
+import rootReducer, {StoreAction} from './reducers/RootReducer';
 import StoreState from './StoreState';
 import RootReducer from './reducers/RootReducer';
+import {createLogger} from 'redux-logger';
 
 export default class Controller {
 
@@ -20,9 +21,19 @@ export default class Controller {
 
         const storeReducer: Reducer<StoreState, StoreAction> = (s, a) => rootReducer.reduce(s, a);
 
+        const logger = createLogger({
+            timestamp: true,
+            duration: true,
+            collapsed: true
+        });
+
         this.store = createStore(
             storeReducer,
-            composeWithDevTools()
+            composeWithDevTools(
+                applyMiddleware(
+                    logger
+                )
+            )
         );
         this.store.dispatch({
             type: 'init'
@@ -32,7 +43,7 @@ export default class Controller {
     renderToDOM() {
         ReactDOM.render((
             <Provider store={this.store}>
-                <App />
+                <App/>
             </Provider>
         ), document.getElementById('root'));
     }

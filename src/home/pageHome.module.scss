@@ -2,6 +2,10 @@
 
 @import "../page.module.scss";
 
+.layer_2 > * {
+  pointer-events: none;
+}
+
 .code_wrapper {
   display: inline-block;
 
