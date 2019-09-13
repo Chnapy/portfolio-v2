@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import MapIcons, { Icon } from '../../MapIcons';
 
 type SkillItemType = 'string' | 'tag' | 'icon' | 'full-icon';
-export type SkillName = 'ts'
+export type SkillName = 'ts' | 'js'
     | 'react' | 'redux' | 'react-router' | 'd3' | 'crossfilter'
     | 'sass' | 'antd' | 'bootstrap'
     | 'node' | 'sequelize' | 'java'
@@ -51,6 +51,15 @@ const mapTypeToContent: {
         },
         className: css.skill_ts,
         sub: 'TypeScript',
+        level: 9
+    },
+    js: {
+        icon: {
+            type: 'className',
+            className: 'devicon-javascript-plain'
+        },
+        className: css.skill_js,
+        sub: 'JavaScript',
         level: 9
     },
     react: {

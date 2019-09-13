@@ -32,6 +32,16 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
                     <div className={css.layer_0}>
 
 
+                        {/*<ParallaxLayer offset={0} speed={-.2} >*/}
+
+                        {/*    /!*<Bubble icon={'nerf'} />*!/*/}
+                        {/*    /!*<Bubble icon={'hummus'} />*!/*/}
+
+                        {/*    {new Array(30).fill(1).map((u,i) => <Bubble key={i} />)}*/}
+
+                        {/*</ParallaxLayer>*/}
+
+
 
                     </div>
 
@@ -42,21 +52,6 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
                     </div>
 
                     <div className={classNames(css.layer_2, css.frame)}>
-
-
-                        <ParallaxLayer offset={0} speed={-.2} >
-
-                            <Bubble icon={'nerf'} />
-                            <Bubble icon={'hummus'} />
-                            
-                            <Bubble/>
-                            <Bubble/>
-                            <Bubble/>
-                            <Bubble/>
-                            <Bubble/>
-                            <Bubble/>
-
-                        </ParallaxLayer>
 
                     </div>
 

@@ -6,9 +6,10 @@ $BUBBLE_SIZE: 50px;
   left: 0;
   width: 100%;
   height: 100%;
-  transition: transform 10s;
+  transition: transform 20s;
   transition-timing-function: linear;
   pointer-events: none;
+  will-change: transform;
 }
 
 .bubble {
@@ -19,9 +20,9 @@ $BUBBLE_SIZE: 50px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  border: 2px solid rgba(white, 0.5);
+  border: 2px solid rgba(white, 0.25);
   border-bottom-width: 4px;
-  background: rgba(white, 0.25);
+  background: rgba(white, 0.15);
   transform: translate(-50%, -50%);
 
   .bubble_empty > & {

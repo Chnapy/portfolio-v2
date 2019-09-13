@@ -1,20 +1,20 @@
 import React from 'react';
-import MapIcons, { Icon } from '../../MapIcons';
+import MapIcons, {Icon} from '../../MapIcons';
 import css from './bubble.module.scss';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import {AnimationEngine} from "../../AnimationEngine";
 
 export interface BubbleProps {
     icon?: Icon;
 }
 
 const MOVE_VALUE = 10;
-const MOVE_INTERVAL = 10000;
+const MOVE_INTERVAL = 20000;
 
 export class Bubble extends React.Component<BubbleProps> {
 
-    // TODO
-    static DISABLED = true;
+    private node!: HTMLElement;
 
     private top!: number;
     private left!: number;
@@ -22,28 +22,22 @@ export class Bubble extends React.Component<BubbleProps> {
     private topNegative: boolean = false;
     private leftNegative: boolean = false;
 
-    private interval!: NodeJS.Timeout;
-
     render() {
-        if(Bubble.DISABLED) {
-            return null;
-        }
-        const { icon } = this.props;
+        const {icon} = this.props;
         const img = icon && MapIcons.getIcon(icon);
 
         return <div className={classNames(css.bubble_wrapper, {
-            [ css.bubble_empty ]: !img
+            [css.bubble_empty]: !img
         })}>
             <div className={css.bubble}>
-                {img && <img src={img} className={css.img} />}
+                {img && <img src={img} className={css.img}/>}
             </div>
         </div>;
     }
 
     componentDidMount(): void {
-        if(Bubble.DISABLED) {
-            return;
-        }
+        this.node = ReactDOM.findDOMNode(this) as HTMLElement;
+
         this.top = Number.parseInt((Math.random() * 100) + '');
         this.left = Number.parseInt((Math.random() * 100) + '');
 
@@ -52,18 +46,16 @@ export class Bubble extends React.Component<BubbleProps> {
 
         this.updateNode();
 
-        setTimeout(() => {
-            this.interval = setInterval(this.update, MOVE_INTERVAL);
-
-            this.update();
-        }, 500);
+        AnimationEngine.instance.onComponentMount(this, {
+            updateFct: this.update,
+            interval: MOVE_INTERVAL
+        });
     }
 
     componentWillUnmount(): void {
-        if(Bubble.DISABLED) {
-            return;
-        }
-        clearInterval(this.interval);
+        AnimationEngine.instance.onComponentUnmount(this);
+
+        delete this.node;
         delete this.top;
         delete this.left;
     }
@@ -100,8 +92,6 @@ export class Bubble extends React.Component<BubbleProps> {
     };
 
     private updateNode(): void {
-        const node = ReactDOM.findDOMNode(this) as HTMLElement;
-
-        node.style.transform = `translate(${this.top}%, ${this.left}%)`;
+        this.node.style.transform = `translate(${this.top}%, ${this.left}%)`;
     }
 }

@@ -28,6 +28,7 @@
       background-repeat: repeat-x;
       background-position-y: bottom;
       background-position-x: left;
+      will-change: opacity;
       animation: appear .8s ease-in; 
     }
   }

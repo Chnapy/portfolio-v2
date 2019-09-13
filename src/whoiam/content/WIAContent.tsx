@@ -9,7 +9,7 @@ export default class WIAContent extends React.Component {
     render() {
 
         const skillILike: SkillName[] = [
-            'ts',
+            'ts', 'js',
             'react', 'redux', 'react-router', 'd3', 'crossfilter',
             'jest',
             'node', 'sequelize', 'java',
