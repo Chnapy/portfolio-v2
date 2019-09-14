@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 256 256"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="vizuall_icon.svg"
+   width="256"
+   height="256">
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Fichier 12</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     id="namedview32"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.7202698"
+     inkscape:cx="-163.1867"
+     inkscape:cy="46.931073"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Interface" />
+  <defs
+     id="defs4">
+    <style
+       id="style6">.cls-1{fill:#2a3e51;}.cls-2,.cls-3{fill:#fff;}.cls-3,.cls-5{opacity:0.7;}.cls-4,.cls-5,.cls-8{fill:#2b3e50;}.cls-6{font-size:82.95px;font-family:Helvetica-Bold, Helvetica;font-weight:700;}.cls-7{letter-spacing:-0.04em;}.cls-8{letter-spacing:-0.02em;}</style>
+  </defs>
+  <title
+     id="title8">Fichier 12</title>
+  <g
+     id="Calque_2"
+     data-name="Calque 2"
+     transform="translate(-209.60731,-252.65731)">
+    <g
+       id="Interface"
+       transform="translate(-40.262691,-40.262691)">
+      <g
+         id="g4166"
+         transform="matrix(0.68772835,0,0,0.68772835,78.027317,148.41216)">
+        <g
+           id="g4162">
+          <polygon
+             class="cls-2"
+             points="309.91,298.78 362.02,406.4 430.9,263.88 508.62,242.59 361.8,548.92 249.87,315.32 249.87,315.32 "
+             id="polygon14"
+             style="fill:#ffffff" />
+          <polygon
+             class="cls-4"
+             points="622.11,476.22 561.61,493.2 508.62,384.23 440.25,527.17 361.8,548.92 508.62,242.59 508.62,242.59 "
+             id="polygon18"
+             style="fill:#2b3e50" />
+        </g>
+        <polygon
+           style="opacity:0.7;fill:#2b3e50"
+           id="polygon20"
+           points="474.5,455.56 508.62,384.23 561.61,493.2 561.61,493.2 488.4,481.6 "
+           class="cls-5" />
+      </g>
+    </g>
+  </g>
+</svg>

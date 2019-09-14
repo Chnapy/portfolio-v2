@@ -1,32 +1,33 @@
+import {Moment} from 'moment';
 
-type Lang = 'fr' | 'en';
+export type Lang = 'fr' | 'en';
 
-type LangString = {
+export type LangString = {
     [k in Lang]: string;
 };
 
-type Markdown = LangString;
+export type Markdown = LangString;
 
-type Media = {
+export type Media = {
     type: 'image' | 'video' | 'iframe';
     url: string;
 };
 
-type JobType = 'salaryman' | 'freelance' | 'stage';
+export type JobType = 'salaryman' | 'freelance' | 'stage';
 
-type UserThumb = {
+export type UserThumb = {
     iconPath: string;
     sub: LangString;
 };
 
-type UserStatus = {
+export type UserStatus = {
     type: JobType;
     idJob: Job['id'];
 } | {
     type: 'none';
 };
 
-type User = {
+export type User = {
     lastname: string;
     firstname: string;
     address: string;
@@ -38,67 +39,74 @@ type User = {
     idJob: Job['id'];
 };
 
-type HardSkill = {
+export type HardSkill = {
     name: string;
     iconPath: string;
     sortPriority: number;
 };
 
-type Skills = {
+export type Skills = {
     hard: HardSkill[];
 };
 
-type LinksEnum = 'website' | 'github' | 'npm' | 'linkedin' | 'stackoverflow';
+export type LinksEnum = 'website' | 'github' | 'npm' | 'linkedin' | 'stackoverflow';
 
-type Links<L extends LinksEnum = LinksEnum> = {
+export type Links<L extends LinksEnum = LinksEnum> = {
     [k in L]?: {
         url: string;
         iconPath?: string;
     };
 };
 
-type Job<T extends JobType = JobType> = {
+export interface JobColors {
+    mainBackground: string;
+    secondaryBackground?: string;
+    mainColor: string;
+    secondaryColor?: string;
+}
+
+export type Job<T extends JobType = JobType> = {
     id: number;
     type: T;
-    company: string;
-    function: LangString;
+    companyName: string;
+    jobFunction: LangString;
     description: Markdown;
     tags: LangString[];
     logo: string;
     medias: Media[];
-    startDate: Date;
-    endDate?: Date;
+    startDate: Moment;
+    endDate?: Moment;
     skills: Skills;
-    mainColor: string;
+    colors: JobColors;
     links: Links;
     projects: Project['name'][];
 };
 
-type ProjectType = 'personal' | 'professional';
+export type ProjectType = 'personal' | 'professional';
 
-type ProjectStateWIP = {
+export type ProjectStateWIP = {
     type: 'wip';
 };
 
-type ProjectStateFinished = {
+export type ProjectStateFinished = {
     type: 'finished';
-    endDate: Date;
+    endDate: Moment;
 };
 
-type ProjectStateStandby = {
+export type ProjectStateStandby = {
     type: 'standby';
-    breakDate: Date;
+    breakDate: Moment;
 };
 
-type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
+export type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
-type ProjectOne<T extends ProjectType = ProjectType> = {
+export type ProjectOne<T extends ProjectType = ProjectType> = {
     name: string;
     description: Markdown;
     logo?: string;
     tags: LangString[];
     medias: Media[];
-    startDate: Date;
+    startDate: Moment;
     state: ProjectState;
     skills: Skills;
     type: T;
@@ -106,13 +114,13 @@ type ProjectOne<T extends ProjectType = ProjectType> = {
     jobs?: Job['id'];   //even personal, a project can be used in job
 };
 
-type ProjectGroup<T extends ProjectType = ProjectType> = {
+export type ProjectGroup<T extends ProjectType = ProjectType> = {
     name: string;
     description: Markdown;
     logo?: string;
     tags: LangString[];
     medias: Media[];
-    startDate: Date;
+    startDate: Moment;
     state: ProjectState;
     type: T;
     group: ProjectOne[];
@@ -120,14 +128,14 @@ type ProjectGroup<T extends ProjectType = ProjectType> = {
     jobs?: Job['id'];
 }
 
-type Project<T extends ProjectType = ProjectType> = ProjectOne<T> | ProjectGroup<T>;
+export type Project<T extends ProjectType = ProjectType> = ProjectOne<T> | ProjectGroup<T>;
 
-type School = {
+export type School = {
     name: string;
     description: Markdown;
     logo: string;
-    // startDate: Date; // usefull ?
-    endDate: Date;
+    // startDate: Moment; // usefull ?
+    endDate: Moment;
     degree: LangString;
     skills: Skills;
     links: Links<'website'>;
@@ -135,12 +143,12 @@ type School = {
     projects: Project<'personal'>[];
 };
 
-type Other = {
-    createdDate: Date;
+export type Other = {
+    createdDate: Moment;
     portfolioLinks: Links<'github'>;
 };
 
-type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
+export type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
 
 export type Sample = {
 

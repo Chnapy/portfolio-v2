@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/redux-logger": "3.0.7",
     "classnames": "2.2.6",
+    "moment": "2.24.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "7.1.1",
