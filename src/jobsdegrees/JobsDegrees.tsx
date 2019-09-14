@@ -7,14 +7,41 @@ import {JobPane, JobPaneProps} from "./JobPane";
 import icon_vizuall from '../_assets/job/vizuall_icon.svg';
 import moment from "moment";
 
+const parts: string[] = [
+    'buildingTiles_030.png',
+    'buildingTiles_050.png',
+    'buildingTiles_074.png'
+];
+
+let buildingImg: string[];
+
+const fetchPromises = Promise.all(
+    parts.map(part => fetch(process.env.PUBLIC_URL + '/assets/kenney/isometric-buildings/PNG/' + part))
+)
+    .then(res => Promise.all(res.map(r => r.blob())))
+    .then(blobs => {
+        buildingImg = blobs.map(URL.createObjectURL)
+    });
+
 export interface JobsDegreesProps {
 
 }
 
-export class JobsDegrees extends React.Component<JobsDegreesProps> {
+export class JobsDegrees extends React.Component<JobsDegreesProps, { src?: string[] }> {
+
+    constructor(props: JobsDegreesProps) {
+        super(props);
+        this.state = {};
+        if (buildingImg) {
+            this.state = {src: buildingImg};
+        } else {
+            fetchPromises.then(() => this.setState({src: buildingImg}));
+        }
+    }
 
 
     render() {
+        if (!this.state.src) return null;
 
         const vizuAll: JobPaneProps = {
             job: {
@@ -35,10 +62,10 @@ export class JobsDegrees extends React.Component<JobsDegreesProps> {
                 tags: [{
                     fr: 'tag fr',
                     en: 'Datavisualization'
-                },{
+                }, {
                     fr: 'tag fr',
                     en: 'Product'
-                },{
+                }, {
                     fr: 'tag fr',
                     en: 'Startup'
                 }],
@@ -62,7 +89,30 @@ export class JobsDegrees extends React.Component<JobsDegreesProps> {
                     }
                 },
                 projects: []
-            }
+            },
+            building: [
+                {
+                    src: this.state.src[0],
+                    pos: {
+                        x: 0,
+                        y: -34
+                    }
+                },
+                {
+                    src: this.state.src[1],
+                    pos: {
+                        x: 17,
+                        y: 38
+                    }
+                },
+                {
+                    src: this.state.src[2],
+                    pos: {
+                        x: 17,
+                        y: 69
+                    }
+                }
+            ]
         };
 
         return (

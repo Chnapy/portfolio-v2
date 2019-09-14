@@ -3,8 +3,17 @@ import React, {CSSProperties} from "react";
 import style from './jobPane.module.scss';
 import classNames from "classnames";
 
+export interface BuildingProps {
+    src: string;
+    pos: {
+        x: number;
+        y: number;
+    };
+}
+
 export interface JobPaneProps {
     job: Job;
+    building: BuildingProps[];
 }
 
 export class JobPane extends React.Component<JobPaneProps> {
@@ -30,6 +39,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                 secondaryColor
             }
         } = this.props.job;
+        const {building} = this.props;
 
         const rootStyle: CSSProperties = {
             backgroundColor: mainBackground,
@@ -38,6 +48,15 @@ export class JobPane extends React.Component<JobPaneProps> {
 
         return (
             <div className={style.wrapper} style={rootStyle}>
+
+                <div className={style.back}>
+
+                    <div className={style.building}>
+                        {building.map((bp, i) => <img key={i} className={style.part} src={bp.src} alt={''}
+                                                      style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
+                    </div>
+                </div>
+
                 <div className={classNames("container", style.column)}>
 
                     <div>
@@ -64,7 +83,8 @@ export class JobPane extends React.Component<JobPaneProps> {
                         <span className={classNames("subtitle is-2")}>{jobFunction.en}</span>
                     </div>
 
-                    <div>{tags.map(tag => <span key={tag.en} className={classNames("tag", style.tag)}>{tag.en}</span>)}</div>
+                    <div>{tags.map(tag => <span key={tag.en}
+                                                className={classNames("tag", style.tag)}>{tag.en}</span>)}</div>
 
                     <p className={classNames(style.description)}>
                         {description.en}
@@ -97,13 +117,14 @@ export class JobPane extends React.Component<JobPaneProps> {
             }
 
             return (
-                <a key={value.url} className={classNames("button is-small", style.link)} href={value.url} target={'_blank'}>
+                <a key={value.url} className={classNames("button is-small", style.link)} href={value.url}
+                   target={'_blank'}>
                   <span className="icon is-small">
                       <img src={iconPath} alt={'icon'}/>
                   </span>
-                    <span>
+                    {content && <span>
                       {content}
-                    </span>
+                    </span>}
                 </a>
             )
         });
