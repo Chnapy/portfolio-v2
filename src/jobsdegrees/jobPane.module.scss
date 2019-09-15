@@ -1,21 +1,54 @@
+$CONTENT_PADDING_V: 50px;
+$LOGO_WIDTH: 92px;
+$BUILDING_WIDTH: 133px;
+$PATH_WIDTH: 2px;
 
 .wrapper {
   position: relative;
   overflow: hidden;
+  min-height: 400px;
 }
 
 .back {
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 20px;
+  right: 20px;
   height: 100%;
 
+  .back_left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: max($BUILDING_WIDTH, $LOGO_WIDTH);
+  }
+
+  .logo {
+    display: inline-block;
+    margin-top: $CONTENT_PADDING_V;
+    margin-left: $BUILDING_WIDTH / 2 - $LOGO_WIDTH / 2;
+    width: $LOGO_WIDTH;
+  }
+
+  .path {
+    position: relative;
+    flex-grow: 1;
+    height: 100%;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: calc(50% - #{$PATH_WIDTH/2});
+      width: 0;
+      border-left: $PATH_WIDTH dashed rgba(white, .5);
+    }
+  }
+
   .building {
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    width: 133px;
+    position: relative;
+    width: $BUILDING_WIDTH;
     height: 100%;
 
     .part {
@@ -30,7 +63,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 0;
+  width: auto;
+  padding: $CONTENT_PADDING_V 0;
   margin: 0 173px;
 
   :global(.title), :global(.subtitle) {
@@ -63,10 +97,6 @@
 
 .companyName {
 
-}
-
-.logo {
-  width: 64px;
 }
 
 .dates {

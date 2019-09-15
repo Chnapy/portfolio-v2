@@ -41,7 +41,7 @@ export default class App extends Component<{}, {}> {
                     <TransiBackground offset={2.8} background={'dino'}/>
 
                     <Page offset={3.6} speed={.3}>
-                    <JobsDegrees/>
+                        <JobsDegrees/>
                     </Page>
 
                 </Parallax>
