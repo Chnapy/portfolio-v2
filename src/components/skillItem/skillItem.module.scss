@@ -1,25 +1,5 @@
 $SKILL-ICON-SIZE: 4em;
 
-$SKILL-MAP: (
-        ts: #007acc,
-        js: #f0db4f,
-        react: #61dafb,
-        react_router: #D0021B,
-        redux: #764ABC,
-        node: #83CD29,
-        jest: #99425b,
-        sequelize: #3b4b72,
-        java: #EA2D2E,
-        d3: #f7974e,
-        crossfilter: #2E3B4E,
-        sass: #CB6699,
-        antd: #F0606F,
-        bootstrap: #5B4282,
-        webpack: #1c78c0,
-        git: #F34F29,
-        hummus: #f7a16e
-);
-
 @mixin skillColor($ext, $color) {
   .skill_#{$ext} {
     .skillLevel {
@@ -66,8 +46,4 @@ $SKILL-MAP: (
   .skillLevel {
     margin-top: 5px;
   }
-}
-
-@each $key, $color in $SKILL-MAP {
-  @include skillColor($key, $color);
 }

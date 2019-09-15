@@ -39,10 +39,21 @@ export type User = {
     idJob: Job['id'];
 };
 
-export type HardSkill = {
-    name: string;
+export type Icon = {
+    type: 'className';
+    className: string;
+} | {
+    type: 'img';
     iconPath: string;
-    sortPriority: number;
+};
+
+export type HardSkill = {
+    id: string;
+    name: string;
+    color: string;
+    icon: Icon;
+    level: number;
+    // sortPriority: number;
 };
 
 export type Skills = {

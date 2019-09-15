@@ -1,20 +1,20 @@
 import React from 'react';
 import css from './skillItem.module.scss';
 import classNames from 'classnames';
-import MapIcons, { Icon } from '../../MapIcons';
+import {HardSkill, Icon} from "../../DataTypes";
 
 type SkillItemType = 'string' | 'tag' | 'icon' | 'full-icon';
-export type SkillName = 'ts' | 'js'
-    | 'react' | 'redux' | 'react-router' | 'd3' | 'crossfilter'
-    | 'sass' | 'antd' | 'bootstrap'
-    | 'node' | 'sequelize' | 'java'
-    | 'jest'
-    | 'webpack' | 'git'
-    | 'hummus';
+// export type SkillName = 'ts' | 'js'
+//     | 'react' | 'redux' | 'react-router' | 'd3' | 'crossfilter'
+//     | 'sass' | 'antd' | 'bootstrap'
+//     | 'node' | 'sequelize' | 'java'
+//     | 'jest'
+//     | 'webpack' | 'git'
+//     | 'hummus';
 
 interface SkillItemProps {
     type: SkillItemType;
-    skillName: SkillName;
+    skill: HardSkill;
     colored?: boolean;
     className?: string;
     children?: never;
@@ -22,192 +22,49 @@ interface SkillItemProps {
 
 interface SkillItemChildProps {
     colored: boolean;
-    icon: SkillItemIcon;
+    icon: Icon;
     level: number;
     sub: string;
     children?: never;
 }
 
-type SkillItemIcon = {
-    type: 'className';
-    className: string;
-} | {
-    type: 'img';
-    img: Icon;
-};
+const skillsAlreadyUsed: Set<HardSkill['id']> = new Set();
 
-const mapTypeToContent: {
-    [ k in SkillName ]: {
-        icon: SkillItemIcon;
-        className: string;
-        sub: string;
-        level: number;
-    };
-} = {
-    ts: {
-        icon: {
-            type: 'className',
-            className: 'devicon-typescript-plain'
-        },
-        className: css.skill_ts,
-        sub: 'TypeScript',
-        level: 9
-    },
-    js: {
-        icon: {
-            type: 'className',
-            className: 'devicon-javascript-plain'
-        },
-        className: css.skill_js,
-        sub: 'JavaScript',
-        level: 9
-    },
-    react: {
-        icon: {
-            type: 'className',
-            className: 'devicon-react-original'
-        },
-        className: css.skill_react,
-        sub: 'React',
-        level: 9
-    },
-    'react-router': {
-        icon: {
-            type: 'img',
-            img: 'react-router'
-        },
-        className: css.skill_react_router,
-        sub: 'React Router',
-        level: 8
-    },
-    redux: {
-        icon: {
-            type: 'img',
-            img: 'redux'
-        },
-        className: css.skill_redux,
-        sub: 'Redux',
-        level: 8
-    },
-    node: {
-        icon: {
-            type: 'img',
-            img: 'node'
-        },
-        className: css.skill_node,
-        sub: 'Node',
-        level: 8
-    },
-    jest: {
-        icon: {
-            type: 'img',
-            img: 'jest'
-        },
-        className: css.skill_jest,
-        sub: 'Jest',
-        level: 7
-    },
-    antd: {
-        icon: {
-            type: 'img',
-            img: 'antd'
-        },
-        className: css.skill_antd,
-        sub: 'Ant Design',
-        level: 7
-    },
-    sequelize: {
-        icon: {
-            type: 'className',
-            className: 'devicon-sequelize-plain'
-        },
-        className: css.skill_sequelize,
-        sub: 'Sequelize',
-        level: 7
-    },
-    java: {
-        icon: {
-            type: 'className',
-            className: 'devicon-java-plain'
-        },
-        className: css.skill_java,
-        sub: 'Java',
-        level: 7
-    },
-    d3: {
-        icon: {
-            type: 'className',
-            className: 'devicon-d3js-plain'
-        },
-        className: css.skill_d3,
-        sub: 'D3',
-        level: 7
-    },
-    crossfilter: {
-        icon: {
-            type: 'img',
-            img: 'crossfilter'
-        },
-        className: css.skill_crossfilter,
-        sub: 'Crossfilter',
-        level: 9
-    },
-    sass: {
-        icon: {
-            type: 'className',
-            className: 'devicon-sass-original'
-        },
-        className: css.skill_sass,
-        sub: 'SASS',
-        level: 8
-    },
-    bootstrap: {
-        icon: {
-            type: 'className',
-            className: 'devicon-bootstrap-plain'
-        },
-        className: css.skill_bootstrap,
-        sub: 'Bootstrap',
-        level: 8
-    },
-    webpack: {
-        icon: {
-            type: 'className',
-            className: 'devicon-webpack-plain'
-        },
-        className: css.skill_webpack,
-        sub: 'Webpack',
-        level: 7
-    },
-    git: {
-        icon: {
-            type: 'className',
-            className: 'devicon-git-plain'
-        },
-        className: css.skill_git,
-        sub: 'Git',
-        level: 8
-    },
-    hummus: {
-        icon: {
-            type: 'img',
-            img: 'hummus'
-        },
-        className: css.skill_hummus,
-        sub: 'Making hummus',
-        level: 10
+const ref = document.querySelector('script')!;
+
+function onNewSkill(id: HardSkill['id'], color: string): void {
+    skillsAlreadyUsed.add(id);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .${css.skill}_${id} .${css.skillLevel}::-webkit-progress-value {
+        background: ${color};
+      }
+      
+      .${css.skill}_${id} .${css.skillLevel}::-moz-progress-value {
+        background: ${color};
+      }
+      
+      .${css.skill}_${id} .${css.skillLevel} {
+        color: ${color};
+      }
+    `;
+    ref.parentNode!.insertBefore(style, ref);
+}
+
+export function SkillItem({type, skill, colored, className}: SkillItemProps) {
+
+    const {id, name, icon, color, level} = skill;
+
+    if (!skillsAlreadyUsed.has(id)) {
+        onNewSkill(id, color);
     }
-};
-
-export function SkillItem({ type, skillName, colored, className }: SkillItemProps) {
-
-    const { icon, sub, className: skillClassName, level } = mapTypeToContent[ skillName ];
 
     const childProps: SkillItemChildProps = {
         colored: !!colored,
         icon,
         level,
-        sub
+        sub: name
     };
 
     let content;
@@ -220,7 +77,7 @@ export function SkillItem({ type, skillName, colored, className }: SkillItemProp
     }
 
     return (
-        <div className={classNames('box', css.skill, skillClassName, className)}>
+        <div className={classNames('box', css.skill, `${css.skill}_${id}`, className)}>
 
             {content}
 
@@ -228,18 +85,18 @@ export function SkillItem({ type, skillName, colored, className }: SkillItemProp
     );
 }
 
-function getIcon(icon: SkillItemIcon, colored: boolean): JSX.Element {
+function getIcon(icon: Icon, colored: boolean): JSX.Element {
     switch (icon.type) {
         case 'className':
             return <i className={classNames(icon.className, {
                 colored
-            }, css.skillIcon)} />;
+            }, css.skillIcon)}/>;
         case 'img':
-            return <img src={MapIcons.getIcon(icon.img)} className={css.skillIcon} />;
+            return <img src={icon.iconPath} className={css.skillIcon}/>;
     }
 }
 
-function SkillItemFullIcon({ colored, icon, sub, level }: SkillItemChildProps) {
+function SkillItemFullIcon({colored, icon, sub, level}: SkillItemChildProps) {
 
     return <>
 
@@ -247,6 +104,7 @@ function SkillItemFullIcon({ colored, icon, sub, level }: SkillItemChildProps) {
 
         <div className={css.skillSub}>{sub}</div>
 
-        <progress className={classNames("progress", "is-small", css.skillLevel)} value={level} max={10}>{level * 10}%</progress>
+        <progress className={classNames("progress", "is-small", css.skillLevel)} value={level} max={10}>{level * 10}%
+        </progress>
     </>;
 }
