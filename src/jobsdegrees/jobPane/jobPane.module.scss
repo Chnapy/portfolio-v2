@@ -1,0 +1,86 @@
+@import "../jobVariables";
+
+.wrapper {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+  min-width: 100px;
+  padding: $CONTENT_PADDING_V 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  padding: $CONTENT_PADDING_V 0;
+  margin: 0 10px;
+
+  :global(.title), :global(.subtitle) {
+    color: inherit;
+    margin-bottom: 0;
+  }
+}
+
+.secondary {
+  opacity: .4;
+  font-size: 1rem;
+}
+
+.label {
+  position: absolute;
+  transform: translate(-100%, -50%);
+  top: calc(50% - 1px);
+  left: -.2em;
+}
+
+.label_wrapper {
+  position: relative;
+
+  &:global(.title), &:global(.subtitle) {
+    > .label {
+      font-weight: normal;
+    }
+  }
+}
+
+.companyName {
+
+}
+
+.dates {
+  font-size: 1.2em;
+}
+
+.jobFunction {
+  margin-top: 20px;
+}
+
+.tag, .link {
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+}
+
+.links {
+  position: absolute;
+  top: 50%;
+  right: -1em;
+  transform: translate(100%, -50%);
+
+  .link {
+
+  }
+}
+
+.description {
+  margin-top: 20px;
+}

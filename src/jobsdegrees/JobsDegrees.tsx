@@ -2,10 +2,11 @@ import React from "react";
 import css from "./pageJobsDegrees.module.scss";
 import classNames from "classnames";
 import {BulmaSection} from "../components/bulma/BulmaSection";
-import {JobPane, JobPaneProps} from "./JobPane";
+import {JobPane, JobPaneProps} from "./jobPane/JobPane";
 
 import icon_vizuall from '../_assets/job/vizuall_icon.svg';
 import moment from "moment";
+import MapIcons from "../MapIcons";
 
 const parts: string[] = [
     'buildingTiles_030.png',
@@ -74,7 +75,68 @@ export class JobsDegrees extends React.Component<JobsDegreesProps, { src?: strin
                 startDate: moment(),
                 endDate: moment(),
                 skills: {
-                    hard: []
+                    hard: [
+                        {
+                            id: 'ts',
+                            name: 'TypeScript',
+                            color: '#007acc',
+                            icon: {
+                                type: 'className',
+                                className: 'devicon-typescript-plain'
+                            },
+                            level: 9
+                        },
+                        {
+                            id: 'js',
+                            name: 'JavaScript',
+                            color: '#f0db4f',
+                            icon: {
+                                type: 'className',
+                                className: 'devicon-javascript-plain'
+                            },
+                            level: 9
+                        },
+                        {
+                            id: 'react',
+                            name: 'React',
+                            color: '#61dafb',
+                            icon: {
+                                type: 'className',
+                                className: 'devicon-react-original'
+                            },
+                            level: 9
+                        },
+                        {
+                            id: 'react_router',
+                            name: 'React Router',
+                            color: '#D0021B',
+                            icon: {
+                                type: 'img',
+                                iconPath: MapIcons.getIcon('react-router'),//TODO
+                            },
+                            level: 8
+                        },
+                        {
+                            id: 'redux',
+                            name: 'Redux',
+                            color: '#764ABC',
+                            icon: {
+                                type: 'img',
+                                iconPath: MapIcons.getIcon('redux'),//TODO
+                            },
+                            level: 9
+                        },
+                        {
+                            id: 'node',
+                            name: 'Node',
+                            color: '#83CD29',
+                            icon: {
+                                type: 'img',
+                                iconPath: MapIcons.getIcon('node'),//TODO
+                            },
+                            level: 8
+                        }
+                    ]
                 },
                 colors: {
                     mainBackground: '#4b5e6f',

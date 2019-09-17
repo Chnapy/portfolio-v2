@@ -1,9 +1,9 @@
-import {Job, Links, LinksEnum} from "../DataTypes";
+import {Job, Links, LinksEnum} from "../../DataTypes";
 import React, {CSSProperties} from "react";
 import style from './jobPane.module.scss';
 import classNames from "classnames";
-import VisibilitySensor from 'react-visibility-sensor';
-import {Spring} from "react-spring/renderprops-universal";
+import {JobBack} from "../jobBack/JobBack";
+import {JobSkills} from "../jobSkills/JobSkills";
 
 export interface BuildingProps {
     src: string;
@@ -51,70 +51,9 @@ export class JobPane extends React.Component<JobPaneProps> {
         return (
             <div className={style.wrapper} style={rootStyle}>
 
-                <div className={style.back}>
+                <JobBack companyName={companyName} logo={logo} building={building}/>
 
-                    <VisibilitySensor>
-                        {({isVisible}) => (
-                            <div className={style.back_left}>
-
-                                <Spring
-                                    config={{
-                                        // duration: 800
-                                    }}
-                                    from={{
-                                        opacity: 0,
-                                        transform: `scale(0.1)`
-                                    }}
-                                    to={{
-                                        opacity: isVisible ? 1 : 0,
-                                        transform: `scale(${isVisible ? 1 : 0.1})`
-                                    }}
-                                >
-                                    {(styles) => <img className={style.logo} src={logo} alt={companyName}
-                                                      style={styles}/>}
-                                </Spring>
-
-
-                                <Spring
-                                    config={{
-                                        delay: 500,
-                                        duration: 1000
-                                    }}
-                                    from={{
-                                        height: `0%`
-                                    }}
-                                    to={{
-                                        height: `${isVisible ? 100 : 0}%)`
-                                    }}
-                                >
-                                    {(styles) => <div className={style.path} style={styles}/>}
-                                </Spring>
-
-
-                                <Spring
-                                    config={{
-                                        delay: 1000,
-                                        // duration: 800
-                                    }}
-                                    from={{
-                                        transform: `translateY(90%)`
-                                    }}
-                                    to={{
-                                        transform: `translateY(${isVisible ? 0 : 90}%)`
-                                    }}
-                                >
-                                    {(styles) => <div className={style.building} style={styles}>
-                                        {building.map((bp, i) => <img key={i} className={style.part}
-                                                                      src={bp.src} alt={''}
-                                                                      style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
-                                    </div>}
-                                </Spring>
-
-                            </div>
-                        )}
-
-                    </VisibilitySensor>
-                </div>
+                <div className={style.side}/>
 
                 <div className={classNames("container", style.column)}>
 
@@ -125,7 +64,8 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 I worked at
                             </span>
                             <span className={classNames("title is-2")}>{companyName}</span>
-                            <span>{this.renderLinks(links)}</span>
+
+                            <this.renderLinks {...links} />
                         </h2>
                     </div>
 
@@ -150,11 +90,18 @@ export class JobPane extends React.Component<JobPaneProps> {
                     </p>
 
                 </div>
+
+                <div className={style.side}>
+
+                    <JobSkills skills={skills}/>
+
+                </div>
+
             </div>
         );
     }
 
-    private renderLinks(links: Links): React.ReactNode | React.ReactNode[] {
+    private renderLinks(links: Links) {
         const linksContent = Object.keys(links).map(_k => {
             const k = _k as LinksEnum;
             const value = links[k]!;
@@ -185,7 +132,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                       {content}
                     </span>}
                 </a>
-            )
+            );
         });
 
         return <div className={style.links}>

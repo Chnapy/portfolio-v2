@@ -4,13 +4,6 @@ import classNames from 'classnames';
 import {HardSkill, Icon} from "../../DataTypes";
 
 type SkillItemType = 'string' | 'tag' | 'icon' | 'full-icon';
-// export type SkillName = 'ts' | 'js'
-//     | 'react' | 'redux' | 'react-router' | 'd3' | 'crossfilter'
-//     | 'sass' | 'antd' | 'bootstrap'
-//     | 'node' | 'sequelize' | 'java'
-//     | 'jest'
-//     | 'webpack' | 'git'
-//     | 'hummus';
 
 interface SkillItemProps {
     type: SkillItemType;
@@ -48,6 +41,17 @@ function onNewSkill(id: HardSkill['id'], color: string): void {
       .${css.skill}_${id} .${css.skillLevel} {
         color: ${color};
       }
+      
+      .${css.skill}_${id}[data-type="full-icon"]:hover, 
+      .${css.skill}_${id}[data-type="full-icon"]:focus, 
+      .${css.skill}_${id}[data-type="full-icon"]:active {
+        background-color: ${color};
+        border-color: ${color};
+      }
+      
+      .${css.skill}_${id}[data-type="tag"]::before {
+        background-color: ${color};
+      }
     `;
     ref.parentNode!.insertBefore(style, ref);
 }
@@ -72,12 +76,15 @@ export function SkillItem({type, skill, colored, className}: SkillItemProps) {
         case 'full-icon':
             content = <SkillItemFullIcon {...childProps} />;
             break;
+        case 'tag':
+            content = <SkillItemTag {...childProps} />;
+            break;
         default:
             throw new Error();
     }
 
     return (
-        <div className={classNames('box', css.skill, `${css.skill}_${id}`, className)}>
+        <div className={classNames('box', css.skill, `${css.skill}_${id}`, className)} data-type={type}>
 
             {content}
 
@@ -106,5 +113,15 @@ function SkillItemFullIcon({colored, icon, sub, level}: SkillItemChildProps) {
 
         <progress className={classNames("progress", "is-small", css.skillLevel)} value={level} max={10}>{level * 10}%
         </progress>
+    </>;
+}
+
+function SkillItemTag({colored, icon, sub, level}: SkillItemChildProps) {
+
+    return <>
+
+        {getIcon(icon, colored)}
+
+        <span className={css.skillSub}>{sub}</span>
     </>;
 }
