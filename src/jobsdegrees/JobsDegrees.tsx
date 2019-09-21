@@ -139,9 +139,9 @@ export class JobsDegrees extends React.Component<JobsDegreesProps, { src?: strin
                     ]
                 },
                 colors: {
-                    mainBackground: '#4b5e6f',
-                    mainColor: '#ffffff',
-                    secondaryBackground: '#2b3e4f',
+                    mainBackground: '#2b3e4f',
+                    mainColor: '#fff',
+                    secondaryBackground: '#ddd',
                     secondaryColor: '#2b3e4f'
                 },
                 links: {

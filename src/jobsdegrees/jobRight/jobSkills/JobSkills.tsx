@@ -1,7 +1,7 @@
 import style from './jobSkills.module.scss';
 import React from "react";
-import {Skills} from "../../DataTypes";
-import {SkillItem} from "../../components/skillItem/SkillItem";
+import {Skills} from "../../../DataTypes";
+import {SkillItem} from "../../../components/skillItem/SkillItem";
 
 export interface JobSkillsProps {
     skills: Skills;
