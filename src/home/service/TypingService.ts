@@ -1,12 +1,12 @@
-import { CodeTypingProps } from "../home/code/CodeTyping";
-import { StoreAction } from "./RootReducer";
-import style from '../home/pageHome.module.scss';
-import MyReducer from './MyReducer';
-import getBindTypingTiled from '../home/code/BindTypingTiled';
-import { TagProps } from "../home/code/Tag";
-import { TiledLayerStateAction, tiledLayerNames } from "./TiledReducer";
+import {CodeTypingProps} from "../code/CodeTyping";
+import style from '../pageHome.module.scss';
+import {Service} from '../../core/Service';
+import getBindTypingTiled from '../code/BindTypingTiled';
+import {TagProps} from "../code/Tag";
+import {tiledLayerNames, TiledLayerStateAction} from "./TiledService";
+import {StoreAction} from "../../core/StoreAction";
 
-export default class TypingReducer extends MyReducer<CodeTypingProps> {
+export class TypingService extends Service<CodeTypingProps> {
 
     private defaultOnLineEnd = (tagName: string) => {
         const layerNames = getBindTypingTiled(tagName);
@@ -29,7 +29,7 @@ export default class TypingReducer extends MyReducer<CodeTypingProps> {
             throw new Error('business error');
         }
 
-        if(!layerNamesTarget.length) {
+        if (!layerNamesTarget.length) {
             return;
         }
 
@@ -45,7 +45,7 @@ export default class TypingReducer extends MyReducer<CodeTypingProps> {
 
     private onTagMouseOut = (tagName: string) => {
 
-        console.log('out', tagName)
+        console.log('out', tagName);
 
         const layerNames = [...tiledLayerNames];
 
@@ -158,12 +158,6 @@ export default class TypingReducer extends MyReducer<CodeTypingProps> {
     });
 
     onReduce(state: Readonly<CodeTypingProps>, action: StoreAction): CodeTypingProps {
-
-        switch (action.type) {
-            case "init":
-                return this.getInitialState();
-        }
-
         return state;
     }
 

@@ -23,13 +23,12 @@ export interface JobPanePartProps {
 
 export interface JobPaneProps {
     job: Job;
-    building: BuildingProps[];
 }
 
 export class JobPane extends React.Component<JobPaneProps> {
 
     render() {
-        const {job, building} = this.props;
+        const {job} = this.props;
 
         return (
             <VisibilitySensor partialVisibility={true} offset={{bottom: 200}}>
@@ -44,7 +43,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 transform: `translateX(0)`
                             } : undefined}
                         >
-                            {style => <JobLeft job={job} building={building} visible={isVisible} style={style}/>}
+                            {style => <JobLeft job={job} visible={isVisible} style={style}/>}
                         </Spring>
 
                         <Spring

@@ -1,4 +1,4 @@
-import { TiledLayerName } from "../../reducers/TiledReducer";
+import {TiledLayerName} from "../service/TiledService";
 
 type BindTypingTiled = { [k: string]: ReadonlyArray<TiledLayerName> };
 

@@ -1,29 +1,19 @@
 import React from 'react';
 import css from './pageWhoIAm.module.scss';
 import classNames from 'classnames';
-import {SkillItem} from '../components/skillItem/SkillItem';
 import WIAContent from './content/WIAContent';
-import {BulmaSection} from '../components/bulma/BulmaSection';
-import {Bubble} from '../components/bubble/Bubble';
-import {ParallaxLayer} from 'react-spring/renderprops-addons';
+import {connect} from "react-redux";
+import {Skills} from "../DataTypes";
+import StoreState from "../core/StoreState";
 
 export interface WhoIAmProps {
-
+    skills: Skills;
 }
 
-export interface WhoIAmState {
-
-}
-
-export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
-
-    constructor(props: WhoIAmProps) {
-        super(props);
-
-        this.state = {};
-    }
+class _WhoIAm extends React.Component<WhoIAmProps> {
 
     render() {
+        const {skills} = this.props;
 
         return (
             <div className={css.page} id={css.page_home}>
@@ -45,7 +35,7 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
 
                 <div className={classNames(css.layer_1, css.content)}>
 
-                    <WIAContent/>
+                    <WIAContent skills={skills}/>
 
                 </div>
 
@@ -57,3 +47,9 @@ export default class WhoIAm extends React.Component<WhoIAmProps, WhoIAmState> {
         );
     }
 }
+
+export const WhoIAm = connect<WhoIAmProps, {}, {}, StoreState>(
+    state => ({
+        skills: state.skills
+    })
+)(_WhoIAm);

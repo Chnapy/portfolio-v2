@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.scss';
 import PageHome from './home/PageHome';
 import MenuLeft from './menuLeft/MenuLeft';
-import WhoIAm from './whoiam/WhoIAm';
+import {WhoIAm} from './whoiam/WhoIAm';
 import {Parallax} from 'react-spring/renderprops-addons';
 import {TransiBackground} from './transiBackground/TransiBackground';
 import {JobsDegrees} from "./jobsdegrees/JobsDegrees";

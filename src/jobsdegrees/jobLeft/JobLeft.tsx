@@ -1,22 +1,22 @@
 import React, {CSSProperties} from "react";
 import css from "./jobLeft.module.scss";
 import {Spring} from "react-spring/renderprops-universal";
-import {BuildingProps, JobPanePartProps} from "../jobPane/JobPane";
+import {JobPanePartProps} from "../jobPane/JobPane";
 import {Links, LinksEnum} from "../../DataTypes";
 import classNames from "classnames";
 
 export interface JobLeftProps extends JobPanePartProps {
-    building: BuildingProps[];
 }
 
-export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible, style}) => {
+export const JobLeft: React.FC<JobLeftProps> = ({job, visible, style}) => {
     const {
         companyName, logo, startDate, endDate, links, tags, colors: {
             mainColor,
             mainBackground,
             secondaryBackground,
             secondaryColor
-        }
+        },
+        buildings
     } = job;
 
     const rootStyle: CSSProperties = {
@@ -80,9 +80,9 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible, style})
                     } : undefined}
                 >
                     {(styles) => <div className={css.building} style={styles}>
-                        {building.map((bp, i) => <img key={i} className={css.part}
-                                                      src={bp.src} alt={''}
-                                                      style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
+                        {buildings.map((bp, i) => <img key={i} className={css.part}
+                                                       src={bp.src} alt={''}
+                                                       style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
                     </div>}
                 </Spring>
 

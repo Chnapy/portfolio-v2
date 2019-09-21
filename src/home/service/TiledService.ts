@@ -1,11 +1,11 @@
-import { TiledProps } from '../home/tiled/Tiled';
-import { Action } from 'redux';
-import { StoreAction, InitAction } from './RootReducer';
-import TiledMap from '../types/tiled';
-import { TiledTile } from '../types/tiled/tileset';
-import MyReducer from './MyReducer';
-import mapUrl from '../MapURL';
-import { TiledLayerState } from '../home/tiled/layer/TiledLayerWrap';
+import {TiledProps} from '../tiled/Tiled';
+import {Action} from 'redux';
+import TiledMap from '../../types/tiled';
+import {TiledTile} from '../../types/tiled/tileset';
+import {Service} from '../../core/Service';
+import mapUrl from '../../MapURL';
+import {TiledLayerState} from '../tiled/layer/TiledLayerWrap';
+import {StoreAction} from "../../core/StoreAction";
 
 export interface TiledLoadedAction extends Action<'tiled/loaded'> {
     map: TiledMap;
@@ -20,21 +20,24 @@ export type TiledAction = TiledLoadedAction | TiledLayerStateAction;
 
 export type TiledLayerName = 'background' | 'clouds' | 'sea' | 'decor' | 'ground' | 'interactif' | 'items';
 
-export const tiledLayerNames: ReadonlyArray<TiledLayerName> = ['background' , 'clouds' , 'sea' , 'decor' , 'ground' , 'interactif' , 'items'];
+export const tiledLayerNames: ReadonlyArray<TiledLayerName> = ['background', 'clouds', 'sea', 'decor', 'ground', 'interactif', 'items'];
 
-export default class TiledReducer extends MyReducer<TiledProps<TiledLayerName>> {
+export class TiledService extends Service<TiledProps<TiledLayerName>> {
 
-    getInitialState = (): TiledProps<TiledLayerName> => ({
-        step: {
-            type: "loading"
-        }
-    });
+    getInitialState = (): TiledProps<TiledLayerName> => {
+
+        this.init();
+
+        return {
+            step: {
+                type: "loading"
+            }
+        };
+    };
 
     onReduce(state: Readonly<TiledProps<TiledLayerName>>, action: StoreAction): TiledProps<TiledLayerName> {
 
         switch (action.type) {
-            case "init":
-                return this.init(state, action);
             case "tiled/loaded":
                 return {
                     step: {
@@ -63,8 +66,8 @@ export default class TiledReducer extends MyReducer<TiledProps<TiledLayerName>> 
             throw new Error('business error');
         }
 
-        const newStates = action.layerNames.reduce((o: { [ k: string ]: TiledLayerState }, name) => {
-            o[ name ] = action.state;
+        const newStates = action.layerNames.reduce((o: { [k: string]: TiledLayerState }, name) => {
+            o[name] = action.state;
             return o;
         }, {});
 
@@ -80,7 +83,7 @@ export default class TiledReducer extends MyReducer<TiledProps<TiledLayerName>> 
         };
     }
 
-    private init(state: Readonly<TiledProps<TiledLayerName>>, action: InitAction): TiledProps<TiledLayerName> {
+    private init(): void {
 
         fetch(mapUrl.tiled_home)
             .then(res => {
@@ -105,8 +108,6 @@ export default class TiledReducer extends MyReducer<TiledProps<TiledLayerName>> 
             .catch(err => {
                 console.error(err);
             });
-
-        return this.getInitialState();
     }
 }
 
@@ -128,7 +129,7 @@ const parsingTiledMap = async (map: TiledMap): Promise<void> => {
 
         if (tileset.image) {
 
-            const { columns, imagewidth, imageheight, tilewidth, tileheight } = tileset;
+            const {columns, imagewidth, imageheight, tilewidth, tileheight} = tileset;
 
             if (!columns || !imagewidth || !imageheight || !tilewidth || !tileheight) {
                 throw new Error('!columns || !imagewidth || !imageheight || !tilewidth || !tileheight');
@@ -165,7 +166,7 @@ const parsingTiledMap = async (map: TiledMap): Promise<void> => {
                             const y = tileheight * indexY;
                             ctx.drawImage(image, x, y, tilewidth, tileheight, 0, 0, tilewidth, tileheight);
 
-                            const tile: TiledTile = tileset.tiles.find(t => t.id === id) || { id };
+                            const tile: TiledTile = tileset.tiles.find(t => t.id === id) || {id};
                             tile.image = canvas.toDataURL();
 
                             tiles.push(tile);
@@ -195,4 +196,4 @@ const parsingTiledMap = async (map: TiledMap): Promise<void> => {
 
     });
     await Promise.all(mapPromises);
-}
+};

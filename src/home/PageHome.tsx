@@ -4,8 +4,8 @@ import CodeTyping, {CodeTypingProps} from "./code/CodeTyping";
 import Tiled, {TiledProps} from './tiled/Tiled';
 import classNames from 'classnames';
 import FrontCard from './frontCard/FrontCard';
-import {connect, MapStateToProps, MapDispatchToProps} from "react-redux";
-import StoreState from "../StoreState";
+import {connect, MapDispatchToProps, MapStateToProps} from "react-redux";
+import StoreState from "../core/StoreState";
 import {ParallaxLayer} from 'react-spring/renderprops-addons';
 
 export interface PageHomeProps {

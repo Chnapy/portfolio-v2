@@ -1,7 +1,7 @@
-import { StoreAction } from './RootReducer';
-import { Dispatch } from 'redux';
+import {Dispatch} from 'redux';
+import {StoreAction} from "./StoreAction";
 
-abstract class MyReducer<S> {
+export abstract class Service<S> {
 
     protected readonly dispatch: Dispatch<StoreAction>;
 
@@ -15,8 +15,6 @@ abstract class MyReducer<S> {
         return this.onReduce(state || this.getInitialState(), action);
     }
 
-    abstract onReduce(state: Readonly<S>, action: StoreAction): S;
+    abstract onReduce(state: Readonly<S>, action: StoreAction): Readonly<S>;
 
 }
-
-export default MyReducer;

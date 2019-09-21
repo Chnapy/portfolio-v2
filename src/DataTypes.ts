@@ -76,6 +76,14 @@ export interface JobColors {
     secondaryColor?: string;
 }
 
+export interface BuildingImg {
+    src: string;
+    pos: {
+        x: number;
+        y: number;
+    };
+}
+
 export type Job<T extends JobType = JobType> = {
     id: number;
     type: T;
@@ -89,6 +97,7 @@ export type Job<T extends JobType = JobType> = {
     endDate?: Moment;
     skills: Skills;
     colors: JobColors;
+    buildings: BuildingImg[];
     links: Links;
     projects: Project['name'][];
 };
