@@ -1,5 +1,5 @@
 import React, {CSSProperties} from "react";
-import style from './jobCenter.module.scss';
+import css from './jobCenter.module.scss';
 import classNames from "classnames";
 import {JobPanePartProps} from "../jobPane/JobPane";
 
@@ -9,6 +9,7 @@ export interface JobCenterProps extends JobPanePartProps {
 export class JobCenter extends React.Component<JobCenterProps> {
 
     render() {
+        const {job, style} = this.props;
         const {
             description,
             jobFunction,
@@ -18,21 +19,22 @@ export class JobCenter extends React.Component<JobCenterProps> {
                 mainBackground,
                 mainColor
             }
-        } = this.props.job;
+        } = job;
 
-        const contentStyle: CSSProperties = {
+        const rootStyle: CSSProperties = {
             backgroundColor: mainBackground,
-            color: mainColor
+            color: mainColor,
+            ...style
         };
 
         return (
-            <div className={classNames("container", style.column)} style={contentStyle}>
+            <div className={classNames("container", css.column)} style={rootStyle}>
 
-                <div className={classNames(style.jobFunction)}>
+                <div className={classNames(css.jobFunction)}>
                     <span className={classNames("subtitle is-2")}>{jobFunction.en}</span>
                 </div>
 
-                <p className={classNames(style.description)}>
+                <p className={classNames(css.description)}>
                     {description.en}
                 </p>
 

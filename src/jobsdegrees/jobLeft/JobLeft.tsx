@@ -1,5 +1,5 @@
 import React, {CSSProperties} from "react";
-import style from "./jobLeft.module.scss";
+import css from "./jobLeft.module.scss";
 import {Spring} from "react-spring/renderprops-universal";
 import {BuildingProps, JobPanePartProps} from "../jobPane/JobPane";
 import {Links, LinksEnum} from "../../DataTypes";
@@ -9,7 +9,7 @@ export interface JobLeftProps extends JobPanePartProps {
     building: BuildingProps[];
 }
 
-export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
+export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible, style}) => {
     const {
         companyName, logo, startDate, endDate, links, tags, colors: {
             mainColor,
@@ -19,9 +19,10 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
         }
     } = job;
 
-    const colorStyle: CSSProperties = {
+    const rootStyle: CSSProperties = {
         color: secondaryColor,
-        backgroundColor: secondaryBackground
+        backgroundColor: secondaryBackground,
+        ...style
     };
 
     const tagStyle: CSSProperties = {
@@ -30,25 +31,27 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
     };
 
     return (
-        <div className={style.content} style={colorStyle}>
-            <div className={style.left}>
+        <div className={css.content} style={rootStyle}>
+            <div className={css.left}>
 
                 <Spring
+                    delay={1000}
                     from={{
                         opacity: 0,
                         transform: `scale(0.1)`
                     }}
-                    to={{
-                        opacity: visible ? 1 : 0,
-                        transform: `scale(${visible ? 1 : 0.1})`
-                    }}
+                    to={visible ? {
+                        opacity: 1,
+                        transform: `scale(1)`
+                    } : undefined}
                 >
-                    {(styles) => <img className={style.logo} src={logo} alt={companyName}
+                    {(styles) => <img className={css.logo} src={logo} alt={companyName}
                                       style={styles}/>}
                 </Spring>
 
 
                 <Spring
+                    delay={1000}
                     config={{
                         delay: 500,
                         duration: 1000
@@ -56,27 +59,28 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
                     from={{
                         height: `0%`
                     }}
-                    to={{
-                        height: `${visible ? 100 : 0}%)`
-                    }}
+                    to={visible ? {
+                        height: `100%`
+                    } : undefined}
                 >
-                    {(styles) => <div className={style.path} style={styles}/>}
+                    {(styles) => <div className={css.path} style={styles}/>}
                 </Spring>
 
 
                 <Spring
+                    delay={1000}
                     config={{
                         delay: 1000
                     }}
                     from={{
                         transform: `translateY(90%)`
                     }}
-                    to={{
-                        transform: `translateY(${visible ? 0 : 90}%)`
-                    }}
+                    to={visible ? {
+                        transform: `translateY(0)`
+                    } : undefined}
                 >
-                    {(styles) => <div className={style.building} style={styles}>
-                        {building.map((bp, i) => <img key={i} className={style.part}
+                    {(styles) => <div className={css.building} style={styles}>
+                        {building.map((bp, i) => <img key={i} className={css.part}
                                                       src={bp.src} alt={''}
                                                       style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
                     </div>}
@@ -84,20 +88,20 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
 
             </div>
 
-            <div className={style.right}>
+            <div className={css.right}>
 
-                <div className={classNames(style.dates)}>
-                        <span className={style.date} style={tagStyle}>
+                <div className={classNames(css.dates)}>
+                        <span className={css.date} style={tagStyle}>
                         {startDate.format('MM/YYYY')}
                         </span>
                     <span> - </span>
-                    <span className={style.date} style={tagStyle}>
+                    <span className={css.date} style={tagStyle}>
                         {endDate && endDate.format('MM/YYYY')}
                         </span>
                 </div>
 
                 <div>
-                    <h2 className={classNames(style.companyName)}>
+                    <h2 className={classNames(css.companyName)}>
 
                         <span className={classNames("title is-2")}>{companyName}</span>
 
@@ -106,7 +110,7 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, building, visible}) => {
                     <RenderLinks {...links} />
 
                     <div>{tags.map(tag => <span key={tag.en}
-                                                className={classNames("tag", style.tag)}
+                                                className={classNames("tag", css.tag)}
                                                 style={tagStyle}>{tag.en}</span>)}</div>
                 </div>
 
@@ -138,7 +142,7 @@ const RenderLinks: React.FC<Links> = (links) => {
         }
 
         return (
-            <a key={value.url} className={classNames("button is-small", style.link)} href={value.url}
+            <a key={value.url} className={classNames("button is-small", css.link)} href={value.url}
                target={'_blank'}>
                   <span className="icon is-small">
                       <img src={iconPath} alt={'icon'}/>
@@ -150,7 +154,7 @@ const RenderLinks: React.FC<Links> = (links) => {
         );
     });
 
-    return <div className={style.links}>
+    return <div className={css.links}>
         {linksContent}
     </div>;
 };
