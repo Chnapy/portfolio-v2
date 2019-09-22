@@ -1,25 +1,25 @@
 import React, {CSSProperties} from "react";
 import css from './jobCenter.module.scss';
 import classNames from "classnames";
-import {JobPanePartProps} from "../jobPane/JobPane";
+import {TransitionableProps} from "../jobPane/JobPane";
+import {Job, School} from "../../DataTypes";
 
-export interface JobCenterProps extends JobPanePartProps {
+export interface JobCenterProps extends TransitionableProps {
+    jobSchool: Job | School;
 }
 
 export class JobCenter extends React.Component<JobCenterProps> {
 
     render() {
-        const {job, style} = this.props;
+        const {jobSchool, style} = this.props;
         const {
             description,
-            jobFunction,
-            type,
-            medias,
+            capacity,
             colors: {
                 mainBackground,
                 mainColor
             }
-        } = job;
+        } = jobSchool;
 
         const rootStyle: CSSProperties = {
             backgroundColor: mainBackground,
@@ -31,7 +31,7 @@ export class JobCenter extends React.Component<JobCenterProps> {
             <div className={classNames("container", css.column)} style={rootStyle}>
 
                 <div className={classNames(css.jobFunction)}>
-                    <span className={classNames("subtitle is-2")}>{jobFunction.en}</span>
+                    <span className={classNames("subtitle is-2")}>{capacity.en}</span>
                 </div>
 
                 <p className={classNames(css.description)}>

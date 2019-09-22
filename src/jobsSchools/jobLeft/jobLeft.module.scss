@@ -7,6 +7,7 @@ $MINWIDTH: max($BUILDING_WIDTH, $LOGO_WIDTH);
   z-index: +2;
   padding: $CONTENT_PADDING_V $CONTENT_PADDING_V 0;
   clip-path: polygon(0 0, 100% 0, calc(100% - #{$POLYGON_EXTRA}) 100%, 0 100%);
+  background-color: #EEE;
 }
 
 .left {

@@ -1,4 +1,4 @@
-import {Job} from "../../DataTypes";
+import {Job, School, Skills} from "../../DataTypes";
 import React, {CSSProperties} from "react";
 import style from './jobPane.module.scss';
 import {JobLeft} from "../jobLeft/JobLeft";
@@ -7,28 +7,20 @@ import {JobRight} from "../jobRight/JobRight";
 import VisibilitySensor from "react-visibility-sensor";
 import {Spring} from "react-spring/renderprops-universal";
 
-export interface BuildingProps {
-    src: string;
-    pos: {
-        x: number;
-        y: number;
-    };
-}
-
-export interface JobPanePartProps {
-    job: Job;
+export interface TransitionableProps {
     visible: boolean;
     style?: CSSProperties;
 }
 
 export interface JobPaneProps {
-    job: Job;
+    jobSchool: Job | School;
+    skills: Skills;
 }
 
 export class JobPane extends React.Component<JobPaneProps> {
 
     render() {
-        const {job} = this.props;
+        const {jobSchool, skills} = this.props;
 
         return (
             <VisibilitySensor partialVisibility={true} offset={{bottom: 200}}>
@@ -43,7 +35,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 transform: `translateX(0)`
                             } : undefined}
                         >
-                            {style => <JobLeft job={job} visible={isVisible} style={style}/>}
+                            {style => <JobLeft jobSchool={jobSchool} visible={isVisible} style={style}/>}
                         </Spring>
 
                         <Spring
@@ -55,7 +47,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 transform: `translateX(0)`
                             } : undefined}
                         >
-                            {style => <JobCenter job={job} visible={isVisible} style={style}/>}
+                            {style => <JobCenter jobSchool={jobSchool} visible={isVisible} style={style}/>}
                         </Spring>
 
                         <Spring
@@ -67,7 +59,8 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 transform: `translateX(0)`
                             } : undefined}
                         >
-                            {style => <JobRight job={job} visible={isVisible} style={style}/>}
+                            {style => <JobRight jobSchool={jobSchool} skills={skills} visible={isVisible}
+                                                style={style}/>}
                         </Spring>
 
                     </div>

@@ -60,6 +60,10 @@ export type Skills = {
     hard: HardSkill[];
 };
 
+export type SkillsID = {
+    hard: HardSkill['id'][];
+};
+
 export type LinksEnum = 'website' | 'github' | 'npm' | 'linkedin' | 'stackoverflow';
 
 export type Links<L extends LinksEnum = LinksEnum> = {
@@ -69,7 +73,7 @@ export type Links<L extends LinksEnum = LinksEnum> = {
     };
 };
 
-export interface JobColors {
+export interface PaneColors {
     mainBackground: string;
     secondaryBackground?: string;
     mainColor: string;
@@ -85,21 +89,22 @@ export interface BuildingImg {
 }
 
 export type Job<T extends JobType = JobType> = {
+    type: 'job';
     id: number;
-    type: T;
-    companyName: string;
-    jobFunction: LangString;
+    jobType: T;
+    name: string;
+    capacity: LangString;
     description: Markdown;
     tags: LangString[];
     logo: string;
     medias: Media[];
     startDate: Moment;
     endDate?: Moment;
-    skills: Skills;
-    colors: JobColors;
+    skills: SkillsID;
+    colors: PaneColors;
     buildings: BuildingImg[];
     links: Links;
-    projects: Project['name'][];
+    projects: Project['id'][];
 };
 
 export type ProjectType = 'personal' | 'professional';
@@ -121,6 +126,7 @@ export type ProjectStateStandby = {
 export type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
 export type ProjectOne<T extends ProjectType = ProjectType> = {
+    id: number;
     name: string;
     description: Markdown;
     logo?: string;
@@ -128,13 +134,14 @@ export type ProjectOne<T extends ProjectType = ProjectType> = {
     medias: Media[];
     startDate: Moment;
     state: ProjectState;
-    skills: Skills;
+    skills: SkillsID;
     type: T;
     links: Links<'website' | 'github' | 'npm'>;
     jobs?: Job['id'];   //even personal, a project can be used in job
 };
 
 export type ProjectGroup<T extends ProjectType = ProjectType> = {
+    id: number;
     name: string;
     description: Markdown;
     logo?: string;
@@ -151,16 +158,19 @@ export type ProjectGroup<T extends ProjectType = ProjectType> = {
 export type Project<T extends ProjectType = ProjectType> = ProjectOne<T> | ProjectGroup<T>;
 
 export type School = {
+    type: 'school';
+    id: number;
     name: string;
+    capacity: LangString;
     description: Markdown;
     logo: string;
-    // startDate: Moment; // usefull ?
     endDate: Moment;
-    degree: LangString;
-    skills: Skills;
+    skills: SkillsID;
+    colors: PaneColors;
+    buildings: BuildingImg[];
     links: Links<'website'>;
-    job?: Job<'stage'>;
-    projects: Project<'personal'>[];
+    job?: Job['id'];
+    projects: Project<'personal'>['id'][];
 };
 
 export type Other = {

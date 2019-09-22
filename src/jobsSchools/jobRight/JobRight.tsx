@@ -1,21 +1,24 @@
 import React, {CSSProperties} from "react";
 import css from './jobRight.module.scss';
-import {JobSkills} from "../jobRight/jobSkills/JobSkills";
-import {JobPanePartProps} from "../jobPane/JobPane";
+import {JobSkills} from "./jobSkills/JobSkills";
+import {TransitionableProps} from "../jobPane/JobPane";
+import {Job, School, Skills} from "../../DataTypes";
 
-export interface JobRightProps extends JobPanePartProps {
+export interface JobRightProps extends TransitionableProps {
+    jobSchool: Job | School;
+    skills: Skills;
 }
 
 export class JobRight extends React.Component<JobRightProps> {
 
     render() {
-        const {job, visible, style} = this.props;
         const {
-            skills,
-            colors: {
-                mainBackground
+            skills, style, jobSchool: {
+                colors: {
+                    mainBackground
+                }
             }
-        } = job;
+        } = this.props;
 
         const rootStyle: CSSProperties = {
             backgroundColor: mainBackground,

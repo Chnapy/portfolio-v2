@@ -5,7 +5,7 @@ import MenuLeft from './menuLeft/MenuLeft';
 import {WhoIAm} from './whoiam/WhoIAm';
 import {Parallax} from 'react-spring/renderprops-addons';
 import {TransiBackground} from './transiBackground/TransiBackground';
-import {JobsDegrees} from "./jobsdegrees/JobsDegrees";
+import {JobsSchools} from "./jobsSchools/JobsSchools";
 import {Page} from "./Page";
 
 export default class App extends Component<{}, {}> {
@@ -41,7 +41,7 @@ export default class App extends Component<{}, {}> {
                     <TransiBackground offset={2.8} background={'dino'}/>
 
                     <Page offset={3.6} speed={.3}>
-                        <JobsDegrees/>
+                        <JobsSchools/>
                     </Page>
 
                 </Parallax>

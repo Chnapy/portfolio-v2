@@ -1,23 +1,30 @@
 import React, {CSSProperties} from "react";
 import css from "./jobLeft.module.scss";
 import {Spring} from "react-spring/renderprops-universal";
-import {JobPanePartProps} from "../jobPane/JobPane";
-import {Links, LinksEnum} from "../../DataTypes";
+import {TransitionableProps} from "../jobPane/JobPane";
+import {Job, Links, LinksEnum, School} from "../../DataTypes";
 import classNames from "classnames";
 
-export interface JobLeftProps extends JobPanePartProps {
+export interface JobLeftProps extends TransitionableProps {
+    jobSchool: Job | School;
 }
 
-export const JobLeft: React.FC<JobLeftProps> = ({job, visible, style}) => {
+export const JobLeft: React.FC<JobLeftProps> = ({jobSchool, visible, style}) => {
     const {
-        companyName, logo, startDate, endDate, links, tags, colors: {
+        name, logo, endDate, links, colors: {
             mainColor,
             mainBackground,
             secondaryBackground,
             secondaryColor
         },
         buildings
-    } = job;
+    } = jobSchool;
+
+    let startDate, tags;
+    if (jobSchool.type === 'job') {
+        startDate = jobSchool.startDate;
+        tags = jobSchool.tags;
+    }
 
     const rootStyle: CSSProperties = {
         color: secondaryColor,
@@ -45,7 +52,7 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, visible, style}) => {
                         transform: `scale(1)`
                     } : undefined}
                 >
-                    {(styles) => <img className={css.logo} src={logo} alt={companyName}
+                    {(styles) => <img className={css.logo} src={logo} alt={name}
                                       style={styles}/>}
                 </Spring>
 
@@ -91,27 +98,31 @@ export const JobLeft: React.FC<JobLeftProps> = ({job, visible, style}) => {
             <div className={css.right}>
 
                 <div className={classNames(css.dates)}>
+                    {startDate && <>
                         <span className={css.date} style={tagStyle}>
                         {startDate.format('MM/YYYY')}
                         </span>
-                    <span> - </span>
-                    <span className={css.date} style={tagStyle}>
-                        {endDate && endDate.format('MM/YYYY')}
-                        </span>
+                        <span> - </span>
+                    </>}
+                    {endDate && <span className={css.date} style={tagStyle}>
+                        {endDate.format('MM/YYYY')}
+                    </span>}
                 </div>
 
                 <div>
                     <h2 className={classNames(css.companyName)}>
 
-                        <span className={classNames("title is-2")}>{companyName}</span>
+                        <span className={classNames("title is-2")}>{name}</span>
 
                     </h2>
 
                     <RenderLinks {...links} />
 
-                    <div>{tags.map(tag => <span key={tag.en}
+                    {tags && <div>
+                        {tags.map(tag => <span key={tag.en}
                                                 className={classNames("tag", css.tag)}
-                                                style={tagStyle}>{tag.en}</span>)}</div>
+                                                style={tagStyle}>{tag.en}</span>)}
+                    </div>}
                 </div>
 
             </div>

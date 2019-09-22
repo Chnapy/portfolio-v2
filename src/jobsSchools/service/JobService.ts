@@ -2,8 +2,8 @@ import {Service} from "../../core/Service";
 import {Job} from "../../DataTypes";
 import icon_vizuall from "../../_assets/job/vizuall_icon.svg";
 import moment from "moment";
-import MapIcons from "../../MapIcons";
 import {StoreAction} from "../../core/StoreAction";
+import {LoremIpsum} from "../../LoremIpsum";
 
 const parts: string[] = [
     'buildingTiles_030.png',
@@ -23,19 +23,20 @@ const fetchPromises = Promise.all(
 
 const MOCK_JOBS: Job[] = [
     {
+        type: 'job',
         id: 1,
-        type: 'salaryman',
-        companyName: 'Vizu All',
-        jobFunction: {
+        jobType: 'salaryman',
+        name: 'Vizu All',
+        capacity: {
             fr: 'Développeur Fullstack',
             en: 'Fullstack developper'
         },
         description: {
-            fr: 'description fr...',
+            fr: LoremIpsum,
             en: `
                         Conception d'une application web de création de datavisualisations, FastBrick. 
                         Concurrente directe de solutions comme Power BI, Tableau Software ou encore QlikView.
-                    `
+                    ${LoremIpsum}`
         },
         tags: [{
             fr: 'tag fr',
@@ -52,68 +53,7 @@ const MOCK_JOBS: Job[] = [
         startDate: moment(),
         endDate: moment(),
         skills: {
-            hard: [
-                {
-                    id: 'ts',
-                    name: 'TypeScript',
-                    color: '#007acc',
-                    icon: {
-                        type: 'className',
-                        className: 'devicon-typescript-plain'
-                    },
-                    level: 9
-                },
-                {
-                    id: 'js',
-                    name: 'JavaScript',
-                    color: '#f0db4f',
-                    icon: {
-                        type: 'className',
-                        className: 'devicon-javascript-plain'
-                    },
-                    level: 9
-                },
-                {
-                    id: 'react',
-                    name: 'React',
-                    color: '#61dafb',
-                    icon: {
-                        type: 'className',
-                        className: 'devicon-react-original'
-                    },
-                    level: 9
-                },
-                {
-                    id: 'react_router',
-                    name: 'React Router',
-                    color: '#D0021B',
-                    icon: {
-                        type: 'img',
-                        iconPath: MapIcons.getIcon('react-router'),//TODO
-                    },
-                    level: 8
-                },
-                {
-                    id: 'redux',
-                    name: 'Redux',
-                    color: '#764ABC',
-                    icon: {
-                        type: 'img',
-                        iconPath: MapIcons.getIcon('redux'),//TODO
-                    },
-                    level: 9
-                },
-                {
-                    id: 'node',
-                    name: 'Node',
-                    color: '#83CD29',
-                    icon: {
-                        type: 'img',
-                        iconPath: MapIcons.getIcon('node'),//TODO
-                    },
-                    level: 8
-                }
-            ]
+            hard: ['ts', 'js', 'react', 'react_router', 'redux', 'node']
         },
         colors: {
             mainBackground: '#2b3e4f',
