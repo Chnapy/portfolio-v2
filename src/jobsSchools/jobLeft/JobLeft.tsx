@@ -26,10 +26,16 @@ export const JobLeft: React.FC<JobLeftProps> = ({jobSchool, visible, style}) => 
         tags = jobSchool.tags;
     }
 
+    const buildingsHeight = Math.max(0, ...buildings.map(b => b.pos.y)) + 100;
+
     const rootStyle: CSSProperties = {
         color: secondaryColor,
         backgroundColor: secondaryBackground,
         ...style
+    };
+
+    const buildingsStyle: CSSProperties = {
+        height: buildingsHeight
     };
 
     const tagStyle: CSSProperties = {
@@ -86,7 +92,7 @@ export const JobLeft: React.FC<JobLeftProps> = ({jobSchool, visible, style}) => 
                         transform: `translateY(0)`
                     } : undefined}
                 >
-                    {(styles) => <div className={css.building} style={styles}>
+                    {(styles) => <div className={css.building} style={{...buildingsStyle, ...styles}}>
                         {buildings.map((bp, i) => <img key={i} className={css.part}
                                                        src={bp.src} alt={''}
                                                        style={{transform: `translate(${bp.pos.x}px,${-bp.pos.y}px)`}}/>)}
@@ -120,8 +126,8 @@ export const JobLeft: React.FC<JobLeftProps> = ({jobSchool, visible, style}) => 
 
                     {tags && <div>
                         {tags.map(tag => <span key={tag.en}
-                                                className={classNames("tag", css.tag)}
-                                                style={tagStyle}>{tag.en}</span>)}
+                                               className={classNames("tag", css.tag)}
+                                               style={tagStyle}>{tag.en}</span>)}
                     </div>}
                 </div>
 

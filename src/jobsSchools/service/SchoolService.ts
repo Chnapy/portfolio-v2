@@ -23,6 +23,7 @@ const MOCK_SCHOOLS: School[] = [
         skills: {
             hard: ['java']
         },
+        job: 1,
         projects: [],
         colors: {
             mainBackground: '',

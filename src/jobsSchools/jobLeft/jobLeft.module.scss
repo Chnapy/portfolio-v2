@@ -42,7 +42,6 @@ $MINWIDTH: max($BUILDING_WIDTH, $LOGO_WIDTH);
   .building {
     position: relative;
     width: $BUILDING_WIDTH;
-    height: 100%;
 
     .part {
       position: absolute;
@@ -54,6 +53,10 @@ $MINWIDTH: max($BUILDING_WIDTH, $LOGO_WIDTH);
 }
 
 .right {
+
+  .dates {
+    white-space: nowrap;
+  }
 
   .date {
     display: inline-block;

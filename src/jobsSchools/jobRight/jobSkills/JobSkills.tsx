@@ -12,6 +12,6 @@ export const JobSkills: React.FC<JobSkillsProps> = ({skills}) => {
     const {hard} = skills;
 
     return <div className={style.skills}>
-        {hard.map(skill => <SkillItem key={skill.id} type={"tag"} skill={skill} colored={true} />)}
+        {hard.map(skill => <SkillItem key={skill.id} type={"tag"} skill={skill} colored={true}/>)}
     </div>;
 };

@@ -20,6 +20,7 @@ export class JobCenter extends React.Component<JobCenterProps> {
                 mainColor
             }
         } = jobSchool;
+        const medias = jobSchool.type === 'job' ? jobSchool.medias : [];
 
         const rootStyle: CSSProperties = {
             backgroundColor: mainBackground,
@@ -37,6 +38,8 @@ export class JobCenter extends React.Component<JobCenterProps> {
                 <p className={classNames(css.description)}>
                     {description.en}
                 </p>
+
+                {medias.map(m => <img key={m.url} src={m.url} />)}
 
             </div>
         );

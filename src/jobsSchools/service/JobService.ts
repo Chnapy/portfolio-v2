@@ -49,7 +49,12 @@ const MOCK_JOBS: Job[] = [
             en: 'Startup'
         }],
         logo: icon_vizuall,
-        medias: [],
+        medias: [
+            {
+                type: 'image',
+                url: 'https://icon-library.net/images/pie-chart-icon/pie-chart-icon-24.jpg'
+            }
+        ],
         startDate: moment(),
         endDate: moment(),
         skills: {

@@ -12,15 +12,21 @@ export interface TransitionableProps {
     style?: CSSProperties;
 }
 
-export interface JobPaneProps {
-    jobSchool: Job | School;
+export type JobPaneProps = {
     skills: Skills;
-}
+} & ({
+    type: Job['type'];
+    jobSchool: Job;
+} | {
+    type: School['type'];
+    jobSchool: School;
+    jobRelated?: Job;
+})
 
 export class JobPane extends React.Component<JobPaneProps> {
 
     render() {
-        const {jobSchool, skills} = this.props;
+        const {jobSchool} = this.props;
 
         return (
             <VisibilitySensor partialVisibility={true} offset={{bottom: 200}}>
@@ -59,8 +65,7 @@ export class JobPane extends React.Component<JobPaneProps> {
                                 transform: `translateX(0)`
                             } : undefined}
                         >
-                            {style => <JobRight jobSchool={jobSchool} skills={skills} visible={isVisible}
-                                                style={style}/>}
+                            {style => <JobRight {...this.props} visible={isVisible} style={style}/>}
                         </Spring>
 
                     </div>

@@ -6,6 +6,7 @@ import {JobPane} from "./jobPane/JobPane";
 import {connect} from "react-redux";
 import StoreState from "../core/StoreState";
 import {Job, School, Skills, SkillsID} from "../DataTypes";
+import {ParallaxLayer} from "react-spring/renderprops-addons";
 
 export interface JobsSchoolsProps {
     jobs: Job[];
@@ -42,8 +43,31 @@ class _JobsSchools extends React.Component<JobsSchoolsProps> {
 
                     </BulmaSection>
 
-                    {jobsSchools.map(jobSchool => <JobPane key={`${jobSchool.type}${jobSchool.id}`} jobSchool={jobSchool}
-                                                           skills={this.getSkillsByIDs(jobSchool.skills)}/>)}
+                    <ParallaxLayer offset={.7} speed={.2}>
+
+                        {jobsSchools.map(jobSchool => {
+                            if (jobSchool.type === 'job') {
+                                return <JobPane
+                                    key={`${jobSchool.type}${jobSchool.id}`}
+                                    type={jobSchool.type}
+                                    jobSchool={jobSchool}
+                                    skills={this.getSkillsByIDs(jobSchool.skills)}
+                                />;
+                            } else {
+                                const jobRelated = jobSchool.job
+                                    ? jobsSchools.find((js): js is Job => js.type === 'job' && js.id === jobSchool.job)
+                                    : undefined;
+                                return <JobPane
+                                    key={`${jobSchool.type}${jobSchool.id}`}
+                                    type={jobSchool.type}
+                                    jobSchool={jobSchool}
+                                    skills={this.getSkillsByIDs(jobSchool.skills)}
+                                    jobRelated={jobRelated}
+                                />;
+                            }
+                        })}
+
+                    </ParallaxLayer>
 
                 </div>
 

@@ -3,13 +3,13 @@
 .right {
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-width: 200px;
   clip-path: polygon(0 0, 100% 0, calc(100% - #{$POLYGON_EXTRA}) 100%, 0 100%);
   margin-left: -$POLYGON_EXTRA;
   padding: $CONTENT_PADDING_V $POLYGON_EXTRA * 2 $CONTENT_PADDING_V $POLYGON_EXTRA;
   margin-right: -$POLYGON_EXTRA;
   background-color: #333;
+  color: #fff;
 
   > .rightEffect {
     position: absolute;
@@ -18,5 +18,16 @@
     left: 0;
     right: 0;
     background-color: rgba(black, .1);
+  }
+}
+
+.part:not(:first-child) {
+  margin-top: 50px;
+}
+
+.title {
+
+  :global(.icon):first-child {
+    margin-right: .5em;
   }
 }
