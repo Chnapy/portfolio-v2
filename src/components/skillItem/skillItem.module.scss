@@ -1,73 +1,136 @@
-$SKILL-ICON-SIZE: 4em;
-
-$SKILL-MAP: (
-        ts: #007acc,
-        js: #f0db4f,
-        react: #61dafb,
-        react_router: #D0021B,
-        redux: #764ABC,
-        node: #83CD29,
-        jest: #99425b,
-        sequelize: #3b4b72,
-        java: #EA2D2E,
-        d3: #f7974e,
-        crossfilter: #2E3B4E,
-        sass: #CB6699,
-        antd: #F0606F,
-        bootstrap: #5B4282,
-        webpack: #1c78c0,
-        git: #F34F29,
-        hummus: #f7a16e
-);
-
-@mixin skillColor($ext, $color) {
-  .skill_#{$ext} {
-    .skillLevel {
-      &::-webkit-progress-value {
-        background: $color;
-      }
-
-      &::-moz-progress-bar {
-        background: $color;
-      }
-
-      & {
-        color: $color;
-      }
-    }
-  }
-}
 
 .skill {
   display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  width: 8.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
 
   &:not(:last-child) {
     margin-bottom: 0;
   }
 
-  .skillIcon {
-    &:not(img) {
-      font-size: $SKILL-ICON-SIZE;
+  &[data-type="full-icon"] {
+    $SKILL-FULLICON-SIZE: 4em;
+
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 8.5rem;
+    will-change: background-color, border-color;
+    transition: .4s;
+
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    .skillIcon {
+      will-change: filter;
+      transition: filter .4s;
+
+      &:not(img) {
+        font-size: $SKILL-FULLICON-SIZE;
+      }
+    }
+
+    img.skillIcon {
+      height: $SKILL-FULLICON-SIZE;
+    }
+
+    .skillSub {
+      display: block;
+      transition: color .4s;
+    }
+
+    .skillLevel {
+      margin-top: 5px;
+      will-change: filter;
+      transition: filter .4s;
+
+      &::-webkit-progress-bar {
+        transition: background-color .4s;
+      }
+    }
+
+    &:hover, &:active, &:focus {
+
+      .skillIcon {
+        filter: brightness(.5);
+      }
+
+      .skillSub {
+        color: #FFF;
+      }
+
+      .skillLevel {
+        filter: brightness(.5);
+
+        &::-webkit-progress-bar {
+          background-color: rgba(#FFF, .25);
+        }
+      }
     }
   }
 
-  img.skillIcon {
-    height: $SKILL-ICON-SIZE;
-  }
+  &[data-type="tag"] {
+    $SKILL-TAG-SIZE: 2em;
+    $SKILL-TAG-PADDING: 4px;
 
-  .skillSub {
-    display: block;
-  }
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    width: auto;
+    padding: $SKILL-TAG-PADDING $SKILL-TAG-PADDING * 2;
+    border-width: 0;
+    height: calc(#{$SKILL-TAG-SIZE} + #{$SKILL-TAG-PADDING * 2} + 2px);
 
-  .skillLevel {
-    margin-top: 5px;
-  }
-}
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      will-change: width;
+      transition: width .4s;
+    }
 
-@each $key, $color in $SKILL-MAP {
-  @include skillColor($key, $color);
+    .skillIcon {
+      z-index: 1;
+      will-change: filter;
+      transition: filter .2s;
+
+      &:not(img) {
+        font-size: $SKILL-TAG-SIZE;
+      }
+    }
+
+    img.skillIcon {
+      max-height: $SKILL-TAG-SIZE;
+      max-width: $SKILL-TAG-SIZE;
+    }
+
+    .skillSub {
+      z-index: 1;
+      margin-left: .5em;
+      will-change: color;
+      transition: color .2s linear .1s;
+    }
+
+    &:hover, &:active, &:focus {
+      &::before {
+        width: 100%;
+      }
+
+      .skillIcon {
+        filter: brightness(.5);
+      }
+
+      .skillSub {
+        color: #FFF;
+      }
+    }
+  }
 }

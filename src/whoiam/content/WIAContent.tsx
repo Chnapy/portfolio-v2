@@ -1,26 +1,22 @@
 import React from 'react';
-import {SkillItem, SkillName} from '../../components/skillItem/SkillItem';
+import {SkillItem} from '../../components/skillItem/SkillItem';
 import {BulmaSection} from '../../components/bulma/BulmaSection';
 import classNames from 'classnames';
 import css from './wiaContent.module.scss';
+import {HardSkill, Skills} from "../../DataTypes";
 
-export default class WIAContent extends React.Component {
+export interface WIAContentProps {
+    skills: Skills;
+}
 
-    render() {
+export default class WIAContent extends React.Component<WIAContentProps> {
 
-        const skillILike: SkillName[] = [
-            'ts', 'js',
-            'react', 'redux', 'react-router', 'd3', 'crossfilter',
-            'jest',
-            'node', 'sequelize', 'java',
-            'sass', 'antd', 'bootstrap',
-            'webpack', 'git',
-            'hummus'
-        ];
+    render(): React.ReactNode {
+        const {skills} = this.props;
 
-        const skillIWant: SkillName[] = [
-            'ts', 'react', 'redux', 'node', 'sequelize', 'sass', 'hummus'
-        ];
+        const skillILike: HardSkill[] = skills.hard;
+
+        const skillIWant: HardSkill[] = skillILike.slice(0, 10);
 
         return (
             <BulmaSection>
@@ -111,7 +107,7 @@ export default class WIAContent extends React.Component {
                         </header>
                         <div className={classNames("card-content", css.card_skills)}>
 
-                            {skillILike.map(s => <SkillItem key={s} type={'full-icon'} skillName={s} colored/>)}
+                            {skillILike.map(s => <SkillItem key={s.id} type={'full-icon'} skill={s} colored/>)}
 
                         </div>
                     </div>
@@ -125,7 +121,7 @@ export default class WIAContent extends React.Component {
                         </header>
                         <div className={classNames("card-content", css.card_skills)}>
 
-                            {skillIWant.map(s => <SkillItem key={s} type={'full-icon'} skillName={s} colored/>)}
+                            {skillIWant.map(s => <SkillItem key={s.id} type={'full-icon'} skill={s} colored/>)}
 
                         </div>
                     </div>

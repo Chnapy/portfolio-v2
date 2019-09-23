@@ -1,40 +1,52 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.scss';
 import PageHome from './home/PageHome';
 import MenuLeft from './menuLeft/MenuLeft';
-import WhoIAm from './whoiam/WhoIAm';
-import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
-import { TransiBackground } from './transiBackground/TransiBackground';
+import {WhoIAm} from './whoiam/WhoIAm';
+import {Parallax} from 'react-spring/renderprops-addons';
+import {TransiBackground} from './transiBackground/TransiBackground';
+import {JobsSchools} from "./jobsSchools/JobsSchools";
+import {Page} from "./Page";
 
 export default class App extends Component<{}, {}> {
 
-  private parallax: Parallax | null;
+    private parallax: Parallax | null;
 
-  constructor(props: {}) {
-    super(props);
+    constructor(props: {}) {
+        super(props);
 
-    this.parallax = null;
-    this.state = {};
-  }
+        this.parallax = null;
+        this.state = {};
+    }
 
-  render() {
-    
-    return (
-      <main>
+    render() {
 
-        <MenuLeft />
+        return (
+            <main>
 
-        <Parallax ref={ref => (this.parallax = ref)} pages={5}>
+                <MenuLeft/>
 
-          <PageHome />
+                <Parallax ref={ref => (this.parallax = ref)} pages={5}>
 
-          <TransiBackground offset={1} background={'dino'} />
+                    <Page>
+                        <PageHome/>
+                    </Page>
 
-          <WhoIAm />
+                    <TransiBackground offset={1} background={'dino'}/>
 
-        </Parallax>
+                    <Page offset={1.8} speed={.3}>
+                        <WhoIAm/>
+                    </Page>
 
-      </main>
-    );
-  }
+                    <TransiBackground offset={2.8} background={'dino'}/>
+
+                    <Page offset={3.6} speed={.3}>
+                        <JobsSchools/>
+                    </Page>
+
+                </Parallax>
+
+            </main>
+        );
+    }
 }

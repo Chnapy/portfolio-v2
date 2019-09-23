@@ -1,0 +1,11 @@
+
+.skills {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: stretch;
+  max-height: 100%;
+
+  > *:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+}

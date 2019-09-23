@@ -1,0 +1,81 @@
+@import "../jobVariables";
+
+$MINWIDTH: max($BUILDING_WIDTH, $LOGO_WIDTH);
+
+.content {
+  display: flex;
+  z-index: +2;
+  padding: $CONTENT_PADDING_V $CONTENT_PADDING_V 0;
+  clip-path: polygon(0 0, 100% 0, calc(100% - #{$POLYGON_EXTRA}) 100%, 0 100%);
+  background-color: #EEE;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: $MINWIDTH;
+
+  .logo {
+    display: inline-block;
+    margin-left: $BUILDING_WIDTH / 2 - $LOGO_WIDTH / 2;
+    width: $LOGO_WIDTH;
+  }
+
+  .path {
+    position: relative;
+    flex-grow: 1;
+    height: 100%;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: calc(50% - #{$PATH_WIDTH/2});
+      width: 0;
+      border-left: $PATH_WIDTH dashed currentColor;
+    }
+  }
+
+  .building {
+    position: relative;
+    width: $BUILDING_WIDTH;
+
+    .part {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+}
+
+.right {
+
+  .dates {
+    white-space: nowrap;
+  }
+
+  .date {
+    display: inline-block;
+    background: rgba(black, .1);
+    padding: 0 .4em;
+    border-radius: 4px;
+  }
+
+}
+
+.tag, .link {
+  margin-bottom: 5px;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+}
+
+:global(.title), :global(.subtitle) {
+  color: inherit;
+  margin-bottom: 0;
+}
