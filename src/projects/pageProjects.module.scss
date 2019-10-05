@@ -1,0 +1,7 @@
+@import "../variables";
+@import "../page.module.scss";
+
+#page_projects {
+  @extend .page;
+  background-color: #b33939;
+}

@@ -7,6 +7,7 @@ import {JobService} from "../jobsSchools/service/JobService";
 import {SkillService} from "../whoiam/service/SkillService";
 import {StoreAction} from "./StoreAction";
 import {SchoolService} from "../jobsSchools/service/SchoolService";
+import {ProjectsService} from "../projects/ProjectsService";
 
 export default class RootService extends Service<StoreState> {
 
@@ -15,6 +16,7 @@ export default class RootService extends Service<StoreState> {
     private readonly jobService: JobService;
     private readonly skillService: SkillService;
     private readonly schoolService: SchoolService;
+    private readonly projectsService: ProjectsService;
 
     constructor(dispatch: Dispatch<StoreAction>) {
         super(dispatch);
@@ -23,6 +25,7 @@ export default class RootService extends Service<StoreState> {
         this.jobService = new JobService(dispatch);
         this.skillService = new SkillService(dispatch);
         this.schoolService = new SchoolService(dispatch);
+        this.projectsService = new ProjectsService(dispatch);
     }
 
     getInitialState = (): StoreState => ({
@@ -30,7 +33,8 @@ export default class RootService extends Service<StoreState> {
         tiledProps: this.tiledService.getInitialState(),
         jobs: this.jobService.getInitialState(),
         skills: this.skillService.getInitialState(),
-        schools: this.schoolService.getInitialState()
+        schools: this.schoolService.getInitialState(),
+        projects: this.projectsService.getInitialState()
     });
 
     onReduce = (state: Readonly<StoreState>, action: StoreAction): StoreState => {
@@ -39,7 +43,8 @@ export default class RootService extends Service<StoreState> {
             tiledProps: this.tiledService.reduce(state.tiledProps, action),
             jobs: this.jobService.reduce(state.jobs, action),
             skills: this.skillService.reduce(state.skills, action),
-            schools: this.schoolService.reduce(state.schools, action)
+            schools: this.schoolService.reduce(state.schools, action),
+            projects: this.projectsService.reduce(state.projects, action)
         };
     };
 

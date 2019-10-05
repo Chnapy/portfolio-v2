@@ -107,7 +107,7 @@ export type Job<T extends JobType = JobType> = {
     projects: Project['id'][];
 };
 
-export type ProjectType = 'personal' | 'professional';
+export type ProjectContext = 'personal' | 'professional';
 
 export type ProjectStateWIP = {
     type: 'wip';
@@ -125,7 +125,8 @@ export type ProjectStateStandby = {
 
 export type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
-export type ProjectOne<T extends ProjectType = ProjectType> = {
+export type ProjectOne<C extends ProjectContext = ProjectContext> = {
+    type: 'project-one';
     id: number;
     name: string;
     description: Markdown;
@@ -135,12 +136,13 @@ export type ProjectOne<T extends ProjectType = ProjectType> = {
     startDate: Moment;
     state: ProjectState;
     skills: SkillsID;
-    type: T;
+    context: C;
     links: Links<'website' | 'github' | 'npm'>;
     jobs?: Job['id'];   //even personal, a project can be used in job
 };
 
-export type ProjectGroup<T extends ProjectType = ProjectType> = {
+export type ProjectGroup<C extends ProjectContext = ProjectContext> = {
+    type: 'project-group';
     id: number;
     name: string;
     description: Markdown;
@@ -149,13 +151,13 @@ export type ProjectGroup<T extends ProjectType = ProjectType> = {
     medias: Media[];
     startDate: Moment;
     state: ProjectState;
-    type: T;
+    context: C;
     group: ProjectOne[];
     links: Links<'website' | 'github' | 'npm'>;
     jobs?: Job['id'];
 }
 
-export type Project<T extends ProjectType = ProjectType> = ProjectOne<T> | ProjectGroup<T>;
+export type Project<T extends ProjectContext = ProjectContext> = ProjectOne<T> | ProjectGroup<T>;
 
 export type School = {
     type: 'school';

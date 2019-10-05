@@ -7,6 +7,7 @@ import {Parallax} from 'react-spring/renderprops-addons';
 import {TransiBackground} from './transiBackground/TransiBackground';
 import {JobsSchools} from "./jobsSchools/JobsSchools";
 import {Page} from "./Page";
+import {Projects} from "./projects/Projects";
 
 export default class App extends Component<{}, {}> {
 
@@ -26,7 +27,7 @@ export default class App extends Component<{}, {}> {
 
                 <MenuLeft/>
 
-                <Parallax ref={ref => (this.parallax = ref)} pages={5}>
+                <Parallax ref={ref => (this.parallax = ref)} pages={6}>
 
                     <Page>
                         <PageHome/>
@@ -42,6 +43,12 @@ export default class App extends Component<{}, {}> {
 
                     <Page offset={3.6} speed={.3}>
                         <JobsSchools/>
+                    </Page>
+
+                    <TransiBackground offset={4.6} background={'dino'}/>
+
+                    <Page offset={5.4} speed={.3}>
+                        <Projects/>
                     </Page>
 
                 </Parallax>
