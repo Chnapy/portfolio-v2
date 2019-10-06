@@ -27,7 +27,7 @@ export default class App extends Component<{}, {}> {
 
                 <MenuLeft/>
 
-                <Parallax ref={ref => (this.parallax = ref)} pages={6}>
+                <Parallax ref={ref => (this.parallax = ref)} pages={7}>
 
                     <Page>
                         <PageHome/>

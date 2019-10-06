@@ -22,7 +22,7 @@ export type UserThumb = {
 
 export type UserStatus = {
     type: JobType;
-    idJob: Job['id'];
+    idJob: Job<any>['id'];
 } | {
     type: 'none';
 };
@@ -36,7 +36,7 @@ export type User = {
     whereIAmGood: UserThumb[];
     whatILike: UserThumb[];
     status: UserStatus;
-    idJob: Job['id'];
+    idJob: Job<any>['id'];
 };
 
 export type Icon = {
@@ -88,7 +88,7 @@ export interface BuildingImg {
     };
 }
 
-export type Job<T extends JobType = JobType> = {
+export type Job<FromServer extends boolean, T extends JobType = JobType> = {
     type: 'job';
     id: number;
     jobType: T;
@@ -100,11 +100,11 @@ export type Job<T extends JobType = JobType> = {
     medias: Media[];
     startDate: Moment;
     endDate?: Moment;
-    skills: SkillsID;
+    skills: FromServer extends true ? SkillsID : Skills;
     colors: PaneColors;
     buildings: BuildingImg[];
     links: Links;
-    projects: Project['id'][];
+    projects: (FromServer extends true ? Project<any>['id'] : Project<false>)[];
 };
 
 export type ProjectContext = 'personal' | 'professional';
@@ -125,7 +125,7 @@ export type ProjectStateStandby = {
 
 export type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
-export type ProjectOne<C extends ProjectContext = ProjectContext> = {
+export type ProjectOne<FromServer extends boolean, C extends ProjectContext = ProjectContext> = {
     type: 'project-one';
     id: number;
     name: string;
@@ -135,13 +135,13 @@ export type ProjectOne<C extends ProjectContext = ProjectContext> = {
     medias: Media[];
     startDate: Moment;
     state: ProjectState;
-    skills: SkillsID;
+    skills: FromServer extends true ? SkillsID : Skills;
     context: C;
     links: Links<'website' | 'github' | 'npm'>;
-    jobs?: Job['id'];   //even personal, a project can be used in job
+    job?: FromServer extends true ? Job<any>['id'] : Job<false>;   //even personal, a project can be used in job
 };
 
-export type ProjectGroup<C extends ProjectContext = ProjectContext> = {
+export type ProjectGroup<FromServer extends boolean, C extends ProjectContext = ProjectContext> = {
     type: 'project-group';
     id: number;
     name: string;
@@ -152,14 +152,16 @@ export type ProjectGroup<C extends ProjectContext = ProjectContext> = {
     startDate: Moment;
     state: ProjectState;
     context: C;
-    group: ProjectOne[];
+    group: ProjectOne<FromServer>[];
     links: Links<'website' | 'github' | 'npm'>;
-    jobs?: Job['id'];
+    job?: FromServer extends true ? Job<any>['id'] : Job<false>;
 }
 
-export type Project<T extends ProjectContext = ProjectContext> = ProjectOne<T> | ProjectGroup<T>;
+export type Project<FromServer extends boolean, T extends ProjectContext = ProjectContext> =
+    ProjectOne<FromServer, T>
+    | ProjectGroup<FromServer, T>;
 
-export type School = {
+export type School<FromServer extends boolean> = {
     type: 'school';
     id: number;
     name: string;
@@ -167,12 +169,12 @@ export type School = {
     description: Markdown;
     logo: string;
     endDate: Moment;
-    skills: SkillsID;
+    skills: FromServer extends true ? SkillsID : Skills;
     colors: PaneColors;
     buildings: BuildingImg[];
     links: Links<'website'>;
-    job?: Job['id'];
-    projects: Project<'personal'>['id'][];
+    job?: FromServer extends true ? Job<any>['id'] : Job<false>;
+    projects: Project<FromServer, 'personal'>['id'][];
 };
 
 export type Other = {
@@ -182,7 +184,7 @@ export type Other = {
 
 export type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
 
-export type Sample = {
+export type Sample<FromServer extends boolean> = {
 
     categories: Category[];
 
@@ -190,9 +192,9 @@ export type Sample = {
 
     skills: Skills;
 
-    jobs: Job[];
-    projects: Project[];
-    schools: School[];
+    jobs: Job<FromServer>[];
+    projects: Project<FromServer>[];
+    schools: School<FromServer>[];
 
     links: Links;
     mails: string[];

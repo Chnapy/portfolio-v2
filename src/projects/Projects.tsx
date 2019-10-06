@@ -2,13 +2,13 @@ import css from './pageProjects.module.scss';
 import React from 'react';
 import {connect} from "react-redux";
 import StoreState from "../core/StoreState";
-import {Project} from "../DataTypes";
+import {Project, ProjectGroup, ProjectOne, Skills} from "../DataTypes";
 import classNames from "classnames";
 import {BulmaSection} from "../components/bulma/BulmaSection";
 import {ProjectItem} from "./projectItem/ProjectItem";
 
 export interface ProjectsProps {
-    projects: Project[];
+    projects: Project<false>[];
 }
 
 class PProjects extends React.Component<ProjectsProps> {
@@ -48,10 +48,50 @@ class PProjects extends React.Component<ProjectsProps> {
     }
 }
 
+function getFillProject(state: StoreState) {
+    return function<P extends Project<true>>(p: P): P extends ProjectOne<true> ? ProjectOne<false> : ProjectGroup<false> {
+
+        const {skills, jobs} = state;
+
+        if (p.type === 'project-one') {
+            const skills: Skills = {
+                hard: p.skills.hard.map(id => skills.hard.find(skill => skill.id === id)!)
+            };
+
+            return {
+                ...p,
+                skills
+            };
+        } else {
+
+            const group: ProjectOne<false>[] = p.group.map(g => getFillProject(state)<ProjectOne<true>>(g));
+        }
+    };
+}
+
 export const Projects = connect<ProjectsProps, {}, {}, StoreState>(
-    state => ({
-        projects: state.projects
-    }),
+    state => {
+
+        const {skills} = state;
+        const projects: Project<false>[] = state.projects.map(p => {
+            if(p.type === 'project-one') {
+                const skills: Skills = {
+                    hard: p.skills.hard.map(id => skills.hard.find(skill => skill.id === id)!)
+                };
+
+                return {
+                    ...p,
+                    skills
+                };
+            } else {
+                const group = p.group.map
+            }
+        });
+
+        return {
+            projects
+        };
+    },
     null,
     null,
     {pure: false}

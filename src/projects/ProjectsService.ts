@@ -23,7 +23,16 @@ const MOCK_PROJECTS: Project[] = [
         skills: {
             hard: []
         },
-        tags: [],
+        tags: [
+            {
+                en: 'Media center',
+                fr: 'Media center'
+            },
+            {
+                en: 'toto',
+                fr: 'toto'
+            }
+        ],
         startDate: moment(),
         state: {type: 'finished', endDate: moment()},
         links: {}
