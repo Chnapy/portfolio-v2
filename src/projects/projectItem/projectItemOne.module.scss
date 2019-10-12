@@ -3,36 +3,58 @@ $ITEM_WIDTH: 400px;
 $IMG_HEIGHT: 300px;
 
 .item {
+  display: flex;
+  width: $ITEM_WIDTH;
+}
+
+.content {
   display: inline-flex;
   flex-direction: column;
-  width: $ITEM_WIDTH;
+  flex-grow: 1;
   overflow: hidden;
   background: #fff;
   padding: 8px;
+
+  .back {
+    background-size: cover;
+    height: $IMG_HEIGHT;
+  }
+
+  .front {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .firstLine {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+
+  }
+
+  .name {
+    font-size: 1.5em;
+  }
+
+  .dates {
+
+  }
+
+  .tags {
+
+  }
 }
 
-.back {
-  background-size: cover;
-  height: $IMG_HEIGHT;
-}
-
-.front {
+.skills {
   display: flex;
   flex-direction: column;
-}
+  font-size: 1.25rem;
 
-.logo {
-
-}
-
-.name {
-
-}
-
-.startDate {
-
-}
-
-.tags {
-
+  > *:not(:last-child) {
+    border-bottom-width: 0;
+  }
 }

@@ -11,10 +11,10 @@ export default interface StoreState {
 
     skills: Skills;
 
-    jobs: Job<true>[];
+    jobs: Job[];
 
-    schools: School<true>[];
+    schools: School[];
 
-    projects: Project<true>[];
+    projects: Project[];
 
 }

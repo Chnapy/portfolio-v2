@@ -4,7 +4,7 @@ import {StoreAction} from "../core/StoreAction";
 import {LoremIpsum} from "../LoremIpsum";
 import moment from "moment";
 
-const MOCK_PROJECTS: Project[] = [
+export const MOCK_PROJECTS: Project<true>[] = [
     {
         type: 'project-one',
         id: 1,
@@ -21,7 +21,7 @@ const MOCK_PROJECTS: Project[] = [
             }
         ],
         skills: {
-            hard: []
+            hard: ['ts']
         },
         tags: [
             {
@@ -41,10 +41,15 @@ const MOCK_PROJECTS: Project[] = [
 
 export class ProjectsService extends Service<Project[]> {
     getInitialState(): Project[] {
-        return MOCK_PROJECTS;
+        return [];
     }
 
     onReduce(state: Readonly<Project[]>, action: StoreAction): Readonly<Project[]> {
+
+        switch(action.type) {
+            case 'data':
+                return action.data.projects;
+        }
 
         return state;
     }

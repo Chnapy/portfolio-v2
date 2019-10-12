@@ -133,4 +133,22 @@
       }
     }
   }
+
+  &[data-type='icon'] {
+    padding: 0.75em;
+    will-change: background-color, border-color;
+    transition: .4s;
+
+    .skillIcon {
+      will-change: filter;
+      transition: filter .4s;
+    }
+
+    &:hover, &:active, &:focus {
+
+      .skillIcon {
+        filter: brightness(.5);
+      }
+    }
+  }
 }

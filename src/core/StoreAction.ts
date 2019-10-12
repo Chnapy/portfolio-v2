@@ -1,3 +1,9 @@
 import {TiledAction} from "../home/service/TiledService";
+import {Action} from "redux";
+import {Data} from "../DataTypes";
 
-export type StoreAction = TiledAction;
+export interface DataAction extends Action<'data'> {
+    data: Data<false>;
+}
+
+export type StoreAction = TiledAction | DataAction;

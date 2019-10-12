@@ -4,7 +4,7 @@ import {StoreAction} from "../../core/StoreAction";
 import moment from "moment";
 import {LoremIpsum} from "../../LoremIpsum";
 
-const MOCK_SCHOOLS: School[] = [
+export const MOCK_SCHOOLS: School<true>[] = [
     {
         type: 'school',
         id: 1,
@@ -35,10 +35,16 @@ const MOCK_SCHOOLS: School[] = [
 
 export class SchoolService extends Service<School[]> {
     getInitialState(): School[] {
-        return MOCK_SCHOOLS;
+        return [];
     }
 
     onReduce(state: Readonly<School[]>, action: StoreAction): Readonly<School[]> {
+
+        switch(action.type) {
+            case 'data':
+                return action.data.schools;
+        }
+
         return state;
     }
 

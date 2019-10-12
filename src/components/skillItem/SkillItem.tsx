@@ -49,6 +49,13 @@ function onNewSkill(id: HardSkill['id'], color: string): void {
         border-color: ${color};
       }
       
+      .${css.skill}_${id}[data-type="icon"]:hover, 
+      .${css.skill}_${id}[data-type="icon"]:focus, 
+      .${css.skill}_${id}[data-type="icon"]:active {
+        background-color: ${color};
+        border-color: ${color};
+      }
+      
       .${css.skill}_${id}[data-type="tag"]::before {
         background-color: ${color};
       }
@@ -78,6 +85,9 @@ export function SkillItem({type, skill, colored, className}: SkillItemProps) {
             break;
         case 'tag':
             content = <SkillItemTag {...childProps} />;
+            break;
+        case 'icon':
+            content = <SkillItemIcon {...childProps} />;
             break;
         default:
             throw new Error();
@@ -125,3 +135,9 @@ function SkillItemTag({colored, icon, sub, level}: SkillItemChildProps) {
         <span className={css.skillSub}>{sub}</span>
     </>;
 }
+
+const SkillItemIcon: React.FC<SkillItemChildProps> = ({colored, icon, sub, level}) => (
+    <>
+        {getIcon(icon, colored)}
+    </>
+);

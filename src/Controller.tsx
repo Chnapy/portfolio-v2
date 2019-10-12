@@ -7,7 +7,9 @@ import {Provider} from 'react-redux';
 import RootService from './core/RootService';
 import StoreState from './core/StoreState';
 import {createLogger} from 'redux-logger';
-import {StoreAction} from "./core/StoreAction";
+import {DataAction, StoreAction} from "./core/StoreAction";
+import {formatMockData, getMockData} from "./MockData";
+import {Data} from "./DataTypes";
 
 export default class Controller {
 
@@ -35,6 +37,17 @@ export default class Controller {
                 )
             )
         );
+
+        this.requestData().then(data => this.store.dispatch<DataAction>({
+            type: 'data',
+            data
+        }));
+    }
+
+    private async requestData(): Promise<Data<false>> {
+        const rawData: Data<true> = await getMockData();
+
+        return formatMockData(rawData);
     }
 
     renderToDOM() {

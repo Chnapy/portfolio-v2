@@ -1,5 +1,7 @@
 import {Moment} from 'moment';
 
+export type From<FromServer extends boolean, DataTrue, DataFalse> = FromServer extends true ? DataTrue : DataFalse;
+
 export type Lang = 'fr' | 'en';
 
 export type LangString = {
@@ -22,7 +24,7 @@ export type UserThumb = {
 
 export type UserStatus = {
     type: JobType;
-    idJob: Job<any>['id'];
+    idJob: Job['id'];
 } | {
     type: 'none';
 };
@@ -36,7 +38,7 @@ export type User = {
     whereIAmGood: UserThumb[];
     whatILike: UserThumb[];
     status: UserStatus;
-    idJob: Job<any>['id'];
+    idJob: Job['id'];
 };
 
 export type Icon = {
@@ -88,7 +90,7 @@ export interface BuildingImg {
     };
 }
 
-export type Job<FromServer extends boolean, T extends JobType = JobType> = {
+export type Job<FromServer extends boolean = false, T extends JobType = JobType> = {
     type: 'job';
     id: number;
     jobType: T;
@@ -100,11 +102,11 @@ export type Job<FromServer extends boolean, T extends JobType = JobType> = {
     medias: Media[];
     startDate: Moment;
     endDate?: Moment;
-    skills: FromServer extends true ? SkillsID : Skills;
+    skills: From<FromServer, SkillsID, Skills>;
     colors: PaneColors;
     buildings: BuildingImg[];
     links: Links;
-    projects: (FromServer extends true ? Project<any>['id'] : Project<false>)[];
+    projects: From<FromServer, Project['id'], Project>[];
 };
 
 export type ProjectContext = 'personal' | 'professional';
@@ -125,7 +127,7 @@ export type ProjectStateStandby = {
 
 export type ProjectState = ProjectStateWIP | ProjectStateFinished | ProjectStateStandby;
 
-export type ProjectOne<FromServer extends boolean, C extends ProjectContext = ProjectContext> = {
+export type ProjectOne<FromServer extends boolean = false, C extends ProjectContext = ProjectContext> = {
     type: 'project-one';
     id: number;
     name: string;
@@ -135,13 +137,13 @@ export type ProjectOne<FromServer extends boolean, C extends ProjectContext = Pr
     medias: Media[];
     startDate: Moment;
     state: ProjectState;
-    skills: FromServer extends true ? SkillsID : Skills;
+    skills: From<FromServer, SkillsID, Skills>;
     context: C;
     links: Links<'website' | 'github' | 'npm'>;
-    job?: FromServer extends true ? Job<any>['id'] : Job<false>;   //even personal, a project can be used in job
+    job?: From<FromServer, Job['id'], Job>;   //even personal, a project can be used in job
 };
 
-export type ProjectGroup<FromServer extends boolean, C extends ProjectContext = ProjectContext> = {
+export type ProjectGroup<FromServer extends boolean = false, C extends ProjectContext = ProjectContext> = {
     type: 'project-group';
     id: number;
     name: string;
@@ -154,14 +156,14 @@ export type ProjectGroup<FromServer extends boolean, C extends ProjectContext = 
     context: C;
     group: ProjectOne<FromServer>[];
     links: Links<'website' | 'github' | 'npm'>;
-    job?: FromServer extends true ? Job<any>['id'] : Job<false>;
+    job?: From<FromServer, Job['id'], Job>;
 }
 
-export type Project<FromServer extends boolean, T extends ProjectContext = ProjectContext> =
+export type Project<FromServer extends boolean = false, T extends ProjectContext = ProjectContext> =
     ProjectOne<FromServer, T>
     | ProjectGroup<FromServer, T>;
 
-export type School<FromServer extends boolean> = {
+export type School<FromServer extends boolean = false> = {
     type: 'school';
     id: number;
     name: string;
@@ -173,7 +175,7 @@ export type School<FromServer extends boolean> = {
     colors: PaneColors;
     buildings: BuildingImg[];
     links: Links<'website'>;
-    job?: FromServer extends true ? Job<any>['id'] : Job<false>;
+    job?: From<FromServer, Job['id'], Job>;
     projects: Project<FromServer, 'personal'>['id'][];
 };
 
@@ -182,13 +184,13 @@ export type Other = {
     portfolioLinks: Links<'github'>;
 };
 
-export type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
+// export type Category = 'welcome' | 'whoiam' | 'jobs' | 'projects' | 'schools' | 'contact' | 'hummus';
 
-export type Sample<FromServer extends boolean> = {
+export type Data<FromServer extends boolean> = {
 
-    categories: Category[];
+    // categories: Category[];
 
-    user: User;
+    // user: User;
 
     skills: Skills;
 
@@ -196,8 +198,8 @@ export type Sample<FromServer extends boolean> = {
     projects: Project<FromServer>[];
     schools: School<FromServer>[];
 
-    links: Links;
-    mails: string[];
+    // links: Links;
+    // mails: string[];
 
-    other: Other;
+    // other: Other;
 };

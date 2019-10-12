@@ -176,16 +176,24 @@ const MOCK_HARDSKILLS: HardSkill[] = [
     }
 ];
 
-const MOCK_SKILLS: Skills = {
+export const MOCK_SKILLS: Skills = {
     hard: MOCK_HARDSKILLS
 };
 
 export class SkillService extends Service<Skills> {
     getInitialState(): Skills {
-        return MOCK_SKILLS;
+        return {
+            hard: []
+        };
     }
 
     onReduce(state: Readonly<Skills>, action: StoreAction): Readonly<Skills> {
+
+        switch(action.type) {
+            case 'data':
+                return action.data.skills;
+        }
+
         return state;
     }
 

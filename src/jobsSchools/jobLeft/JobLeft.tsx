@@ -4,6 +4,7 @@ import {Spring} from "react-spring/renderprops-universal";
 import {TransitionableProps} from "../jobPane/JobPane";
 import {Job, Links, LinksEnum, School} from "../../DataTypes";
 import classNames from "classnames";
+import {DateComponent} from "../../components/dateComponent/DateComponent";
 
 export interface JobLeftProps extends TransitionableProps {
     jobSchool: Job | School;
@@ -103,17 +104,7 @@ export const JobLeft: React.FC<JobLeftProps> = ({jobSchool, visible, style}) => 
 
             <div className={css.right}>
 
-                <div className={classNames(css.dates)}>
-                    {startDate && <>
-                        <span className={css.date} style={tagStyle}>
-                        {startDate.format('MM/YYYY')}
-                        </span>
-                        <span> - </span>
-                    </>}
-                    {endDate && <span className={css.date} style={tagStyle}>
-                        {endDate.format('MM/YYYY')}
-                    </span>}
-                </div>
+                <DateComponent startDate={startDate} endDate={endDate} style={tagStyle}/>
 
                 <div>
                     <h2 className={classNames(css.companyName)}>

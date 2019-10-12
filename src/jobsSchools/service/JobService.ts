@@ -21,7 +21,7 @@ const fetchPromises = Promise.all(
         buildingImg = blobs.map(URL.createObjectURL)
     });
 
-const MOCK_JOBS: Job[] = [
+export const MOCK_JOBS: Job<true>[] = [
     {
         type: 'job',
         id: 1,
@@ -103,13 +103,19 @@ const MOCK_JOBS: Job[] = [
 
 export class JobService extends Service<Job[]> {
     getInitialState(): Job[] {
-        return MOCK_JOBS;
+        return [];
     }
 
     onReduce(state: Readonly<Job[]>, action: StoreAction): Readonly<Job[]> {
 
+        switch(action.type) {
+            case 'data':
+                state = action.data.jobs;
+                break;
+        }
+
         // to delete
-        if (buildingImg) {
+        if (buildingImg && state[0]) {
             state[0].buildings.forEach((b, i) => b.src = buildingImg[i]);
         }
         return state;

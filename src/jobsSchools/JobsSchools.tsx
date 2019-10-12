@@ -51,18 +51,15 @@ class _JobsSchools extends React.Component<JobsSchoolsProps> {
                                     key={`${jobSchool.type}${jobSchool.id}`}
                                     type={jobSchool.type}
                                     jobSchool={jobSchool}
-                                    skills={this.getSkillsByIDs(jobSchool.skills)}
+                                    skills={jobSchool.skills}
                                 />;
                             } else {
-                                const jobRelated = jobSchool.job
-                                    ? jobsSchools.find((js): js is Job => js.type === 'job' && js.id === jobSchool.job)
-                                    : undefined;
                                 return <JobPane
                                     key={`${jobSchool.type}${jobSchool.id}`}
                                     type={jobSchool.type}
                                     jobSchool={jobSchool}
-                                    skills={this.getSkillsByIDs(jobSchool.skills)}
-                                    jobRelated={jobRelated}
+                                    skills={jobSchool.skills}
+                                    jobRelated={jobSchool.job}
                                 />;
                             }
                         })}
